@@ -1,6 +1,12 @@
 from fastapi import FastAPI
 
 from fastapi.middleware.cors import CORSMiddleware
+from app.models.base import Base
+
+from app.database import engine
+from app.models import users, project, permission
+
+Base.metadata.create_all(bind=engine)
 
 app=FastAPI()
 origins = [
@@ -17,4 +23,4 @@ app.add_middleware(
 
 @app.get("/")
 def read_root():
-    return{"message":"hello world"}
+    return{"message":"hello World"}
