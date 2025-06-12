@@ -42,15 +42,15 @@ def login(username: str = Body(...), password: str = Body(...)):
             raise HTTPException(status_code=401, detail="Invalid credentials")
 
         token = create_token({"sub": user_obj.username})
-        return {"access_token": token, "token_type": "bearer"}
+        return {"access_token": token, "token_type": "bearer" ,"role_id":user_obj.role_id}
     
 @app.post("/register")
 def register(
     username: str = Body(...),
     email: str = Body(...),
     password: str = Body(...),
-    role_name: str = "user",
-    organization_name: str = "DefaultOrg"):
+    role_name: str = Body(...),
+    organization_name: str = Body(...)):
 
     with Session(engine) as session:
        

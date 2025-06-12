@@ -1,6 +1,9 @@
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
 import './App.css';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
 
@@ -17,10 +20,22 @@ useEffect(() => {
   }, []);
 
   return (
-    <div>
-      <h1>DYNAMIC DASHBOARD </h1>
-      <p>Backend Says {message}</p>
-    </div>
+    <Router>
+      <div>
+
+        
+
+        <Link to="/login"><button>Login</button></Link>
+        <Link to="/register"><button>Register</button></Link>
+
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/userpanel" element={<user_panel/>} />
+          <Route path="/adminpanel" element={<admin__panel/>} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
