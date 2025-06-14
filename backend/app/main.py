@@ -1,3 +1,4 @@
+"""dynamic dashboard"""
 from fastapi import FastAPI
 from fastapi import Body,Depends, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -28,6 +29,7 @@ app.add_middleware(
 )
 
 @app.get("/")
+
 def read_root():
     return{"message":"hello World"}
 
@@ -35,6 +37,7 @@ def read_root():
 
 @app.post("/login")
 def login(username: str = Body(...), password: str = Body(...)):
+
     with Session(engine) as session:
         user_obj=session.exec(select(users.User).where(users.User.username == username)).first()
 
@@ -78,5 +81,7 @@ def register(
         session.commit()
         session.refresh(new_user)
         return {"message": "User registered", "username": new_user.username, "role": role_obj.name}
+
+
 
 

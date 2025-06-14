@@ -1,0 +1,21 @@
+.panel {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f0f2f5;
+}

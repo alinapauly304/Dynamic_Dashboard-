@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import './Register.css';
 
 function Register() {
   const [form, setForm] = useState({
     username: "",
     password: "",
-    role_name: "", 
-    organization_name: "",
+    role_name: "user", 
+    organization_name: "DefaultOrg",
   });
 
   const [msg, setMsg] = useState("");

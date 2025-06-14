@@ -1,9 +1,12 @@
+import React from "react";
+import './user_panel.css';
 
-import React, { useState } from "react";
-
-function UserPanel(){
-    return(
-        <p>User Panel</p>
-    );
+function UserPanel() {
+  return (
+        <div className="panel">
+      <h2>User Panel</h2>
+    </div>
+  );
 }
+
 export default UserPanel;

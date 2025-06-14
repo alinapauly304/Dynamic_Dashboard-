@@ -1,26 +1,25 @@
-body {
-  margin: 0;
-  height: 100vh;
+.home-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f2f5;
+  gap: 30px;
+  margin-top: 150px;
 }
 
-button {
-  width: 100%;
-  border-color: #000000;
-  padding: 10px;
-  background-color: #d7d8d8;
-  
-  color: rgb(0, 0, 0);
-  font-size: 15px;
+.home-buttons button {
+  padding: 16px 36px;           
+  background-color: #343a40;    
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-button:hover {
-  background-color: #909193;
-  color: black;
+.home-buttons button:hover {
+  background-color: #495057;
+ 
 }

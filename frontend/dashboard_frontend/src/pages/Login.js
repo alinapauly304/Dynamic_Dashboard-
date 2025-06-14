@@ -26,9 +26,9 @@ if (data.access_token) {
   localStorage.setItem("user_obj", JSON.stringify(data));
 
   if (data.role_id === 2) {
-    navigate("/admin_panel");
+    navigate("/adminpanel");
   } else {
-    navigate("/user_panel");
+    navigate("/userpanel");
   }
 } else {
   setMsg("Login failed: " + data.detail);
