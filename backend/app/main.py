@@ -7,9 +7,9 @@ from sqlmodel import Field, SQLModel, Session, create_engine, select,text
 from app.database import engine
 from app.models import users, project, permission
 from passlib.context import CryptContext
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, Field, validator
 from datetime import datetime, timedelta
-
+import re
 from app.utils.hashing import hash_password,verify_password
 from app.utils.jwt import  create_token,decode_token
    
@@ -91,10 +91,22 @@ def login(login:Login_item):
 
 class RegisterItem(BaseModel):
     username: str 
-    email: str
-    password: str 
+    email: EmailStr
+    password: str = Field(min_length=8)
     role_name: str 
     organization_name: str 
+
+@validator("password")
+def strong_password(cls, value):
+    if not re.search(r"[A-Z]", value):
+        raise ValueError("Password must contain at least one uppercase letter")
+    if not re.search(r"[a-z]", value):
+        raise ValueError("Password must contain at least one lowercase letter")
+    if not re.search(r"\d", value):
+        raise ValueError("Password must contain at least one digit")
+    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", value):
+        raise ValueError("Password must contain at least one special character")
+    return value
 
 @app.post("/register")
 def register(registerUser:RegisterItem):
