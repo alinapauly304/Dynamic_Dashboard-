@@ -1,0 +1,46 @@
+2025-06-17 10:11:20,912 | INFO | fastapi-app | Register request received for: someo
+2025-06-17 10:11:21,104 | ERROR | fastapi-app | Unhandled error during registration
+Traceback (most recent call last):
+  File "C:\Users\alina\OneDrive\Desktop\ErasmithProj\Dynamic_Dashboard-\backend\app\main.py", line 129, in register
+    logger.info(f"User registered: {registerUser.username}, role: {role_obj.name}")
+                                                                   ^^^^^^^^
+UnboundLocalError: cannot access local variable 'role_obj' where it is not associated with a value
+2025-06-18 07:04:10,925 | WARNING | fastapi-app | Failed login attempt for username: some
+2025-06-18 07:06:05,578 | INFO | fastapi-app | Register request received for: us1
+2025-06-18 07:06:05,586 | ERROR | fastapi-app | Unhandled error during registration
+Traceback (most recent call last):
+  File "C:\Users\alina\OneDrive\Desktop\ErasmithProj\Dynamic_Dashboard-\backend\app\main.py", line 129, in register
+    logger.info(f"User registered: {registerUser.username}, role: {role_obj.name}")
+                                                                   ^^^^^^^^
+UnboundLocalError: cannot access local variable 'role_obj' where it is not associated with a value
+2025-06-18 07:11:06,904 | INFO | fastapi-app | Register request received for: us1
+2025-06-18 07:11:06,920 | INFO | fastapi-app | User registered: us1
+2025-06-18 07:11:24,596 | INFO | fastapi-app | User logged in: us1
+2025-06-18 07:11:24,635 | INFO | fastapi-app | JWT token generated for: us1
+
+
+2025-06-18 07:20:07,932 | INFO | fastapi-app | User logged in: us1
+2025-06-18 07:20:08,045 | INFO | fastapi-app | JWT token generated for: us1
+2025-06-18 11:45:49,083 | WARNING | fastapi-app | Failed login attempt for username: us1
+2025-06-18 11:46:21,135 | WARNING | fastapi-app | Failed login attempt for username: us1
+2025-06-18 11:46:25,063 | WARNING | fastapi-app | Failed login attempt for username: us1
+2025-06-18 11:46:40,762 | WARNING | fastapi-app | Failed login attempt for username: us1
+2025-06-18 11:48:33,142 | INFO | fastapi-app | Register request received for: as1
+2025-06-18 11:48:33,195 | INFO | fastapi-app | User registered: as1
+2025-06-18 11:48:53,699 | INFO | fastapi-app | User logged in: us1
+2025-06-18 11:48:53,897 | INFO | fastapi-app | JWT token generated for: us1
+2025-06-18 15:47:31,895 | INFO | fastapi-app | User logged in: us1
+2025-06-18 15:47:31,984 | INFO | fastapi-app | JWT token generated for: us1
+2025-06-18 16:23:35,102 | INFO | fastapi-app | Register request received for: ws1
+2025-06-18 16:23:35,171 | INFO | fastapi-app | User registered: ws1
+2025-06-18 16:23:49,658 | WARNING | fastapi-app | Failed login attempt for username: ws1
+2025-06-18 16:28:44,798 | WARNING | fastapi-app | Failed login attempt for username: ws1
+2025-06-18 16:28:46,346 | WARNING | fastapi-app | Failed login attempt for username: ws1
+2025-06-18 16:28:47,448 | WARNING | fastapi-app | Failed login attempt for username: ws1
+2025-06-18 16:28:47,661 | WARNING | fastapi-app | Failed login attempt for username: ws1
+2025-06-18 16:32:02,671 | INFO | fastapi-app | User logged in: ws1
+2025-06-18 16:32:02,738 | INFO | fastapi-app | JWT token generated for: ws1
+2025-06-18 16:36:37,344 | INFO | fastapi-app | User logged in: ws1
+2025-06-18 16:36:37,387 | INFO | fastapi-app | JWT token generated for: ws1
+2025-06-18 16:45:21,477 | INFO | fastapi-app | User logged in: ws1
+2025-06-18 16:45:21,515 | INFO | fastapi-app | JWT token generated for: ws1
