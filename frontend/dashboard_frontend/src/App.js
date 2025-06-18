@@ -6,6 +6,8 @@ import Register from './pages/Register';
 import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import UserPanel from './pages/user_panel';
 import AdminPanel from './pages/admin_panel';
+import { backend_url } from './config';
+
 
 
 
@@ -18,7 +20,7 @@ const[message,setMessage] =useState('');
    
 
 useEffect(() => {
-    axios.get('http://127.0.0.1:8000/')
+    axios.get(backend_url)
       .then(res => {
         setMessage(res.data.message);
       })
@@ -32,13 +34,8 @@ useEffect(() => {
       <div className="App">
 
         <Routes>
-          <Route path="/" element={
-            <div className="home-buttons">
-              
-              <Link to="/login"><button>Login</button></Link>
-              <Link to="/register"><button>Register</button></Link>
-            </div>
-          } />
+          <Route path="/" element={<Login />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 <Route path="/userpanel" element={<UserPanel />} />
