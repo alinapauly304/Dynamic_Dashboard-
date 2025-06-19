@@ -1,21 +1,261 @@
-.panel {
+.user-panel-container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-.sidebar {
-  width: 220px;
-  background-color: #343a40;
+.user-panel-container *,
+.user-panel-container *:before,
+.user-panel-container *:after {
+  box-sizing: border-box;
+}
+.user-panel-container .sidebar {
+  width: 280px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 20px;
+  padding: 30px 25px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  box-shadow: 4px 0 20px rgba(52, 45, 65, 0.1);
+  overflow-y: auto;
+  z-index: 100; /* Ensure sidebar is above other elements */
 }
-
-.sidebar h2 {
-  margin-top: 0;
+.user-panel-container .logo {
+  font-size: 40px;
+  font-weight: 700;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+  letter-spacing: -0.5px;
 }
-
-.main-content {
+.user-panel-container .nav-links {
+  list-style: none;
+  padding: 0;
+}
+.user-panel-container .nav-links li {
+  margin: 15px 0;
+}
+.user-panel-container .nav-links a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 16px;
+  padding: 15px 20px;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+}
+.user-panel-container .nav-links a:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+.user-panel-container .nav-links a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #341a50;
+  transform: translateX(8px);
+  backdrop-filter: blur(10px);
+}
+.user-panel-container .nav-links a:hover:before {
+  left: 100%;
+}
+.user-panel-container .panel {
+  margin-left: 280px;
+  padding: 40px;
   flex: 1;
-  padding: 20px;
-  background-color: #f0f2f5;
+  background: linear-gradient(135deg, #faf9ff 0%, #f3f4f6 100%);
+  min-height: 100vh;
+  position: relative;
+  z-index: 1; /* Ensure panel content is above background */
+}
+
+.user-panel-container .welcome-section {
+  position: relative;
+  z-index: 10; /* Ensure welcome section is above background */
+  margin-bottom: 30px;
+  background: transparent !important;
+  text-align: left !important;
+  width: 100%;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+
+.user-panel-container .welcome-section h2 {
+  font-size: 40px;
+  color: #000000 !important;
+  margin-bottom: 10px;
+  font-weight: 500;
+  position: relative;
+  z-index: 10;
+  background: transparent !important;
+  text-align: left !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  width: 100%;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  display: block;
+}
+
+.user-panel-container .info-boxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+  position: relative;
+  min-height: 160px;
+  justify-content: center;
+  z-index: 10; /* Ensure info boxes are above background */
+}
+
+.user-panel-container .info-box {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  z-index: 10; /* Ensure individual info boxes are above background */
+}
+
+.user-panel-container .info-box:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #7c3aed, #a855f7, #c084fc);
+  z-index: 1;
+}
+
+.user-panel-container .info-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(124, 58, 237, 0.15);
+}
+
+.user-panel-container .info-box h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #374151;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 2;
+}
+
+.user-panel-container .info-box p {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.user-panel-container .info-box .subtitle {
+  font-size: 14px;
+  color: #9ca3af;
+  font-weight: 400;
+  margin-top: 5px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Navigation icons */
+.user-panel-container .nav-links a[href*="Home"]:before {
+  content: "🏠";
+  margin-right: 12px;
+  font-size: 18px;
+}
+.user-panel-container .nav-links a[href*="Projects"]:before {
+  content: "📂";
+  margin-right: 12px;
+  font-size: 18px;
+}
+.user-panel-container .nav-links a[href*="Profile"]:before {
+  content: "👤";
+  margin-right: 12px;
+  font-size: 18px;
+}
+.user-panel-container .nav-links a[href*="Logout"]:before {
+  content: "🚪";
+  margin-right: 12px;
+  font-size: 18px;
+}
+
+/* Info box icons */
+.user-panel-container .info-box:nth-child(1) h3:before {
+  content: "📊 ";
+  margin-right: 8px;
+}
+.user-panel-container .info-box:nth-child(2) h3:before {
+  content: "🏢 ";
+  margin-right: 8px;
+}
+.user-panel-container .info-box:nth-child(3) h3:before {
+  content: "🎭 ";
+  margin-right: 8px;
+}
+
+
+.user-panel-container .panel:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(124, 58, 237, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0; 
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .user-panel-container .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 20px;
+  }
+  
+  .user-panel-container .panel {
+    margin-left: 0;
+    padding: 20px;
+  }
+  
+  .user-panel-container .info-boxes {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .user-panel-container .welcome-section {
+    padding: 20px;
+  }
+  
+  .user-panel-container .welcome-section h2 {
+    font-size: 24px;
+  }
 }

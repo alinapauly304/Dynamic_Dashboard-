@@ -38,8 +38,8 @@ useEffect(() => {
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-<Route path="/userpanel" element={<UserPanel />} />
-<Route path="/adminpanel" element={<AdminPanel />} />
+<Route path="/userpanel/*" element={<UserPanel />} />
+<Route path="/adminpanel/*" element={<AdminPanel />} />
 
           <Route path="*" element={<h2>404 Not Found</h2>} />
 

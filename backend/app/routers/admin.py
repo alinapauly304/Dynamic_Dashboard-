@@ -1,43 +1,39 @@
-from fastapi import APIRouter, Depends, HTTPException, Path
+from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
-from app.models.users import User, Role
-
+from app.models.users import User
 from app.database import engine
 from app.utils.jwt import get_current_user
 from app.schemas.user_schema import UserCreate, UserRead, UserUpdate
 
-router = APIRouter()
+router = APIRouter(prefix="/admin", tags=["Admin"])
 
+# ✅ Inline admin check
 def is_admin(user: User):
     if user.role_id != 2:
-        raise HTTPException(status_code=403, detail="Not authorized")
+        raise HTTPException(status_code=403, detail="Admin access required")
     return user
 
-# Get all users
+# ✅ Get all users
 @router.get("/users", response_model=list[UserRead])
 def get_all_users(current_user: User = Depends(get_current_user)):
     is_admin(current_user)
     with Session(engine) as session:
         return session.exec(select(User)).all()
 
-# Create user
+# ✅ Create a user
 @router.post("/users", response_model=UserRead)
 def create_user(user_data: UserCreate, current_user: User = Depends(get_current_user)):
     is_admin(current_user)
     with Session(engine) as session:
-        user = User(**user_data.dict())
-        session.add(user)
+        new_user = User(**user_data.dict())
+        session.add(new_user)
         session.commit()
-        session.refresh(user)
-        return user
+        session.refresh(new_user)
+        return new_user
 
-# Update user
+# ✅ Update a user
 @router.put("/users/{user_id}", response_model=UserRead)
-def update_user(
-    user_id: int,
-    update_data: UserUpdate,
-    current_user: User = Depends(get_current_user)
-):
+def update_user(user_id: int, update_data: UserUpdate, current_user: User = Depends(get_current_user)):
     is_admin(current_user)
     with Session(engine) as session:
         user = session.get(User, user_id)
@@ -45,12 +41,11 @@ def update_user(
             raise HTTPException(status_code=404, detail="User not found")
         for key, value in update_data.dict(exclude_unset=True).items():
             setattr(user, key, value)
-        session.add(user)
         session.commit()
         session.refresh(user)
         return user
 
-# Delete user
+# ✅ Delete a user
 @router.delete("/users/{user_id}")
 def delete_user(user_id: int, current_user: User = Depends(get_current_user)):
     is_admin(current_user)
@@ -60,4 +55,4 @@ def delete_user(user_id: int, current_user: User = Depends(get_current_user)):
             raise HTTPException(status_code=404, detail="User not found")
         session.delete(user)
         session.commit()
-        return {"message": "User deleted"}
+        return {"message": "User deleted successfully"}

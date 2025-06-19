@@ -44,3 +44,40 @@ UnboundLocalError: cannot access local variable 'role_obj' where it is not assoc
 2025-06-18 16:36:37,387 | INFO | fastapi-app | JWT token generated for: ws1
 2025-06-18 16:45:21,477 | INFO | fastapi-app | User logged in: ws1
 2025-06-18 16:45:21,515 | INFO | fastapi-app | JWT token generated for: ws1
+2025-06-18 22:58:42,484 | INFO | fastapi-app | User logged in: us1
+2025-06-18 23:32:36,052 | WARNING | fastapi-app | Failed login attempt for username: q1
+2025-06-18 23:32:45,409 | WARNING | fastapi-app | Failed login attempt for username: q1
+2025-06-18 23:32:47,364 | WARNING | fastapi-app | Failed login attempt for username: q1
+2025-06-18 23:32:48,122 | WARNING | fastapi-app | Failed login attempt for username: q1
+2025-06-18 23:32:48,451 | WARNING | fastapi-app | Failed login attempt for username: q1
+2025-06-18 23:33:35,002 | INFO | fastapi-app | User logged in: d1
+2025-06-18 23:39:42,252 | INFO | fastapi-app | User logged in: us1
+2025-06-19 00:03:54,432 | INFO | fastapi-app | User logged in: d1
+2025-06-19 00:21:48,431 | INFO | fastapi-app | User logged in: d1
+2025-06-19 09:06:11,589 | INFO | fastapi-app | User logged in: us1
+2025-06-19 09:41:07,157 | INFO | fastapi-app | User logged in: d1
+2025-06-19 09:42:34,645 | INFO | fastapi-app | User logged in: us1
+2025-06-19 10:11:21,511 | INFO | fastapi-app | User logged in: q1
+2025-06-19 10:12:32,340 | INFO | fastapi-app | User logged in: us1
+2025-06-19 10:26:29,672 | INFO | fastapi-app | User logged in: q1
+2025-06-19 12:03:08,413 | INFO | fastapi-app | User logged in: us1
+2025-06-19 13:35:55,142 | INFO | fastapi-app | User logged in: d1
+2025-06-19 17:35:07,146 | INFO | fastapi-app | User logged in: admin
+2025-06-19 17:36:11,766 | INFO | fastapi-app | Register request received for: user1
+2025-06-19 17:36:26,751 | INFO | fastapi-app | User logged in: user1
+2025-06-19 17:37:18,835 | INFO | fastapi-app | Register request received for: user2
+2025-06-19 17:37:33,693 | WARNING | fastapi-app | Failed login attempt for username: user2
+2025-06-19 17:37:43,476 | WARNING | fastapi-app | Failed login attempt for username: user2
+2025-06-19 17:38:23,451 | INFO | fastapi-app | Register request received for: user2
+2025-06-19 17:38:23,457 | WARNING | fastapi-app | Registration failed — username taken: user2
+2025-06-19 17:38:23,458 | ERROR | fastapi-app | Unhandled error during registration
+Traceback (most recent call last):
+  File "C:\Users\alina\OneDrive\Desktop\ErasmithProj\Dynamic_Dashboard-\backend\app\routers\auth.py", line 79, in register
+    raise HTTPException(status_code=400, detail="Username already taken")
+fastapi.exceptions.HTTPException: 400: Username already taken
+2025-06-19 17:38:52,121 | INFO | fastapi-app | Register request received for: user3
+2025-06-19 17:39:20,469 | INFO | fastapi-app | User logged in: user3
+2025-06-19 17:41:50,532 | INFO | fastapi-app | Register request received for: user2
+2025-06-19 17:42:06,261 | INFO | fastapi-app | User logged in: user2
+2025-06-19 17:43:04,742 | INFO | fastapi-app | User logged in: admin
+2025-06-19 20:37:32,177 | INFO | fastapi-app | User logged in: user1

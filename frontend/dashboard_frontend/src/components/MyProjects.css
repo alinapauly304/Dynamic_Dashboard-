@@ -1,0 +1,292 @@
+/* MyProjects.css - Scoped styles for MyProjects component */
+
+/* Main container for projects page */
+.projects-container {
+  padding: 30px;
+  background: #f8f9fa;
+  min-height: calc(100vh - 60px);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Projects page title */
+.projects-container h2 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  border: none;
+  padding: 0;
+}
+
+/* Header section with project count and new project button */
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 20px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.projects-header p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.new-project-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.new-project-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* No projects state */
+.no-projects {
+  text-align: center;
+  padding: 80px 40px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin: 40px 0;
+}
+
+.no-projects p {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+/* Projects grid layout */
+.projects-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+/* Individual project card */
+.project-card {
+  background: white;
+  border: none;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Project card header */
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.project-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  line-height: 1.3;
+  flex: 1;
+  margin-right: 12px;
+}
+
+/* Status badges */
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.status.active {
+  background: linear-gradient(135deg, #00b894, #00a085);
+  color: white;
+}
+
+.status.in-progress {
+  background: linear-gradient(135deg, #fdcb6e, #e17055);
+  color: white;
+}
+
+.status.completed {
+  background: linear-gradient(135deg, #74b9ff, #0984e3);
+  color: white;
+}
+
+.status.pending {
+  background: linear-gradient(135deg, #fd79a8, #e84393);
+  color: white;
+}
+
+/* Project details section */
+.project-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f3f4;
+}
+
+.project-details p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Action buttons */
+.project-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.project-actions button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.view-btn {
+  background: #f8f9fa;
+  color: #495057;
+  border: 1px solid #e9ecef;
+}
+
+.view-btn:hover {
+  background: #e9ecef;
+  color: #343a40;
+}
+
+.edit-btn {
+  background: linear-gradient(135deg, #fdcb6e, #e17055);
+  color: white;
+}
+
+.edit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(253, 203, 110, 0.3);
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #fd79a8, #e84393);
+  color: white;
+}
+
+.delete-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(253, 121, 168, 0.3);
+}
+
+/* Loading state */
+.projects-container .loading {
+  text-align: center;
+  padding: 80px 40px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin: 40px 0;
+  color: #6c757d;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .projects-container {
+    padding: 20px;
+  }
+  
+  .projects-container h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .projects-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 0;
+  }
+  
+  .projects-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .project-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .project-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-container {
+    padding: 16px;
+  }
+  
+  .project-card {
+    padding: 20px;
+  }
+  
+  .project-header h3 {
+    font-size: 1.2rem;
+  }
+  
+  .project-actions {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .project-actions button {
+    flex: 1;
+    min-width: 60px;
+  }
+}
