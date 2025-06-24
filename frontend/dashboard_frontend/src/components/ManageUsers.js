@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './MyProjects.css'; // Reusing existing styles
+import './MyProjects.css'; 
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -8,75 +8,78 @@ const ManageUsers = () => {
   const [editingUser, setEditingUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterRole, setFilterRole] = useState('');
-  const [filterStatus, setFilterStatus] = useState('');
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    username: '',
     email: '',
-    role: '',
-    department: '',
-    phone: ''
+    password_hash: '',
+    role_id: '',
+    organization_id: '',
   });
 
-  // Mock data - replace with actual API calls
-  useEffect(() => {
-    setTimeout(() => {
-      setUsers([
-        {
-          id: 1,
-          firstName: 'John', 
-          lastName: 'Doe',
-          email: 'john.doe@company.com',
-          role: 'Admin',
-          department: 'IT',
-          phone: '+1-555-0123',
-          status: 'active',
-          lastLogin: '2023-06-15',
-          joinDate: '2022-01-15',
-          projects: 8
-        },
-        {
-          id: 2,
-          firstName: 'Jane',
-          lastName: 'Smith', 
-          email: 'jane.smith@company.com',
-          role: 'Project Manager',
-          department: 'Operations',
-          phone: '+1-555-0124',
-          status: 'active',
-          lastLogin: '2023-06-14',
-          joinDate: '2022-03-20',
-          projects: 12
-        },
-        {
-          id: 3,
-          firstName: 'Mike',
-          lastName: 'Johnson',
-          email: 'mike.johnson@company.com', 
-          role: 'Developer',
-          department: 'Engineering',
-          phone: '+1-555-0125',
-          status: 'inactive',
-          lastLogin: '2023-05-20',
-          joinDate: '2022-06-10',
-          projects: 5
-        },
-        {
-          id: 4,
-          firstName: 'Sarah',
-          lastName: 'Wilson',
-          email: 'sarah.wilson@company.com',
-          role: 'Designer',
-          department: 'Design',
-          phone: '+1-555-0126',
-          status: 'pending',
-          lastLogin: null,
-          joinDate: '2023-06-01',
-          projects: 2
+  // API base URL - adjust this to match your backend
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
+ // Get auth token from localStorage
+const getAuthToken = () => {
+  const userObj = localStorage.getItem('user_obj');
+  if (userObj) {
+    try {
+      const parsed = JSON.parse(userObj);
+      return parsed.access_token;
+    } catch (error) {
+      console.error('Error parsing user_obj from localStorage:', error);
+      return null;
+    }
+  }
+  return null;
+};
+
+  // API headers with authorization
+  const getAuthHeaders = () => {
+    const token = getAuthToken();
+    if (!token) {
+      console.log('No token found, redirecting to login');
+      setError('Authentication required. Please log in.');
+      return {};
+    }
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+  };
+
+  // Fetch all users using the admin endpoint
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${API_BASE_URL}/admin/users`, {
+        headers: getAuthHeaders(),
+      });
+      
+      if (!response.ok) {
+        if (response.status === 403) {
+          throw new Error('Admin access required. You need role_id = 2 to manage users.');
+        } else if (response.status === 401) {
+          throw new Error('Authentication failed. Please log in again.');
+        } else {
+          throw new Error(`Failed to fetch users: ${response.status}`);
         }
-      ]);
+      }
+      
+      const data = await response.json();
+      setUsers(data);
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching users:', err);
+      setError(err.message);
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
   }, []);
 
   const handleInputChange = (e) => {
@@ -86,72 +89,161 @@ const ManageUsers = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editingUser) {
-      // Update existing user
-      setUsers(users.map(user =>
-        user.id === editingUser.id
-          ? { ...user, ...formData }
-          : user
-      ));
-      setEditingUser(null);
-    } else {
-      // Add new user
-      const newUser = {
-        id: Date.now(),
-        ...formData,
-        status: 'pending',
-        lastLogin: null,
-        joinDate: new Date().toISOString().split('T')[0],
-        projects: 0
-      };
-      setUsers([...users, newUser]);
+    
+    try {
+      setLoading(true);
+      
+      if (editingUser) {
+        // Update existing user
+        const updateData = {};
+        
+        // Only include fields that have values and are different from original
+        if (formData.username && formData.username !== editingUser.username) {
+          updateData.username = formData.username;
+        }
+        if (formData.email && formData.email !== editingUser.email) {
+          updateData.email = formData.email;
+        }
+        if (formData.role_id && parseInt(formData.role_id) !== editingUser.role_id) {
+          updateData.role_id = parseInt(formData.role_id);
+        }
+        if (formData.organization_id && parseInt(formData.organization_id) !== editingUser.organization_id) {
+          updateData.organization_id = parseInt(formData.organization_id);
+        }
+
+        if (Object.keys(updateData).length === 0) {
+          setError('No changes detected to update.');
+          return;
+        }
+
+        const response = await fetch(`${API_BASE_URL}/admin/users/${editingUser.id}`, {
+          method: 'PUT',
+          headers: getAuthHeaders(),
+          body: JSON.stringify(updateData),
+        });
+
+        if (!response.ok) {
+          if (response.status === 403) {
+            throw new Error('Admin access required to update users.');
+          } else if (response.status === 404) {
+            throw new Error('User not found.');
+          } else {
+            throw new Error(`Failed to update user: ${response.status}`);
+          }
+        }
+
+        setEditingUser(null);
+      } else {
+        // Add new user
+        const createData = {
+          username: formData.username,
+          email: formData.email,
+          password_hash: formData.password_hash,
+          role_id: parseInt(formData.role_id),
+          organization_id: parseInt(formData.organization_id),
+        };
+
+        const response = await fetch(`${API_BASE_URL}/admin/users`, {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify(createData),
+        });
+
+        if (!response.ok) {
+          if (response.status === 403) {
+            throw new Error('Admin access required to create users.');
+          } else {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.detail || `Failed to create user: ${response.status}`);
+          }
+        }
+      }
+
+      // Reset form and refresh users
+      setFormData({ 
+        username: '', 
+        email: '', 
+        password_hash: '', 
+        role_id: '', 
+        organization_id: '' 
+      });
+      setShowAddForm(false);
+      await fetchUsers();
+      setError(null);
+      
+    } catch (err) {
+      console.error('Error submitting form:', err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    setFormData({ firstName: '', lastName: '', email: '', role: '', department: '', phone: '' });
-    setShowAddForm(false);
   };
 
   const handleEdit = (user) => {
     setEditingUser(user);
     setFormData({
-      firstName: user.firstName,
-      lastName: user.lastName,
+      username: user.username,
       email: user.email,
-      role: user.role,
-      department: user.department,
-      phone: user.phone
+      password_hash: '', // Don't populate password for security
+      role_id: user.role_id.toString(),
+      organization_id: user.organization_id.toString(),
     });
     setShowAddForm(true);
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      setUsers(users.filter(user => user.id !== id));
-    }
-  };
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+      try {
+        setLoading(true);
+        const response = await fetch(`${API_BASE_URL}/admin/users/${id}`, {
+          method: 'DELETE',
+          headers: getAuthHeaders(),
+        });
 
-  const handleStatusChange = (id, newStatus) => {
-    setUsers(users.map(user =>
-      user.id === id ? { ...user, status: newStatus } : user
-    ));
+        if (!response.ok) {
+          if (response.status === 403) {
+            throw new Error('Admin access required to delete users.');
+          } else if (response.status === 404) {
+            throw new Error('User not found.');
+          } else {
+            throw new Error(`Failed to delete user: ${response.status}`);
+          }
+        }
+
+        await fetchUsers();
+        setError(null);
+      } catch (err) {
+        console.error('Error deleting user:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
   };
 
   const handleCancel = () => {
     setShowAddForm(false);
     setEditingUser(null);
-    setFormData({ firstName: '', lastName: '', email: '', role: '', department: '', phone: '' });
+    setFormData({ 
+      username: '', 
+      email: '', 
+      password_hash: '', 
+      role_id: '', 
+      organization_id: '' 
+    });
+    setError(null);
   };
 
   // Filter users based on search and filters
   const filteredUsers = users.filter(user => {
-    const matchesSearch = `${user.firstName} ${user.lastName} ${user.email}`.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRole = filterRole === '' || user.role === filterRole;
-    const matchesStatus = filterStatus === '' || user.status === filterStatus;
-    return matchesSearch && matchesRole && matchesStatus;
+    const matchesSearch = `${user.username} ${user.email}`.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesRole = filterRole === '' || user.role_id.toString() === filterRole;
+    return matchesSearch && matchesRole;
   });
 
-  if (loading) {
+  if (loading && users.length === 0) {
     return (
       <div className="projects-container">
         <div className="loading">Loading users...</div>
@@ -163,11 +255,25 @@ const ManageUsers = () => {
     <div className="projects-container">
       <h2>Manage Users</h2>
       
+      {error && (
+        <div style={{ 
+          background: '#f8d7da', 
+          color: '#721c24', 
+          padding: '12px', 
+          borderRadius: '8px', 
+          marginBottom: '16px',
+          border: '1px solid #f5c6cb'
+        }}>
+          Error: {error}
+        </div>
+      )}
+      
       <div className="projects-header">
-        <p>Total users: {users.length} | Active: {users.filter(u => u.status === 'active').length}</p>
+        <p>Total users: {users.length}</p>
         <button 
           className="new-project-btn"
           onClick={() => setShowAddForm(true)}
+          disabled={loading}
         >
           + Add User
         </button>
@@ -175,14 +281,14 @@ const ManageUsers = () => {
 
       {/* Search and Filter Section */}
       <div className="project-card" style={{ marginBottom: '24px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '16px', alignItems: 'end' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '16px', alignItems: 'end' }}>
           <div>
             <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
               Search Users
             </label>
             <input
               type="text"
-              placeholder="Search by name or email..."
+              placeholder="Search by username or email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               style={{ 
@@ -196,7 +302,7 @@ const ManageUsers = () => {
           </div>
           <div>
             <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-              Filter by Role
+              Filter by Role ID
             </label>
             <select
               value={filterRole}
@@ -210,32 +316,9 @@ const ManageUsers = () => {
               }}
             >
               <option value="">All Roles</option>
-              <option value="Admin">Admin</option>
-              <option value="Project Manager">Project Manager</option>
-              <option value="Developer">Developer</option>
-              <option value="Designer">Designer</option>
-              <option value="Analyst">Analyst</option>
-            </select>
-          </div>
-          <div>
-            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-              Filter by Status
-            </label>
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-              style={{ 
-                width: '100%', 
-                padding: '12px', 
-                border: '1px solid #e9ecef', 
-                borderRadius: '8px',
-                fontSize: '14px'
-              }}
-            >
-              <option value="">All Status</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-              <option value="pending">Pending</option>
+              <option value="1">Role 1</option>
+              <option value="2">Role 2 (Admin)</option>
+              <option value="3">Role 3</option>
             </select>
           </div>
         </div>
@@ -252,12 +335,12 @@ const ManageUsers = () => {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div>
                   <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-                    First Name *
+                    Username *
                   </label>
                   <input
                     type="text"
-                    name="firstName"
-                    value={formData.firstName}
+                    name="username"
+                    value={formData.username}
                     onChange={handleInputChange}
                     required
                     style={{ 
@@ -271,12 +354,12 @@ const ManageUsers = () => {
                 </div>
                 <div>
                   <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-                    Last Name *
+                    Email Address *
                   </label>
                   <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
+                    type="email"
+                    name="email"
+                    value={formData.email}
                     onChange={handleInputChange}
                     required
                     style={{ 
@@ -290,34 +373,37 @@ const ManageUsers = () => {
                 </div>
               </div>
               
-              <div>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  style={{ 
-                    width: '100%', 
-                    padding: '12px', 
-                    border: '1px solid #e9ecef', 
-                    borderRadius: '8px',
-                    fontSize: '14px'
-                  }}
-                />
-              </div>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
+              {!editingUser && (
                 <div>
                   <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-                    Role *
+                    Password *
+                  </label>
+                  <input
+                    type="password"
+                    name="password_hash"
+                    value={formData.password_hash}
+                    onChange={handleInputChange}
+                    required={!editingUser}
+                    placeholder="Enter password for new user"
+                    style={{ 
+                      width: '100%', 
+                      padding: '12px', 
+                      border: '1px solid #e9ecef', 
+                      borderRadius: '8px',
+                      fontSize: '14px'
+                    }}
+                  />
+                </div>
+              )}
+              
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div>
+                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
+                    Role ID *
                   </label>
                   <select
-                    name="role"
-                    value={formData.role}
+                    name="role_id"
+                    value={formData.role_id}
                     onChange={handleInputChange}
                     required
                     style={{ 
@@ -329,40 +415,23 @@ const ManageUsers = () => {
                     }}
                   >
                     <option value="">Select Role</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Project Manager">Project Manager</option>
-                    <option value="Developer">Developer</option>
-                    <option value="Designer">Designer</option>
-                    <option value="Analyst">Analyst</option>
+                    <option value="1">Role 1 - User</option>
+                    <option value="2">Role 2 - Admin</option>
+                    <option value="3">Role 3 - Manager</option>
                   </select>
                 </div>
                 <div>
                   <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-                    Department
+                    Organization ID *
                   </label>
                   <input
-                    type="text"
-                    name="department"
-                    value={formData.department}
+                    type="number"
+                    name="organization_id"
+                    value={formData.organization_id}
                     onChange={handleInputChange}
-                    style={{ 
-                      width: '100%', 
-                      padding: '12px', 
-                      border: '1px solid #e9ecef', 
-                      borderRadius: '8px',
-                      fontSize: '14px'
-                    }}
-                  />
-                </div>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
+                    required
+                    placeholder="Enter organization ID"
+                    min="1"
                     style={{ 
                       width: '100%', 
                       padding: '12px', 
@@ -376,8 +445,8 @@ const ManageUsers = () => {
             </div>
             
             <div style={{ display: 'flex', gap: '12px' }}>
-              <button type="submit" className="edit-btn">
-                {editingUser ? 'Update User' : 'Add User'}
+              <button type="submit" className="edit-btn" disabled={loading}>
+                {loading ? 'Processing...' : (editingUser ? 'Update User' : 'Add User')}
               </button>
               <button type="button" onClick={handleCancel} className="view-btn">
                 Cancel
@@ -396,9 +465,9 @@ const ManageUsers = () => {
           {filteredUsers.map(user => (
             <div key={user.id} className="project-card">
               <div className="project-header">
-                <h3>{user.firstName} {user.lastName}</h3>
-                <span className={`status ${user.status}`}>
-                  {user.status}
+                <h3>{user.username}</h3>
+                <span className={`status ${user.role_id === 2 ? 'active' : user.is_active ? 'active' : 'inactive'}`}>
+                  {user.role_id === 2 ? 'Admin' : `Role ${user.role_id}`}
                 </span>
               </div>
               
@@ -407,13 +476,8 @@ const ManageUsers = () => {
                   {user.email}
                 </p>
                 <p style={{ margin: '0 0 8px 0', color: '#667eea', fontSize: '13px', fontWeight: '600' }}>
-                  {user.role}
+                  ID: {user.id}
                 </p>
-                {user.phone && (
-                  <p style={{ margin: '0', color: '#6c757d', fontSize: '13px' }}>
-                    {user.phone}
-                  </p>
-                )}
               </div>
               
               <div style={{ 
@@ -426,51 +490,25 @@ const ManageUsers = () => {
                 borderRadius: '8px'
               }}>
                 <div>
-                  <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>Department</p>
+                  <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>Organization ID</p>
                   <p style={{ margin: '0', fontSize: '14px', fontWeight: '600', color: '#2c3e50' }}>
-                    {user.department || 'Not assigned'}
+                    {user.organization_id}
                   </p>
                 </div>
                 <div>
-                  <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>Projects</p>
-                  <p style={{ margin: '0', fontSize: '14px', fontWeight: '600', color: '#2c3e50' }}>
-                    {user.projects}
-                  </p>
-                </div>
-                <div>
-                  <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>Joined</p>
-                  <p style={{ margin: '0', fontSize: '14px', fontWeight: '600', color: '#2c3e50' }}>
-                    {new Date(user.joinDate).toLocaleDateString()}
-                  </p>
-                </div>
-                <div>
-                  <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>Last Login</p>
-                  <p style={{ margin: '0', fontSize: '14px', fontWeight: '600', color: '#2c3e50' }}>
-                    {user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Never'}
+                  <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>Status</p>
+                  <p style={{ margin: '0', fontSize: '14px', fontWeight: '600', color: user.is_active ? '#28a745' : '#dc3545' }}>
+                    {user.is_active ? 'Active' : 'Inactive'}
                   </p>
                 </div>
               </div>
               
               <div className="project-details">
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <select
-                    value={user.status}
-                    onChange={(e) => handleStatusChange(user.id, e.target.value)}
-                    style={{
-                      padding: '6px 8px',
-                      fontSize: '11px',
-                      border: '1px solid #e9ecef',
-                      borderRadius: '4px',
-                      fontWeight: '600'
-                    }}
-                  >
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="pending">Pending</option>
-                  </select>
-                </div>
+                <div></div>
                 <div className="project-actions">
-                  <button className="view-btn">View</button>
+                  <button className="view-btn" onClick={() => console.log('View user:', user)}>
+                    View
+                  </button>
                   <button className="edit-btn" onClick={() => handleEdit(user)}>
                     Edit
                   </button>

@@ -16,29 +16,48 @@ def decode_token(token: str):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return payload
-    except JWTError:
+    except JWTError as e:
+        print(f"JWT Error: {e}")  # Debug print
         return None
     
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
-from sqlmodel import Session, select
+from sqlalchemy.orm import Session
 from app.models import users
-from app.database import engine
+from app.database import SessionLocal
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 def get_current_user(token: str = Depends(oauth2_scheme)) -> users.User:
+    print(f"Received token: {token[:20]}...")  # Debug print (first 20 chars only)
+    
     payload = decode_token(token)
     if payload is None:
+        print("Token decode failed")  # Debug print
         raise HTTPException(status_code=401, detail="Invalid or expired token")
 
     username: str = payload.get("sub")
     if username is None:
+        print("No username in token payload")  # Debug print
         raise HTTPException(status_code=401, detail="Invalid token")
 
-    with Session(engine) as session:
-        user = session.exec(select(users.User).where(users.User.username == username)).first()
-        if not user:
-            raise HTTPException(status_code=404, detail="User not found")
+    print(f"Looking for user: {username}")  # Debug print
 
-    return user
+    db = next(get_db())
+    try:
+        user = db.query(users.User).filter(users.User.username == username).first()
+        if not user:
+            print(f"User {username} not found in database")  # Debug print
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        print(f"Found user: {user.username}")  # Debug print
+        return user
+    finally:
+        db.close()

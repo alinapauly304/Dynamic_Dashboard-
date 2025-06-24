@@ -12,7 +12,7 @@ from app.utils.hashing import hash_password
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-print(hash_password("Admin@123"))
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -22,8 +22,15 @@ app.add_middleware(
 )
 
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
-app.include_router(admin.router, prefix="/admin", tags=["Admin"])
-app.include_router(admin.router, prefix="/user", tags=["User"])
+app.include_router(admin.router, tags=["Admin"])
+app.include_router(user.router,tags=["User"])
+
+# Debug: Print all registered routes
+@app.on_event("startup")
+async def startup_event():
+    print("Registered routes:")
+    for route in app.routes:
+        print(f"  {route.methods} {route.path}")
 
 @app.get("/health", tags=["Health Check"])
 def health_check():

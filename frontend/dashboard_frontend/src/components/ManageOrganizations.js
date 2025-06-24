@@ -287,21 +287,7 @@ const ManageOrganizations = () => {
                 </span>
               </div>
               
-              <div style={{ marginBottom: '16px' }}>
-                <p style={{ margin: '0 0 8px 0', color: '#6c757d', fontSize: '14px' }}>
-                  {org.description}
-                </p>
-                {org.website && (
-                  <a 
-                    href={org.website} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    style={{ color: '#667eea', textDecoration: 'none', fontSize: '13px' }}
-                  >
-                    {org.website}
-                  </a>
-                )}
-              </div>
+
               
               <div style={{ 
                 display: 'grid', 

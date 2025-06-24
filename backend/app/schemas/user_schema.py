@@ -14,6 +14,8 @@ class UserRead(BaseModel):
     email: EmailStr
     role_id: int
     organization_id: int
+    role_name: Optional[str] = None
+    organization_name: Optional[str] = None
 
     class Config:
         orm_mode = True

@@ -24,6 +24,19 @@ class LoginResponse(BaseModel):
 
 @router.post("/login", response_model=LoginResponse)
 def login(login: Login_item):
+    """_summary_
+
+    Args:
+        login (Login_item): _description_
+
+    Raises:
+        HTTPException: _description_
+        HTTPException: _description_
+        HTTPException: _description_
+
+    Returns:
+        _type_: _description_
+    """
     try:
         with Session(engine) as session:
             user_obj = session.exec(
@@ -56,6 +69,20 @@ class RegisterItem(BaseModel):
 
     @validator("password")
     def strong_password(cls, value):
+        """_summary_
+
+        Args:
+            value (_type_): _description_
+
+        Raises:
+            ValueError: _description_
+            ValueError: _description_
+            ValueError: _description_
+            ValueError: _description_
+
+        Returns:
+            _type_: _description_
+        """
         if not re.search(r"[A-Z]", value):
             raise ValueError("Password must contain at least one uppercase letter")
         if not re.search(r"[a-z]", value):
@@ -68,6 +95,19 @@ class RegisterItem(BaseModel):
 
 @router.post("/register")
 def register(registerUser: RegisterItem):
+    """_summary_
+
+    Args:
+        registerUser (RegisterItem): _description_
+
+    Raises:
+        HTTPException: _description_
+        HTTPException: _description_
+        HTTPException: _description_
+
+    Returns:
+        _type_: _description_
+    """
     try:
         with Session(engine) as session:
             logger.info(f"Register request received for: {registerUser.username}")

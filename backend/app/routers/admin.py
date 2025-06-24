@@ -9,6 +9,17 @@ router = APIRouter(prefix="/admin", tags=["Admin"])
 
 # ✅ Inline admin check
 def is_admin(user: User):
+    """_summary_
+
+    Args:
+        user (User): _description_
+
+    Raises:
+        HTTPException: _description_
+
+    Returns:
+        _type_: _description_
+    """
     if user.role_id != 2:
         raise HTTPException(status_code=403, detail="Admin access required")
     return user
@@ -16,6 +27,14 @@ def is_admin(user: User):
 # ✅ Get all users
 @router.get("/users", response_model=list[UserRead])
 def get_all_users(current_user: User = Depends(get_current_user)):
+    """_summary_
+
+    Args:
+        current_user (User, optional): _description_. Defaults to Depends(get_current_user).
+
+    Returns:
+        _type_: _description_
+    """
     is_admin(current_user)
     with Session(engine) as session:
         return session.exec(select(User)).all()
@@ -23,6 +42,15 @@ def get_all_users(current_user: User = Depends(get_current_user)):
 # ✅ Create a user
 @router.post("/users", response_model=UserRead)
 def create_user(user_data: UserCreate, current_user: User = Depends(get_current_user)):
+    """_summary_
+
+    Args:
+        user_data (UserCreate): _description_
+        current_user (User, optional): _description_. Defaults to Depends(get_current_user).
+
+    Returns:
+        _type_: _description_
+    """
     is_admin(current_user)
     with Session(engine) as session:
         new_user = User(**user_data.dict())
@@ -34,6 +62,19 @@ def create_user(user_data: UserCreate, current_user: User = Depends(get_current_
 # ✅ Update a user
 @router.put("/users/{user_id}", response_model=UserRead)
 def update_user(user_id: int, update_data: UserUpdate, current_user: User = Depends(get_current_user)):
+    """_summary_
+
+    Args:
+        user_id (int): _description_
+        update_data (UserUpdate): _description_
+        current_user (User, optional): _description_. Defaults to Depends(get_current_user).
+
+    Raises:
+        HTTPException: _description_
+
+    Returns:
+        _type_: _description_
+    """
     is_admin(current_user)
     with Session(engine) as session:
         user = session.get(User, user_id)
@@ -48,6 +89,18 @@ def update_user(user_id: int, update_data: UserUpdate, current_user: User = Depe
 # ✅ Delete a user
 @router.delete("/users/{user_id}")
 def delete_user(user_id: int, current_user: User = Depends(get_current_user)):
+    """_summary_
+
+    Args:
+        user_id (int): _description_
+        current_user (User, optional): _description_. Defaults to Depends(get_current_user).
+
+    Raises:
+        HTTPException: _description_
+
+    Returns:
+        _type_: _description_
+    """
     is_admin(current_user)
     with Session(engine) as session:
         user = session.get(User, user_id)

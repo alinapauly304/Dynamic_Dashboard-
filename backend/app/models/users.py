@@ -13,14 +13,26 @@ class User(Base):
     organization_id = Column(Integer, ForeignKey("organizations.id"))
     is_active = Column(Boolean, default=True)
     created_at = Column(TIMESTAMP)
+    
+    # Add relationships
+    role = relationship("Role", back_populates="users")
+    organization = relationship("Organization", back_populates="users")
+
 
 class Role(Base):
     __tablename__ = "roles"
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    
+    # Add back reference
+    users = relationship("User", back_populates="role")
+
 
 class Organization(Base):
     __tablename__ = "organizations"
     id = Column(Integer, primary_key=True)
     name = Column(String)
     created_at = Column(TIMESTAMP)
+    
+    # Add back reference
+    users = relationship("User", back_populates="organization")

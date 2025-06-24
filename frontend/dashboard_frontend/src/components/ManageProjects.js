@@ -267,52 +267,9 @@ const ManageProjects = () => {
                     {project.owner}
                   </span>
                 </div>
-                <div className="profile-field" style={{ margin: 0, padding: '8px 0', borderBottom: 'none' }}>
-                  <label style={{ width: 'auto', marginRight: '8px', fontSize: '12px' }}>Priority:</label>
-                  <span style={{ 
-                    padding: '4px 8px', 
-                    fontSize: '12px', 
-                    background: getPriorityColor(project.priority),
-                    color: 'white',
-                    borderRadius: '12px',
-                    border: 'none',
-                    fontWeight: '600',
-                    textTransform: 'uppercase'
-                  }}>
-                    {project.priority}
-                  </span>
-                </div>
-                <div className="profile-field" style={{ margin: 0, padding: '8px 0', borderBottom: 'none' }}>
-                  <label style={{ width: 'auto', marginRight: '8px', fontSize: '12px' }}>Budget:</label>
-                  <span style={{ padding: '4px 8px', fontSize: '12px', background: 'transparent', border: 'none' }}>
-                    ${project.budget.toLocaleString()}
-                  </span>
-                </div>
-                <div className="profile-field" style={{ margin: 0, padding: '8px 0', borderBottom: 'none' }}>
-                  <label style={{ width: 'auto', marginRight: '8px', fontSize: '12px' }}>Progress:</label>
-                  <span style={{ padding: '4px 8px', fontSize: '12px', background: 'transparent', border: 'none' }}>
-                    {project.progress}%
-                  </span>
-                </div>
+                
               </div>
 
-              {/* Progress Bar */}
-              <div style={{ marginBottom: '16px' }}>
-                <div style={{
-                  width: '100%',
-                  height: '6px',
-                  backgroundColor: '#e9ecef',
-                  borderRadius: '3px',
-                  overflow: 'hidden'
-                }}>
-                  <div style={{
-                    width: `${project.progress}%`,
-                    height: '100%',
-                    backgroundColor: getStatusColor(project.status),
-                    transition: 'width 0.3s ease'
-                  }}></div>
-                </div>
-              </div>
 
               {/* Team Members */}
               <div style={{ marginBottom: '16px' }}>
@@ -398,43 +355,15 @@ const ManageProjects = () => {
               <span>{selectedProject.description}</span>
             </div>
             
-            <div className="profile-field">
-              <label>Status:</label>
-              <span className={`status ${selectedProject.status}`} style={{ 
-                display: 'inline-block',
-                background: getStatusColor(selectedProject.status),
-                color: 'white',
-                padding: '6px 12px',
-                borderRadius: '20px',
-                fontSize: '11px',
-                fontWeight: '700',
-                textTransform: 'uppercase'
-              }}>
-                {selectedProject.status.replace('-', ' ')}
-              </span>
-            </div>
             
             <div className="profile-field">
               <label>Owner:</label>
               <span>{selectedProject.owner}</span>
             </div>
             
-            <div className="profile-field">
-              <label>Priority:</label>
-              <span style={{ 
-                background: getPriorityColor(selectedProject.priority),
-                color: 'white',
-                fontWeight: '600',
-                textTransform: 'uppercase'
-              }}>
-                {selectedProject.priority}
-              </span>
-            </div>
+ 
             
-            <div className="profile-field">
-              <label>Budget:</label>
-              <span>${selectedProject.budget.toLocaleString()}</span>
-            </div>
+
             
             <div className="profile-field">
               <label>Progress:</label>
