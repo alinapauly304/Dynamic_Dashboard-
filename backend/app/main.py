@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.models.base import Base
 from app.database import engine
 from app.config import origins
-from app.routers import auth,user,roles,projects
+from app.routers import auth,user,roles,projects,organizations
 
 from app.routers import admin
 from app.utils.hashing import hash_password
@@ -26,6 +26,7 @@ app.include_router(admin.router, tags=["Admin"])
 app.include_router(user.router,tags=["User"])
 app.include_router(roles.router, tags=["Roles"]) 
 app.include_router(projects.router, tags=["Projects"]) 
+app.include_router(organizations.router, tags=["Organizations"])
 
 # Debug: Print all registered routes
 @app.on_event("startup")
