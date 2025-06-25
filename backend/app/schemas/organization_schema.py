@@ -4,20 +4,13 @@ from datetime import datetime
 
 class OrganizationBase(BaseModel):
     name: str
-    description: Optional[str] = None
-    website: Optional[str] = None
-    industry: Optional[str] = None
-    size: Optional[str] = None
 
 class OrganizationCreate(OrganizationBase):
-    pass
+    description: Optional[str] = None  # Accept but ignore
 
 class OrganizationUpdate(BaseModel):
     name: Optional[str] = None
-    description: Optional[str] = None
-    website: Optional[str] = None
-    industry: Optional[str] = None
-    size: Optional[str] = None
+    description: Optional[str] = None  # Accept but ignore
     status: Optional[str] = None
 
 class UserInOrganization(BaseModel):
@@ -33,6 +26,7 @@ class UserInOrganization(BaseModel):
 
 class OrganizationResponse(OrganizationBase):
     id: int
+    description: str = ""  # Always return empty string
     members: int = 0
     projects: int = 0
     status: str = "active"

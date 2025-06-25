@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 from app.models.users import Organization, User
+from app.models.project import Project
 from app.schemas.organization_schema import OrganizationCreate, OrganizationUpdate, OrganizationResponse, OrganizationWithUsers
 from app.utils.jwt import get_current_user, get_db
 from datetime import datetime
@@ -29,16 +30,17 @@ def get_all_organizations(
     result = []
     for org in organizations:
         member_count = db.query(User).filter(User.organization_id == org.id).count()
-        # You can add project count when you have projects table ready
+        project_count = db.query(Project).filter(Project.organization_id == org.id).count()
+        
         org_dict = {
             "id": org.id,
             "name": org.name,
-            "description": getattr(org, 'description', ''),
+            "description": "",  # Empty since model doesn't have description
             "website": getattr(org, 'website', ''),
             "industry": getattr(org, 'industry', ''),
             "size": getattr(org, 'size', ''),
             "members": member_count,
-            "projects": 0,  # Will be updated when projects are implemented
+            "projects": project_count,
             "status": getattr(org, 'status', 'active'),
             "created_at": org.created_at
         }
@@ -73,10 +75,7 @@ def get_organization(
     return {
         "id": organization.id,
         "name": organization.name,
-        "description": getattr(organization, 'description', ''),
-        "website": getattr(organization, 'website', ''),
-        "industry": getattr(organization, 'industry', ''),
-        "size": getattr(organization, 'size', ''),
+        "description": "",  # Empty since model doesn't have description
         "status": getattr(organization, 'status', 'active'),
         "created_at": organization.created_at,
         "users": [
@@ -90,6 +89,58 @@ def get_organization(
             } for user in users
         ]
     }
+
+# NEW ENDPOINT: Get projects for a specific organization
+@router.get("/{org_id}/projects")
+def get_organization_projects(
+    org_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Get all projects for a specific organization"""
+    # Admin can see all, users can only see their own organization
+    if current_user.role_id != 2 and current_user.organization_id != org_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not enough permissions"
+        )
+    
+    # Verify organization exists
+    organization = db.query(Organization).filter(Organization.id == org_id).first()
+    if not organization:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Organization not found"
+        )
+    
+    # Get projects with owner information
+    projects = db.query(Project).filter(Project.organization_id == org_id).all()
+    
+    result = []
+    for project in projects:
+        # Get owner information
+        owner_info = None
+        if project.owner_id:
+            owner = db.query(User).filter(User.id == project.owner_id).first()
+            if owner:
+                owner_info = {
+                    "id": owner.id,
+                    "username": owner.username,
+                    "email": owner.email
+                }
+        
+        project_dict = {
+            "id": project.id,
+            "name": project.name,
+            "description": project.description,
+            "owner_id": project.owner_id,
+            "organization_id": project.organization_id,
+            "created_at": project.created_at,
+            "owner": owner_info
+        }
+        result.append(project_dict)
+    
+    return result
 
 @router.post("/", response_model=OrganizationResponse)
 def create_organization(
@@ -112,13 +163,9 @@ def create_organization(
             detail="Organization with this name already exists"
         )
     
+    # Create organization with only available fields
     db_organization = Organization(
         name=organization.name,
-        description=organization.description,
-        website=organization.website,
-        industry=organization.industry,
-        size=organization.size,
-        status="active",
         created_at=datetime.utcnow()
     )
     
@@ -128,17 +175,15 @@ def create_organization(
     
     # Get member count (should be 0 for new org)
     member_count = db.query(User).filter(User.organization_id == db_organization.id).count()
-    
+    project_count = db.query(Project).filter(Project.organization_id == db_organization.id).count()
+
     return {
         "id": db_organization.id,
         "name": db_organization.name,
-        "description": db_organization.description,
-        "website": db_organization.website,
-        "industry": db_organization.industry,
-        "size": db_organization.size,
+        "description": "",  # Empty since model doesn't have description
         "members": member_count,
-        "projects": 0,
-        "status": db_organization.status,
+        "projects": project_count,
+        "status": getattr(db_organization, 'status', 'active'),
         "created_at": db_organization.created_at
     }
 
@@ -172,27 +217,24 @@ def update_organization(
                 detail="Organization with this name already exists"
             )
     
-    # Update fields if provided
-    update_data = organization.dict(exclude_unset=True)
-    for field, value in update_data.items():
-        setattr(db_organization, field, value)
+    # Update only the name field (since description doesn't exist in model)
+    if organization.name:
+        db_organization.name = organization.name
     
     db.commit()
     db.refresh(db_organization)
     
     # Get member count
     member_count = db.query(User).filter(User.organization_id == db_organization.id).count()
-    
+    project_count = db.query(Project).filter(Project.organization_id == db_organization.id).count()
+
     return {
         "id": db_organization.id,
         "name": db_organization.name,
-        "description": db_organization.description,
-        "website": db_organization.website,
-        "industry": db_organization.industry,
-        "size": db_organization.size,
+        "description": "",  # Empty since model doesn't have description
         "members": member_count,
-        "projects": 0,
-        "status": db_organization.status,
+        "projects": project_count,
+        "status": getattr(db_organization, 'status', 'active'),
         "created_at": db_organization.created_at
     }
 

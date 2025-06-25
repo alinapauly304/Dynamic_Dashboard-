@@ -78,10 +78,7 @@ def get_all_projects(
         projects_response.sort(key=lambda x: x["lastModified"], reverse=True)
     elif sort_by == "status":
         projects_response.sort(key=lambda x: x["status"])
-    elif sort_by == "priority":
-        priority_order = {"high": 3, "medium": 2, "low": 1}
-        projects_response.sort(key=lambda x: priority_order.get(x["priority"], 0), reverse=True)
-    
+ 
     return projects_response
 
 @router.get("/{project_id}", response_model=dict)
@@ -102,9 +99,6 @@ def get_project(project_id: int, db: Session = Depends(get_db), current_user: Us
         "description": project.description or "",
         "owner": owner.username if owner else "Unknown",
         "status": "active",
-        "priority": "medium",
-        "budget": 0,
-        "progress": 0,
         "createdDate": project.created_at.strftime("%Y-%m-%d"),
         "lastModified": project.created_at.strftime("%Y-%m-%d"),
         "team": []
