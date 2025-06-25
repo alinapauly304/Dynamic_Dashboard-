@@ -6,57 +6,82 @@ const ManageOrganizations = () => {
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingOrg, setEditingOrg] = useState(null);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    website: '',
-    industry: '',
-    size: ''
+    name: ''
   });
 
-  // Mock data - replace with actual API calls
-  useEffect(() => {
-    setTimeout(() => {
-      setOrganizations([
-        {
-          id: 1,
-          name: 'Tech Innovations Inc.',
-          description: 'Leading technology solutions provider',
-          website: 'https://techinnovations.com',
-          industry: 'Technology',
-          size: 'Large',
-          members: 150,
-          projects: 25,
-          status: 'active',
-          createdAt: '2023-01-15'
+  // Get user token from localStorage
+  const getUserToken = () => {
+    const userObj = localStorage.getItem('user_obj');
+    if (userObj) {
+      const userData = JSON.parse(userObj);
+      return userData.access_token;
+    }
+    return null;
+  };
+
+  // API base URL - adjust this to match your backend
+  const API_BASE_URL = 'http://localhost:8000'; // Update this to your backend URL
+
+  // Fetch organizations from backend
+  const fetchOrganizations = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      const token = getUserToken();
+      if (!token) {
+        setError('No authentication token found. Please login again.');
+        return;
+      }
+
+      const response = await fetch(`${API_BASE_URL}/organizations/`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
-        {
-          id: 2,
-          name: 'Green Energy Solutions',
-          description: 'Sustainable energy consulting',
-          website: 'https://greenenergy.com',
-          industry: 'Energy',
-          size: 'Medium',
-          members: 45,
-          projects: 12,
-          status: 'active',
-          createdAt: '2023-03-22'
-        },
-        {
-          id: 3,
-          name: 'Healthcare Plus',
-          description: 'Digital healthcare platform',
-          website: 'https://healthcareplus.com',
-          industry: 'Healthcare',
-          size: 'Small',
-          members: 20,
-          projects: 8,
-          status: 'pending',
-          createdAt: '2023-05-10'
-        }
-      ]);
+      });
+
+      if (response.status === 401) {
+        setError('Session expired. Please login again.');
+        // Optionally redirect to login
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // Transform the data to match what your existing models provide
+      const transformedData = data.map(org => ({
+        id: org.id,
+        name: org.name,
+        description: '', // Not available in your current model
+        website: '', // Not available in your current model
+        industry: '', // Not available in your current model
+        size: '', // Not available in your current model
+        members: org.members || 0,
+        projects: org.projects || 0,
+        status: org.status || 'active',
+        createdAt: org.created_at
+      }));
+      
+      setOrganizations(transformedData);
+    } catch (error) {
+      console.error('Error fetching organizations:', error);
+      setError('Failed to fetch organizations. Please try again.');
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
+  };
+
+  // Load organizations on component mount
+  useEffect(() => {
+    fetchOrganizations();
   }, []);
 
   const handleInputChange = (e) => {
@@ -66,54 +91,180 @@ const ManageOrganizations = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editingOrg) {
-      // Update existing organization
-      setOrganizations(organizations.map(org =>
-        org.id === editingOrg.id
-          ? { ...org, ...formData }
-          : org
-      ));
-      setEditingOrg(null);
-    } else {
-      // Add new organization
-      const newOrg = {
-        id: Date.now(),
-        ...formData,
-        members: 0,
-        projects: 0,
-        status: 'pending',
-        createdAt: new Date().toISOString().split('T')[0]
-      };
-      setOrganizations([...organizations, newOrg]);
+    setError('');
+
+    try {
+      const token = getUserToken();
+      if (!token) {
+        setError('No authentication token found. Please login again.');
+        return;
+      }
+
+      if (editingOrg) {
+        // Update existing organization
+        const response = await fetch(`${API_BASE_URL}/organizations/${editingOrg.id}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name: formData.name }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.detail || 'Failed to update organization');
+        }
+
+        const updatedOrg = await response.json();
+        // Transform the response to match our frontend structure
+        const transformedOrg = {
+          id: updatedOrg.id,
+          name: updatedOrg.name,
+          description: '',
+          website: '',
+          industry: '',
+          size: '',
+          members: updatedOrg.members || 0,
+          projects: updatedOrg.projects || 0,
+          status: updatedOrg.status || 'active',
+          createdAt: updatedOrg.created_at
+        };
+        setOrganizations(organizations.map(org =>
+          org.id === editingOrg.id ? transformedOrg : org
+        ));
+        setEditingOrg(null);
+      } else {
+        // Add new organization
+        const response = await fetch(`${API_BASE_URL}/organizations/`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name: formData.name }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.detail || 'Failed to create organization');
+        }
+
+        const newOrg = await response.json();
+        // Transform the response to match our frontend structure
+        const transformedOrg = {
+          id: newOrg.id,
+          name: newOrg.name,
+          description: '',
+          website: '',
+          industry: '',
+          size: '',
+          members: newOrg.members || 0,
+          projects: newOrg.projects || 0,
+          status: newOrg.status || 'active',
+          createdAt: newOrg.created_at
+        };
+        setOrganizations([...organizations, transformedOrg]);
+      }
+
+      // Reset form
+      setFormData({ name: '' });
+      setShowAddForm(false);
+    } catch (error) {
+      console.error('Error saving organization:', error);
+      setError(error.message);
     }
-    setFormData({ name: '', description: '', website: '', industry: '', size: '' });
-    setShowAddForm(false);
   };
 
   const handleEdit = (org) => {
     setEditingOrg(org);
     setFormData({
-      name: org.name,
-      description: org.description,
-      website: org.website,
-      industry: org.industry,
-      size: org.size
+      name: org.name
     });
     setShowAddForm(true);
+    setError('');
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this organization?')) {
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this organization?')) {
+      return;
+    }
+
+    try {
+      setError('');
+      const token = getUserToken();
+      if (!token) {
+        setError('No authentication token found. Please login again.');
+        return;
+      }
+
+      const response = await fetch(`${API_BASE_URL}/organizations/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to delete organization');
+      }
+
+      // Remove from local state
       setOrganizations(organizations.filter(org => org.id !== id));
+    } catch (error) {
+      console.error('Error deleting organization:', error);
+      setError(error.message);
     }
   };
 
   const handleCancel = () => {
     setShowAddForm(false);
     setEditingOrg(null);
-    setFormData({ name: '', description: '', website: '', industry: '', size: '' });
+    setFormData({ name: '' });
+    setError('');
+  };
+
+  const handleViewOrganization = async (orgId) => {
+    try {
+      const token = getUserToken();
+      if (!token) {
+        setError('No authentication token found. Please login again.');
+        return;
+      }
+
+      const response = await fetch(`${API_BASE_URL}/organizations/${orgId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to fetch organization details');
+      }
+
+      const orgDetails = await response.json();
+      // Handle the organization details based on your backend response
+      console.log('Organization details:', orgDetails);
+      
+      let usersList = '';
+      if (orgDetails.users && orgDetails.users.length > 0) {
+        usersList = orgDetails.users.map(user => `• ${user.username} (${user.email})`).join('\n');
+      } else {
+        usersList = 'No users found';
+      }
+      
+      alert(`Organization: ${orgDetails.name}\nUsers: ${orgDetails.users ? orgDetails.users.length : 0}\nCreated: ${new Date(orgDetails.created_at).toLocaleDateString()}\n\nUsers:\n${usersList}`);
+    } catch (error) {
+      console.error('Error fetching organization details:', error);
+      setError(error.message);
+    }
   };
 
   if (loading) {
@@ -127,6 +278,19 @@ const ManageOrganizations = () => {
   return (
     <div className="projects-container">
       <h2>Manage Organizations</h2>
+      
+      {error && (
+        <div style={{ 
+          padding: '12px', 
+          backgroundColor: '#f8d7da', 
+          color: '#721c24', 
+          border: '1px solid #f5c6cb', 
+          borderRadius: '8px', 
+          marginBottom: '20px' 
+        }}>
+          {error}
+        </div>
+      )}
       
       <div className="projects-header">
         <p>Total organizations: {organizations.length}</p>
@@ -165,99 +329,6 @@ const ManageOrganizations = () => {
                   }}
                 />
               </div>
-              
-              <div>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-                  Description
-                </label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  rows="3"
-                  style={{ 
-                    width: '100%', 
-                    padding: '12px', 
-                    border: '1px solid #e9ecef', 
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    resize: 'vertical'
-                  }}
-                />
-              </div>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
-                <div>
-                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-                    Website
-                  </label>
-                  <input
-                    type="url"
-                    name="website"
-                    value={formData.website}
-                    onChange={handleInputChange}
-                    style={{ 
-                      width: '100%', 
-                      padding: '12px', 
-                      border: '1px solid #e9ecef', 
-                      borderRadius: '8px',
-                      fontSize: '14px'
-                    }}
-                  />
-                </div>
-                
-                <div>
-                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-                    Industry
-                  </label>
-                  <select
-                    name="industry"
-                    value={formData.industry}
-                    onChange={handleInputChange}
-                    style={{ 
-                      width: '100%', 
-                      padding: '12px', 
-                      border: '1px solid #e9ecef', 
-                      borderRadius: '8px',
-                      fontSize: '14px'
-                    }}
-                  >
-                    <option value="">Select Industry</option>
-                    <option value="Technology">Technology</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Energy">Energy</option>
-                    <option value="Education">Education</option>
-                    <option value="Manufacturing">Manufacturing</option>
-                    <option value="Retail">Retail</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-                    Size
-                  </label>
-                  <select
-                    name="size"
-                    value={formData.size}
-                    onChange={handleInputChange}
-                    style={{ 
-                      width: '100%', 
-                      padding: '12px', 
-                      border: '1px solid #e9ecef', 
-                      borderRadius: '8px',
-                      fontSize: '14px'
-                    }}
-                  >
-                    <option value="">Select Size</option>
-                    <option value="Small">Small (1-50)</option>
-                    <option value="Medium">Medium (51-200)</option>
-                    <option value="Large">Large (201-1000)</option>
-                    <option value="Enterprise">Enterprise (1000+)</option>
-                  </select>
-                </div>
-              </div>
             </div>
             
             <div style={{ display: 'flex', gap: '12px' }}>
@@ -287,38 +358,21 @@ const ManageOrganizations = () => {
                 </span>
               </div>
               
-
-              
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: '1fr 1fr', 
-                gap: '12px', 
-                marginBottom: '16px',
-                padding: '12px',
-                background: '#f8f9fa',
-                borderRadius: '8px'
-              }}>
-                <div>
-                  <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>Industry</p>
-                  <p style={{ margin: '0', fontSize: '14px', fontWeight: '600', color: '#2c3e50' }}>
-                    {org.industry || 'Not specified'}
-                  </p>
-                </div>
-                <div>
-                  <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>Size</p>
-                  <p style={{ margin: '0', fontSize: '14px', fontWeight: '600', color: '#2c3e50' }}>
-                    {org.size || 'Not specified'}
-                  </p>
-                </div>
-              </div>
-              
               <div className="project-details">
                 <div>
                   <p>{org.members} members</p>
                   <p>{org.projects} projects</p>
+                  <p style={{ fontSize: '12px', color: '#6c757d' }}>
+                    Created: {new Date(org.createdAt).toLocaleDateString()}
+                  </p>
                 </div>
                 <div className="project-actions">
-                  <button className="view-btn">View</button>
+                  <button 
+                    className="view-btn" 
+                    onClick={() => handleViewOrganization(org.id)}
+                  >
+                    View
+                  </button>
                   <button className="edit-btn" onClick={() => handleEdit(org)}>
                     Edit
                   </button>
