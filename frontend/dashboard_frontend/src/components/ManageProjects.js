@@ -292,7 +292,6 @@ const ManageProjects = () => {
             <option value="name">Sort by Name</option>
             <option value="date">Sort by Date</option>
             <option value="status">Sort by Status</option>
-            <option value="priority">Sort by Priority</option>
           </select>
         </div>
       </div>
@@ -464,10 +463,6 @@ const ProjectDetailModal = ({ project, onClose }) => (
         <span>{project.status}</span>
       </div>
       
-      <div className="profile-field">
-        <label>Progress:</label>
-        <span>{project.progress}%</span>
-      </div>
       
       <div className="profile-field">
         <label>Created:</label>
