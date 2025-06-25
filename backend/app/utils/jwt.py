@@ -1,63 +1,115 @@
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
-
-SECRET_KEY = "secret-key"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
-
-
-def create_token(data: dict):
-    to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})  
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-
-def decode_token(token: str):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload
-    except JWTError as e:
-        print(f"JWT Error: {e}")  # Debug print
-        return None
-    
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from app.models import users
 from app.database import SessionLocal
+import logging
+
+# Set up logging
+logger = logging.getLogger(__name__)
+
+SECRET_KEY = "secret-key"  # Change this to a secure secret key in production
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
+def create_token(data: dict):
+    """Create JWT token with proper expiration"""
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+def decode_token(token: str):
+    """Decode and validate JWT token"""
+    try:
+        # Remove 'Bearer ' prefix if present
+        if token.startswith('Bearer '):
+            token = token[7:]
+        
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        logger.info(f"Token decoded successfully for user: {payload.get('sub')}")
+        return payload
+    except jwt.ExpiredSignatureError:
+        logger.warning("Token has expired")
+        return None
+    except jwt.InvalidTokenError as e:
+        logger.warning(f"Invalid token: {e}")
+        return None
+    except Exception as e:
+        logger.error(f"Unexpected error decoding token: {e}")
+        return None
+
 def get_db():
+    """Database dependency with proper session management"""
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
 
-def get_current_user(token: str = Depends(oauth2_scheme)) -> users.User:
-    print(f"Received token: {token[:20]}...")  # Debug print (first 20 chars only)
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> users.User:
+    """Get current user from JWT token with proper error handling"""
     
-    payload = decode_token(token)
-    if payload is None:
-        print("Token decode failed")  # Debug print
-        raise HTTPException(status_code=401, detail="Invalid or expired token")
-
-    username: str = payload.get("sub")
-    if username is None:
-        print("No username in token payload")  # Debug print
-        raise HTTPException(status_code=401, detail="Invalid token")
-
-    print(f"Looking for user: {username}")  # Debug print
-
-    db = next(get_db())
+    # Create credentials exception
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    
     try:
-        user = db.query(users.User).filter(users.User.username == username).first()
-        if not user:
-            print(f"User {username} not found in database")  # Debug print
-            raise HTTPException(status_code=404, detail="User not found")
+        logger.info(f"Validating token (first 20 chars): {token[:20]}...")
         
-        print(f"Found user: {user.username}")  # Debug print
+        # Decode token
+        payload = decode_token(token)
+        if payload is None:
+            logger.warning("Token validation failed - invalid or expired")
+            raise credentials_exception
+
+        # Extract username from token
+        username: str = payload.get("sub")
+        if username is None:
+            logger.warning("No username found in token payload")
+            raise credentials_exception
+
+        logger.info(f"Looking up user: {username}")
+        
+        # Query user from database
+        user = db.query(users.User).filter(users.User.username == username).first()
+        if user is None:
+            logger.warning(f"User {username} not found in database")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found"
+            )
+        
+        logger.info(f"User {user.username} authenticated successfully")
         return user
-    finally:
-        db.close()
+        
+    except HTTPException:
+        # Re-raise HTTP exceptions
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error in user authentication: {e}")
+        raise credentials_exception
+
+def verify_token(token: str) -> dict:
+    """Standalone token verification function"""
+    try:
+        payload = decode_token(token)
+        if payload is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired token"
+            )
+        return payload
+    except Exception as e:
+        logger.error(f"Token verification failed: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token verification failed"
+        )

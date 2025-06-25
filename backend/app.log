@@ -97,3 +97,672 @@ fastapi.exceptions.HTTPException: 400: Username already taken
 2025-06-22 16:00:11,804 | INFO | fastapi-app | User logged in: admin
 2025-06-22 16:45:13,998 | INFO | fastapi-app | User logged in: admin
 2025-06-22 17:03:05,344 | INFO | fastapi-app | User logged in: admin
+2025-06-25 10:52:53,821 | INFO | fastapi-app | User logged in: admin
+2025-06-25 11:04:58,710 | INFO | fastapi-app | User logged in: admin
+2025-06-25 11:12:25,773 | INFO | fastapi-app | User logged in: user2
+2025-06-25 11:12:26,684 | INFO | fastapi-app | User logged in: user2
+2025-06-25 11:12:42,743 | INFO | fastapi-app | User logged in: admin
+2025-06-25 11:54:18,026 | INFO | fastapi-app | User logged in: admin
+2025-06-25 12:01:30,477 | INFO | fastapi-app | User logged in: admin
+2025-06-25 12:14:57,090 | INFO | fastapi-app | User logged in: admin
+2025-06-25 12:18:18,191 | INFO | fastapi-app | User logged in: admin
+2025-06-25 12:22:31,733 | INFO | fastapi-app | User logged in: admin
+2025-06-25 12:22:57,900 | INFO | fastapi-app | User logged in: admin
+2025-06-25 12:27:06,321 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:27:06,327 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:27:06,401 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:27:06,402 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:27:06,403 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:27:06,403 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:27:06,557 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:27:06,559 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:27:06,559 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:27:06,559 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:27:06,761 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:27:06,761 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:27:06,769 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:27:06,779 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:27:06,780 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:27:06,781 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:27:06,797 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:27:06,798 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:27:06,822 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:27:06,822 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:27:06,822 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:27:06,825 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:27:06,826 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:27:06,826 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:27:06,826 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:27:06,832 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:27:06,833 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:27:06,835 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:27:06,835 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:27:06,858 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:27:06,859 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:27:06,860 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:27:06,864 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:27:06,865 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:27:06,866 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:27:06,866 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:27:06,868 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:27:06,868 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:27:06,870 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:27:06,870 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:27:06,872 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:27:06,872 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:27:06,947 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:27:06,948 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:27:37,666 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:27:37,667 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:27:37,667 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:27:37,668 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:27:37,668 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:27:37,668 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:27:37,670 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:27:37,670 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:27:37,671 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:27:37,672 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:27:37,672 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:27:37,672 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:27:37,672 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:27:37,672 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:27:37,674 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:27:37,674 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:27:37,676 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:27:37,676 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:27:37,677 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:27:37,677 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:27:37,678 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:27:37,678 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:27:37,687 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:27:37,688 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:27:37,688 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:27:37,689 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:27:37,689 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:27:37,689 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:27:37,690 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:27:37,692 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:27:37,692 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:27:37,693 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:27:37,694 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:27:37,695 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:27:37,696 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:27:37,696 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:27:37,697 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:27:37,698 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:27:37,698 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:27:37,699 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:27:37,703 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:27:37,703 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:27:37,706 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:27:37,706 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:28:55,692 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:28:55,698 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:28:55,699 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:28:55,713 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:28:55,863 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:28:55,863 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:28:55,864 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:28:55,867 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:28:57,109 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:28:57,110 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:28:57,110 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:28:57,111 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:28:57,112 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:28:57,112 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:28:57,113 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:28:57,114 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:28:57,116 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:28:57,116 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:28:57,116 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:28:57,116 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:28:57,117 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:28:57,117 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:28:57,118 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:28:57,118 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:28:57,118 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:28:57,119 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:28:57,120 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:28:57,120 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:28:57,122 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:28:57,122 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:28:57,127 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:28:57,127 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:28:57,127 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:28:57,129 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:28:57,131 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:28:57,131 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:28:57,131 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:28:57,134 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:28:57,134 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:28:57,136 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:28:57,137 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:28:57,139 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:28:57,148 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:28:57,149 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:28:57,150 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:28:57,150 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:28:57,157 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:28:57,157 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:28:57,164 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:28:57,164 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:28:57,166 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:28:57,166 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:28:58,392 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:28:58,393 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:28:58,393 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:28:58,397 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:28:58,414 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:28:58,415 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:28:58,415 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:28:58,419 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:18,455 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:18,455 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:18,455 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:18,458 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:18,710 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:18,710 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:18,710 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:18,711 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:28,586 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:28,587 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:28,587 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:28,589 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:28,618 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:28,618 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:28,619 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:28,620 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:38,924 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:38,925 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:38,925 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:38,927 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:38,948 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:38,948 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:38,949 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:38,950 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:47,148 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:47,148 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:47,148 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:47,149 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:47,150 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:47,150 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:47,151 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:47,152 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:29:47,152 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:29:47,152 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:47,152 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:29:47,153 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:29:47,153 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:29:47,153 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:29:47,154 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:29:47,154 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:29:47,155 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:29:47,155 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:29:47,156 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:29:47,156 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:29:47,156 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:29:47,156 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:29:47,165 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:47,165 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:47,165 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:47,166 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:47,166 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:47,166 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:47,167 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:47,167 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:29:47,167 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:29:47,168 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:29:47,168 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:47,169 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:29:47,170 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:29:47,170 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:29:47,170 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:29:47,170 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:29:47,171 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:29:47,171 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:29:47,173 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:29:47,173 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:29:47,174 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:29:47,174 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:29:59,856 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:59,856 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:59,856 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:59,858 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:59,858 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:59,858 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:59,860 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:59,861 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:59,862 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:29:59,862 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:29:59,862 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:29:59,863 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:29:59,864 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:29:59,864 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:29:59,865 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:29:59,865 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:29:59,867 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:29:59,867 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:29:59,868 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:29:59,868 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:29:59,870 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:29:59,870 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:29:59,877 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:59,878 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:59,878 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:59,880 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:59,880 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:29:59,881 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:29:59,881 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:29:59,883 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:29:59,883 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:29:59,884 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:29:59,884 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:29:59,887 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:29:59,887 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:29:59,889 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:29:59,889 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:29:59,889 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:29:59,892 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:29:59,893 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:29:59,895 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:29:59,895 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:29:59,897 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:29:59,897 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:30:01,433 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:30:01,434 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:30:01,434 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:30:01,437 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:30:01,452 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:30:01,453 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:30:01,453 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:30:01,456 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:30:04,202 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:30:04,202 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:30:04,202 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:30:04,203 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:30:04,203 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:30:04,203 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:30:04,205 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:30:04,206 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:30:04,208 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:30:04,208 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:30:04,208 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:30:04,208 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:30:04,208 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:30:04,208 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:30:04,210 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:30:04,210 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:30:04,210 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:30:04,210 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:30:04,213 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:30:04,213 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:30:04,216 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:30:04,216 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:30:04,221 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:30:04,222 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:30:04,223 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:30:04,226 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:30:04,232 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:30:04,233 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:30:04,234 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:30:04,236 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:30:04,236 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:30:04,237 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:30:04,237 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:30:04,237 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:30:04,240 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:30:04,243 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:30:04,243 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:30:04,243 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:30:04,244 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:30:04,245 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:30:04,249 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:30:04,250 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:30:04,252 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:30:04,252 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:30:55,083 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:30:55,084 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:30:55,084 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:30:55,088 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:30:55,099 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:30:55,099 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:30:55,099 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:30:55,101 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:31:08,288 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:31:08,288 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:31:08,289 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:31:08,290 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:31:08,290 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:31:08,290 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:31:08,292 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:31:08,293 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:31:08,293 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:31:08,293 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:31:08,293 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:31:08,294 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:31:08,294 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:31:08,294 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:31:08,295 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:31:08,294 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:31:08,296 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:31:08,296 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:31:08,296 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:31:08,296 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:31:08,297 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:31:08,297 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 12:31:08,303 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:31:08,304 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:31:08,304 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:31:08,306 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:31:08,306 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 12:31:08,307 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 12:31:08,307 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 12:31:08,308 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 12:31:08,308 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:31:08,309 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:31:08,309 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 12:31:08,310 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 12:31:08,310 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 12:31:08,311 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 12:31:08,311 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 12:31:08,311 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 12:31:08,312 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 12:31:08,313 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 12:31:08,314 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 12:31:08,315 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 12:31:08,316 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 12:31:08,317 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 13:25:55,175 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:25:55,176 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:25:55,241 | WARNING | app.utils.jwt | Token has expired
+2025-06-25 13:25:55,241 | WARNING | app.utils.jwt | Token has expired
+2025-06-25 13:25:55,242 | WARNING | app.utils.jwt | Token validation failed - invalid or expired
+2025-06-25 13:25:55,242 | WARNING | app.utils.jwt | Token validation failed - invalid or expired
+2025-06-25 13:25:55,254 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:25:55,255 | WARNING | app.utils.jwt | Token has expired
+2025-06-25 13:25:55,255 | WARNING | app.utils.jwt | Token validation failed - invalid or expired
+2025-06-25 13:25:55,256 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:25:55,257 | WARNING | app.utils.jwt | Token has expired
+2025-06-25 13:25:55,258 | WARNING | app.utils.jwt | Token validation failed - invalid or expired
+2025-06-25 13:26:14,412 | INFO | fastapi-app | User logged in: admin
+2025-06-25 13:26:22,463 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:22,464 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:22,464 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:22,466 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:22,466 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:22,466 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:22,468 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:22,469 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 13:26:22,469 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:22,469 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:22,606 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:22,607 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 13:26:22,607 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:22,607 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:22,671 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 13:26:22,671 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 13:26:22,683 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 13:26:22,684 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 13:26:22,685 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 13:26:22,686 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 13:26:22,696 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:22,697 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:22,697 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:22,701 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:22,703 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 13:26:22,703 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:22,703 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:22,710 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 13:26:22,710 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 13:26:22,715 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 13:26:22,715 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 13:26:22,718 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 13:26:22,718 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 13:26:22,726 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 13:26:22,726 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 13:26:22,736 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:22,737 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:22,737 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:22,739 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:22,740 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 13:26:22,740 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:22,740 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:22,741 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 13:26:22,741 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 13:26:35,514 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:35,514 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:35,514 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:35,515 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:35,516 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:35,516 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:35,517 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:35,519 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:35,520 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 13:26:35,521 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:35,521 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:35,522 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 13:26:35,523 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 13:26:35,523 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:35,523 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 13:26:35,523 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:35,526 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 13:26:35,527 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 13:26:35,529 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 13:26:35,530 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 13:26:35,532 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 13:26:35,532 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 13:26:35,537 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:35,538 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:35,538 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:35,541 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:35,543 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:35,543 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:35,543 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:35,547 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 13:26:35,548 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:35,548 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:35,549 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:35,552 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 13:26:35,552 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 13:26:35,553 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 13:26:35,553 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:35,554 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:35,557 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 13:26:35,557 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 13:26:35,562 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 13:26:35,562 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 13:26:35,566 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 13:26:35,566 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 13:26:38,519 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:38,519 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:38,519 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:38,520 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:38,541 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:38,541 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:38,541 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:38,543 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:40,417 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:40,417 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:40,417 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:40,418 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:40,418 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:40,418 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:40,421 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:40,422 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:40,423 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 13:26:40,423 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:40,423 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:40,425 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 13:26:40,425 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:40,425 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:40,427 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 13:26:40,427 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 13:26:40,428 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 13:26:40,429 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 13:26:40,430 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 13:26:40,431 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 13:26:40,432 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 13:26:40,433 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 13:26:40,437 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:40,437 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:40,438 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:40,441 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:40,448 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 13:26:40,449 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:40,451 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:40,451 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:26:40,453 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:26:40,453 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:26:40,454 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 13:26:40,455 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 13:26:40,457 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:26:40,460 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 13:26:40,461 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:26:40,461 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:26:40,464 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 13:26:40,465 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 13:26:40,468 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 13:26:40,468 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 13:26:40,470 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 13:26:40,471 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 13:33:49,500 | INFO | fastapi-app | User logged in: admin
+2025-06-25 13:37:49,590 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:37:49,619 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:37:49,619 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:37:49,756 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:37:49,907 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:37:49,907 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:37:49,907 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:37:49,919 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:38:47,151 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:38:47,153 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:38:47,155 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:38:47,166 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:38:47,208 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:38:47,209 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:38:47,210 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:38:47,216 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:39:54,379 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:39:54,386 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:39:54,388 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:39:54,418 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:39:54,478 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:39:54,479 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:39:54,479 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:39:54,484 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:39:57,248 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:39:57,249 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:39:57,249 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:39:57,252 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:07,784 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:07,785 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:07,785 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:07,789 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:24,558 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:24,559 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:24,559 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:24,565 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:42,560 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:42,562 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:42,562 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:42,564 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:42,564 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:42,564 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:42,566 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:42,569 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:42,574 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 13:40:42,576 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:40:42,577 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:40:42,582 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 13:40:42,583 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:40:42,583 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:40:42,584 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 13:40:42,587 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 13:40:42,593 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 13:40:42,593 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 13:40:42,597 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 13:40:42,597 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 13:40:42,599 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 13:40:42,599 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 13:40:42,618 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:42,618 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:42,619 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:42,619 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:42,620 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:42,620 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:42,622 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:42,623 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:42,625 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 13:40:42,626 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:40:42,626 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:40:42,628 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 13:40:42,628 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:40:42,629 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 13:40:42,629 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 13:40:42,629 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:40:42,631 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 13:40:42,632 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 13:40:42,638 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 13:40:42,639 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 13:40:42,641 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 13:40:42,642 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 13:40:44,417 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:44,418 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:44,418 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:44,419 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:44,436 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:44,436 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:44,436 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:44,438 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:50,519 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:50,519 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:50,520 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:50,521 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:50,522 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:50,522 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:50,522 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:50,525 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 13:40:50,525 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:40:50,525 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:40:50,527 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:50,527 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 13:40:50,527 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 13:40:50,529 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 13:40:50,529 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:40:50,529 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:40:50,531 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 13:40:50,531 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 13:40:50,533 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 13:40:50,533 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 13:40:50,534 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 13:40:50,535 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 13:40:50,544 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:50,544 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:50,545 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:50,546 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:50,546 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:50,547 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:50,547 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:50,551 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:50,554 | INFO | app.routers.roles | User admin requesting permissions list
+2025-06-25 13:40:50,555 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:40:50,555 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:40:50,557 | INFO | app.routers.roles | User admin requesting roles list
+2025-06-25 13:40:50,559 | INFO | app.routers.roles | Retrieved 0 permissions for user admin
+2025-06-25 13:40:50,559 | INFO | app.routers.roles | Returning 0 permissions to frontend
+2025-06-25 13:40:50,559 | INFO | app.routers.roles | Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+2025-06-25 13:40:50,560 | INFO | app.routers.roles | User admin has admin role (role_id 2)
+2025-06-25 13:40:50,564 | INFO | app.routers.roles | Found 2 roles in database
+2025-06-25 13:40:50,564 | INFO | app.routers.roles | Processing role: User (ID: 1)
+2025-06-25 13:40:50,567 | INFO | app.routers.roles | Role 'User' has 0 permissions
+2025-06-25 13:40:50,567 | INFO | app.routers.roles | Processing role: Admin (ID: 2)
+2025-06-25 13:40:50,571 | INFO | app.routers.roles | Role 'Admin' has 0 permissions
+2025-06-25 13:40:50,571 | INFO | app.routers.roles | Successfully processed 2 roles, returning to frontend
+2025-06-25 13:40:51,578 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:51,578 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:51,578 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:51,580 | INFO | app.utils.jwt | User admin authenticated successfully
+2025-06-25 13:40:51,597 | INFO | app.utils.jwt | Validating token (first 20 chars): eyJhbGciOiJIUzI1NiIs...
+2025-06-25 13:40:51,597 | INFO | app.utils.jwt | Token decoded successfully for user: admin
+2025-06-25 13:40:51,598 | INFO | app.utils.jwt | Looking up user: admin
+2025-06-25 13:40:51,599 | INFO | app.utils.jwt | User admin authenticated successfully

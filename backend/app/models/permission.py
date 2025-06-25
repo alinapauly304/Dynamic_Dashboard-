@@ -9,6 +9,7 @@ class Permission(Base):
     name = Column(String(100), unique=True, nullable=False)
     description = Column(Text)
 
+
 class RolePermission(Base):
     __tablename__ = "role_permissions"
     id = Column(Integer, primary_key=True)
