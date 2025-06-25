@@ -3,108 +3,184 @@ import './MyProjects.css'; // Reusing existing styles
 
 const ManageRoles = () => {
   const [roles, setRoles] = useState([]);
+  const [permissions, setPermissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingRole, setEditingRole] = useState(null);
-  const [showPermissions, setShowPermissions] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
-    description: '',
-    permissions: []
+    permission_ids: []
   });
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  // Available permissions
-  const availablePermissions = [
-    { id: 'users.create', name: 'Create Users', category: 'User Management' },
-    { id: 'users.read', name: 'View Users', category: 'User Management' },
-    { id: 'users.update', name: 'Edit Users', category: 'User Management' },
-    { id: 'users.delete', name: 'Delete Users', category: 'User Management' },
-    { id: 'projects.create', name: 'Create Projects', category: 'Project Management' },
-    { id: 'projects.read', name: 'View Projects', category: 'Project Management' },
-    { id: 'projects.update', name: 'Edit Projects', category: 'Project Management' },
-    { id: 'projects.delete', name: 'Delete Projects', category: 'Project Management' },
-    { id: 'organizations.create', name: 'Create Organizations', category: 'Organization Management' },
-    { id: 'organizations.read', name: 'View Organizations', category: 'Organization Management' },
-    { id: 'organizations.update', name: 'Edit Organizations', category: 'Organization Management' },
-    { id: 'organizations.delete', name: 'Delete Organizations', category: 'Organization Management' },
-    { id: 'roles.create', name: 'Create Roles', category: 'Role Management' },
-    { id: 'roles.read', name: 'View Roles', category: 'Role Management' },
-    { id: 'roles.update', name: 'Edit Roles', category: 'Role Management' },
-    { id: 'roles.delete', name: 'Delete Roles', category: 'Role Management' },
-    { id: 'reports.view', name: 'View Reports', category: 'Reporting' },
-    { id: 'reports.export', name: 'Export Reports', category: 'Reporting' },
-    { id: 'system.admin', name: 'System Administration', category: 'System' },
-    { id: 'settings.update', name: 'Update Settings', category: 'System' }
-  ];
+  // Get auth token - Fixed to match Login.js format
+  const getAuthToken = () => {
+    try {
+      const userObj = localStorage.getItem('user_obj');
+      if (userObj) {
+        const userData = JSON.parse(userObj);
+        console.log('User data found:', userData);
+        return userData.access_token;
+      }
+      console.log('No user_obj found in localStorage');
+      return null;
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+      return null;
+    }
+  };
 
-  // Mock data - replace with actual API calls
-  useEffect(() => {
-    setTimeout(() => {
-      setRoles([
-        {
-          id: 1,
-          name: 'Administrator',
-          description: 'Full system access with all permissions',
-          permissions: availablePermissions.map(p => p.id),
-          userCount: 3,
-          isSystem: true,
-          createdAt: '2022-01-01',
-          status: 'active'
-        },
-        {
-          id: 2,
-          name: 'Project Manager',
-          description: 'Can manage projects and view user information',
-          permissions: [
-            'projects.create', 'projects.read', 'projects.update', 'projects.delete',
-            'users.read', 'organizations.read', 'reports.view'
-          ],
-          userCount: 8,
-          isSystem: false,
-          createdAt: '2022-02-15',
-          status: 'active'
-        },
-        {
-          id: 3,
-          name: 'Developer',
-          description: 'Can view and update assigned projects',
-          permissions: [
-            'projects.read', 'projects.update', 'users.read'
-          ],
-          userCount: 15,
-          isSystem: false,
-          createdAt: '2022-03-10',
-          status: 'active'
-        },
-        {
-          id: 4,
-          name: 'Viewer',
-          description: 'Read-only access to projects and users',
-          permissions: [
-            'projects.read', 'users.read', 'organizations.read'
-          ],
-          userCount: 5,
-          isSystem: false,
-          createdAt: '2022-04-20',
-          status: 'active'
-        },
-        {
-          id: 5,
-          name: 'Analyst',
-          description: 'Can view reports and analyze data',
-          permissions: [
-            'projects.read', 'users.read', 'reports.view', 'reports.export'
-          ],
-          userCount: 2,
-          isSystem: false,
-          createdAt: '2022-05-30',
-          status: 'inactive'
+  // API base URL
+  const API_BASE = 'http://localhost:8000/admin/roles';
+
+  // Fetch roles from backend
+  const fetchRoles = async () => {
+    console.log('Fetching roles...');
+    try {
+      const token = getAuthToken();
+      if (!token) {
+        throw new Error('No authentication token found. Please login again.');
+      }
+
+      const response = await fetch(`${API_BASE}/`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
-      ]);
-      setLoading(false);
-    }, 1000);
+      });
+      
+      console.log('Roles response status:', response.status);
+      
+      if (!response.ok) {
+        let errorMessage = `Failed to fetch roles: ${response.status} ${response.statusText}`;
+        
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.detail || errorMessage;
+        } catch (parseError) {
+          console.error('Error parsing error response:', parseError);
+        }
+        
+        if (response.status === 401) {
+          errorMessage = 'Authentication failed. Please login again.';
+          // Clear invalid token
+          localStorage.removeItem('user_obj');
+        } else if (response.status === 403) {
+          errorMessage = 'Access denied. Admin privileges required.';
+        }
+        
+        throw new Error(errorMessage);
+      }
+      
+      const data = await response.json();
+      console.log('Fetched roles data:', data);
+      
+      if (Array.isArray(data)) {
+        setRoles(data);
+        console.log(`Successfully loaded ${data.length} roles`);
+      } else {
+        console.error('Roles data is not an array:', data);
+        throw new Error('Invalid data format received from server');
+      }
+      
+    } catch (error) {
+      console.error('Error fetching roles:', error);
+      setError(`Failed to load roles: ${error.message}`);
+      setRoles([]); // Ensure roles is always an array
+    }
+  };
+
+  // Fetch permissions from backend
+  const fetchPermissions = async () => {
+    console.log('Fetching permissions...');
+    try {
+      const token = getAuthToken();
+      if (!token) {
+        throw new Error('No authentication token found. Please login again.');
+      }
+
+      const response = await fetch(`${API_BASE}/permissions`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log('Permissions response status:', response.status);
+      
+      if (!response.ok) {
+        let errorMessage = `Failed to fetch permissions: ${response.status} ${response.statusText}`;
+        
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.detail || errorMessage;
+        } catch (parseError) {
+          console.error('Error parsing error response:', parseError);
+        }
+        
+        if (response.status === 401) {
+          errorMessage = 'Authentication failed. Please login again.';
+          localStorage.removeItem('user_obj');
+        } else if (response.status === 403) {
+          errorMessage = 'Access denied. Admin privileges required.';
+        }
+        
+        throw new Error(errorMessage);
+      }
+      
+      const data = await response.json();
+      console.log('Fetched permissions data:', data);
+      
+      if (Array.isArray(data)) {
+        setPermissions(data);
+        console.log(`Successfully loaded ${data.length} permissions`);
+      } else {
+        console.error('Permissions data is not an array:', data);
+        throw new Error('Invalid permissions data format received from server');
+      }
+      
+    } catch (error) {
+      console.error('Error fetching permissions:', error);
+      setError(`Failed to load permissions: ${error.message}`);
+      setPermissions([]); // Ensure permissions is always an array
+    }
+  };
+
+  // Load data on component mount
+  useEffect(() => {
+    const loadData = async () => {
+      console.log('ManageRoles component mounting, loading data...');
+      setLoading(true);
+      setError(''); // Clear any previous errors
+      
+      try {
+        // Check if we have a token first
+        const token = getAuthToken();
+        if (!token) {
+          setError('No authentication token found. Please login again.');
+          setLoading(false);
+          return;
+        }
+
+        // Load both roles and permissions
+        await Promise.all([fetchRoles(), fetchPermissions()]);
+        
+      } catch (error) {
+        console.error('Error loading data:', error);
+        setError(`Failed to load data: ${error.message}`);
+      } finally {
+        setLoading(false);
+        console.log('Data loading completed');
+      }
+    };
+    
+    loadData();
   }, []);
 
+  // Handle form input changes
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -112,109 +188,218 @@ const ManageRoles = () => {
     });
   };
 
+  // Handle permission checkbox changes
   const handlePermissionChange = (permissionId) => {
-    const updatedPermissions = formData.permissions.includes(permissionId)
-      ? formData.permissions.filter(p => p !== permissionId)
-      : [...formData.permissions, permissionId];
+    const updatedPermissions = formData.permission_ids.includes(permissionId)
+      ? formData.permission_ids.filter(id => id !== permissionId)
+      : [...formData.permission_ids, permissionId];
     
     setFormData({
       ...formData,
-      permissions: updatedPermissions
+      permission_ids: updatedPermissions
     });
   };
 
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editingRole) {
-      // Update existing role
-      setRoles(roles.map(role =>
-        role.id === editingRole.id
-          ? { ...role, ...formData }
-          : role
-      ));
+    setError('');
+    setSuccess('');
+
+    try {
+      const token = getAuthToken();
+      if (!token) {
+        throw new Error('No authentication token found. Please login again.');
+      }
+
+      const url = editingRole 
+        ? `${API_BASE}/${editingRole.id}` 
+        : `${API_BASE}/`;
+      
+      const method = editingRole ? 'PUT' : 'POST';
+      
+      console.log('Submitting form:', { method, url, formData });
+      
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        let errorMessage = `Failed to save role: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.detail || errorMessage;
+        } catch (parseError) {
+          console.error('Error parsing error response:', parseError);
+        }
+        throw new Error(errorMessage);
+      }
+
+      setSuccess(editingRole ? 'Role updated successfully!' : 'Role created successfully!');
+      setFormData({ name: '', permission_ids: [] });
+      setShowAddForm(false);
       setEditingRole(null);
-    } else {
-      // Add new role
-      const newRole = {
-        id: Date.now(),
-        ...formData,
-        userCount: 0,
-        isSystem: false,
-        createdAt: new Date().toISOString().split('T')[0],
-        status: 'active'
-      };
-      setRoles([...roles, newRole]);
+      
+      // Refresh roles list
+      await fetchRoles();
+
+    } catch (error) {
+      console.error('Error saving role:', error);
+      setError(error.message);
     }
-    setFormData({ name: '', description: '', permissions: [] });
-    setShowAddForm(false);
   };
 
+  // Handle edit role
   const handleEdit = (role) => {
-    if (role.isSystem) {
-      alert('System roles cannot be edited');
-      return;
-    }
+    console.log('Editing role:', role);
     setEditingRole(role);
     setFormData({
       name: role.name,
-      description: role.description,
-      permissions: role.permissions
+      permission_ids: role.permissions ? role.permissions.map(p => p.id) : []
     });
     setShowAddForm(true);
+    setError('');
+    setSuccess('');
   };
 
-  const handleDelete = (id) => {
-    const role = roles.find(r => r.id === id);
-    if (role.isSystem) {
-      alert('System roles cannot be deleted');
+  // Handle delete role
+  const handleDelete = async (roleId, roleName) => {
+    if (!window.confirm(`Are you sure you want to delete the role "${roleName}"?`)) {
       return;
     }
-    if (role.userCount > 0) {
-      alert(`Cannot delete role "${role.name}" as it is assigned to ${role.userCount} users`);
-      return;
-    }
-    if (window.confirm('Are you sure you want to delete this role?')) {
-      setRoles(roles.filter(role => role.id !== id));
+
+    try {
+      const token = getAuthToken();
+      if (!token) {
+        throw new Error('No authentication token found. Please login again.');
+      }
+
+      const response = await fetch(`${API_BASE}/${roleId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        let errorMessage = `Failed to delete role: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.detail || errorMessage;
+        } catch (parseError) {
+          console.error('Error parsing error response:', parseError);
+        }
+        throw new Error(errorMessage);
+      }
+
+      setSuccess('Role deleted successfully!');
+      await fetchRoles();
+
+    } catch (error) {
+      console.error('Error deleting role:', error);
+      setError(error.message);
     }
   };
 
-  const handleStatusChange = (id, newStatus) => {
-    const role = roles.find(r => r.id === id);
-    if (role.isSystem) {
-      alert('System role status cannot be changed');
-      return;
-    }
-    setRoles(roles.map(role =>
-      role.id === id ? { ...role, status: newStatus } : role
-    ));
-  };
-
+  // Handle cancel form
   const handleCancel = () => {
     setShowAddForm(false);
     setEditingRole(null);
-    setFormData({ name: '', description: '', permissions: [] });
+    setFormData({ name: '', permission_ids: [] });
+    setError('');
+    setSuccess('');
   };
 
+  // Group permissions by category
   const groupPermissionsByCategory = () => {
     const grouped = {};
-    availablePermissions.forEach(permission => {
-      if (!grouped[permission.category]) {
-        grouped[permission.category] = [];
+    permissions.forEach(permission => {
+      const category = permission.name.split('.')[0]; // e.g., 'users' from 'users.create'
+      const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+      
+      if (!grouped[categoryName]) {
+        grouped[categoryName] = [];
       }
-      grouped[permission.category].push(permission);
+      grouped[categoryName].push(permission);
     });
     return grouped;
   };
 
-  const getPermissionName = (permissionId) => {
-    const permission = availablePermissions.find(p => p.id === permissionId);
-    return permission ? permission.name : permissionId;
+  // Test connectivity function
+  const testConnectivity = async () => {
+    try {
+      const token = getAuthToken();
+      console.log('Testing connectivity with token:', token ? 'Present' : 'Missing');
+      
+      const response = await fetch(`${API_BASE}/test`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log('Test response status:', response.status);
+      const data = await response.json();
+      console.log('Test response data:', data);
+      
+      if (response.ok) {
+        setSuccess('Connectivity test successful!');
+      } else {
+        setError(`Connectivity test failed: ${data.detail || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Connectivity test error:', error);
+      setError(`Connectivity test failed: ${error.message}`);
+    }
   };
+
+  // Debug info component
+  const DebugInfo = () => (
+    <div style={{ 
+      background: '#f8f9fa', 
+      border: '1px solid #dee2e6', 
+      borderRadius: '4px', 
+      padding: '12px', 
+      marginBottom: '16px',
+      fontSize: '12px',
+      fontFamily: 'monospace'
+    }}>
+      <strong>Debug Info:</strong><br/>
+      Token: {getAuthToken() ? 'Present' : 'Missing'}<br/>
+      Roles: {roles.length} items<br/>
+      Permissions: {permissions.length} items<br/>
+      Loading: {loading.toString()}<br/>
+      API Base: {API_BASE}<br/>
+      <button 
+        onClick={testConnectivity}
+        style={{ 
+          marginTop: '8px', 
+          padding: '4px 8px', 
+          fontSize: '11px',
+          background: '#007bff',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer'
+        }}
+      >
+        Test Connectivity
+      </button>
+    </div>
+  );
 
   if (loading) {
     return (
       <div className="projects-container">
-        <div className="loading">Loading roles...</div>
+        <div className="loading">Loading roles and permissions...</div>
+        <DebugInfo />
       </div>
     );
   }
@@ -223,8 +408,54 @@ const ManageRoles = () => {
     <div className="projects-container">
       <h2>Manage Roles</h2>
       
+      
+      
+      {error && (
+        <div style={{ 
+          padding: '12px', 
+          background: '#fee', 
+          border: '1px solid #fcc', 
+          borderRadius: '4px', 
+          color: '#c33',
+          marginBottom: '16px'
+        }}>
+          <strong>Error:</strong> {error}
+          {error.includes('login') && (
+            <div style={{ marginTop: '8px' }}>
+              <button 
+                onClick={() => window.location.href = '/login'}
+                style={{ 
+                  padding: '4px 8px', 
+                  fontSize: '12px',
+                  background: '#dc3545',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Go to Login
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {success && (
+        <div style={{ 
+          padding: '12px', 
+          background: '#efe', 
+          border: '1px solid #cfc', 
+          borderRadius: '4px', 
+          color: '#3c3',
+          marginBottom: '16px'
+        }}>
+          {success}
+        </div>
+      )}
+      
       <div className="projects-header">
-        <p>Total roles: {roles.length} | Active: {roles.filter(r => r.status === 'active').length}</p>
+        <p>Total roles: {roles.length}</p>
         <button 
           className="new-project-btn"
           onClick={() => setShowAddForm(true)}
@@ -262,28 +493,8 @@ const ManageRoles = () => {
               </div>
               
               <div>
-                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '600', color: '#495057' }}>
-                  Description
-                </label>
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  rows="3"
-                  style={{ 
-                    width: '100%', 
-                    padding: '12px', 
-                    border: '1px solid #e9ecef', 
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    resize: 'vertical'
-                  }}
-                />
-              </div>
-              
-              <div>
                 <label style={{ display: 'block', marginBottom: '12px', fontWeight: '600', color: '#495057' }}>
-                  Permissions
+                  Permissions ({formData.permission_ids.length} selected)
                 </label>
                 <div style={{ 
                   maxHeight: '300px', 
@@ -292,40 +503,44 @@ const ManageRoles = () => {
                   borderRadius: '8px', 
                   padding: '16px' 
                 }}>
-                  {Object.entries(groupPermissionsByCategory()).map(([category, permissions]) => (
-                    <div key={category} style={{ marginBottom: '16px' }}>
-                      <h4 style={{ 
-                        margin: '0 0 8px 0', 
-                        color: '#667eea', 
-                        fontSize: '14px', 
-                        fontWeight: '600' 
-                      }}>
-                        {category}
-                      </h4>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px' }}>
-                        {permissions.map(permission => (
-                          <label key={permission.id} style={{ 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            cursor: 'pointer',
-                            padding: '8px',
-                            borderRadius: '4px',
-                            backgroundColor: formData.permissions.includes(permission.id) ? '#f0f4ff' : 'transparent'
-                          }}>
-                            <input
-                              type="checkbox"
-                              checked={formData.permissions.includes(permission.id)}
-                              onChange={() => handlePermissionChange(permission.id)}
-                              style={{ marginRight: '8px' }}
-                            />
-                            <span style={{ fontSize: '13px', color: '#495057' }}>
-                              {permission.name}
-                            </span>
-                          </label>
-                        ))}
+                  {permissions.length === 0 ? (
+                    <p style={{ color: '#6c757d', fontStyle: 'italic' }}>No permissions available</p>
+                  ) : (
+                    Object.entries(groupPermissionsByCategory()).map(([category, categoryPermissions]) => (
+                      <div key={category} style={{ marginBottom: '16px' }}>
+                        <h4 style={{ 
+                          margin: '0 0 8px 0', 
+                          color: '#667eea', 
+                          fontSize: '14px', 
+                          fontWeight: '600' 
+                        }}>
+                          {category}
+                        </h4>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '8px' }}>
+                          {categoryPermissions.map(permission => (
+                            <label key={permission.id} style={{ 
+                              display: 'flex', 
+                              alignItems: 'center', 
+                              cursor: 'pointer',
+                              padding: '8px',
+                              borderRadius: '4px',
+                              backgroundColor: formData.permission_ids.includes(permission.id) ? '#f0f4ff' : 'transparent'
+                            }}>
+                              <input
+                                type="checkbox"
+                                checked={formData.permission_ids.includes(permission.id)}
+                                onChange={() => handlePermissionChange(permission.id)}
+                                style={{ marginRight: '8px' }}
+                              />
+                              <span style={{ fontSize: '13px', color: '#495057' }}>
+                                {permission.description || permission.name}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
               </div>
             </div>
@@ -342,7 +557,7 @@ const ManageRoles = () => {
         </div>
       )}
 
-      {roles.length === 0 ? (
+      {roles.length === 0 && !loading && !error ? (
         <div className="no-projects">
           <p>No roles found. Create your first role to get started.</p>
         </div>
@@ -351,135 +566,71 @@ const ManageRoles = () => {
           {roles.map(role => (
             <div key={role.id} className="project-card">
               <div className="project-header">
-                <h3>
-                  {role.name}
-                  {role.isSystem && (
-                    <span style={{ 
-                      fontSize: '11px', 
-                      background: '#6c757d', 
-                      color: 'white', 
-                      padding: '2px 6px', 
-                      borderRadius: '10px', 
-                      marginLeft: '8px' 
-                    }}>
-                      SYSTEM
-                    </span>
-                  )}
-                </h3>
-                <span className={`status ${role.status}`}>
-                  {role.status}
-                </span>
+                <h3>{role.name}</h3>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ 
+                    fontSize: '12px', 
+                    color: '#6c757d',
+                    background: '#f8f9fa',
+                    padding: '4px 8px',
+                    borderRadius: '12px'
+                  }}>
+                    {role.permissions ? role.permissions.length : 0} permissions
+                  </span>
+                </div>
               </div>
               
               <div style={{ marginBottom: '16px' }}>
-                <p style={{ margin: '0 0 12px 0', color: '#6c757d', fontSize: '14px' }}>
-                  {role.description}
-                </p>
-                <p style={{ margin: '0', color: '#2c3e50', fontSize: '13px', fontWeight: '500' }}>
-                  {role.permissions.length} permissions assigned
-                </p>
-              </div>
-              
-              <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: '1fr 1fr', 
-                gap: '12px', 
-                marginBottom: '16px',
-                padding: '12px',
-                background: '#f8f9fa',
-                borderRadius: '8px'
-              }}>
-                <div>
-                  <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>Users Assigned</p>
-                  <p style={{ margin: '0', fontSize: '14px', fontWeight: '600', color: '#2c3e50' }}>
-                    {role.userCount}
-                  </p>
-                </div>
-                <div>
-                  <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>Created</p>
-                  <p style={{ margin: '0', fontSize: '14px', fontWeight: '600', color: '#2c3e50' }}>
-                    {new Date(role.createdAt).toLocaleDateString()}
-                  </p>
-                </div>
-              </div>
-              
-              <div className="project-details">
-                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  {!role.isSystem && (
-                    <select
-                      value={role.status}
-                      onChange={(e) => handleStatusChange(role.id, e.target.value)}
-                      style={{
-                        padding: '6px 8px',
-                        fontSize: '11px',
-                        border: '1px solid #e9ecef',
-                        borderRadius: '4px',
-                        fontWeight: '600'
-                      }}
-                    >
-                      <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
-                    </select>
-                  )}
-                  <button 
-                    className="view-btn"
-                    onClick={() => setShowPermissions(showPermissions === role.id ? null : role.id)}
-                  >
-                    {showPermissions === role.id ? 'Hide' : 'Show'} Permissions
-                  </button>
-                </div>
-                <div className="project-actions">
-                  <button className="view-btn">View Users</button>
-                  <button 
-                    className="edit-btn" 
-                    onClick={() => handleEdit(role)}
-                    disabled={role.isSystem}
-                    style={{ opacity: role.isSystem ? 0.5 : 1 }}
-                  >
-                    Edit
-                  </button>
-                  <button 
-                    className="delete-btn" 
-                    onClick={() => handleDelete(role.id)}
-                    disabled={role.isSystem}
-                    style={{ opacity: role.isSystem ? 0.5 : 1 }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-              
-              {showPermissions === role.id && (
-                <div style={{ 
-                  marginTop: '16px', 
-                  padding: '16px', 
-                  background: '#f8f9fa', 
-                  borderRadius: '8px',
-                  borderTop: '1px solid #e9ecef'
+                <h4 style={{ 
+                  margin: '0 0 8px 0', 
+                  color: '#495057', 
+                  fontSize: '14px', 
+                  fontWeight: '600' 
                 }}>
-                  <h4 style={{ margin: '0 0 12px 0', color: '#2c3e50', fontSize: '14px' }}>
-                    Assigned Permissions ({role.permissions.length})
-                  </h4>
-                  <div style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', 
-                    gap: '8px' 
-                  }}>
-                    {role.permissions.map(permissionId => (
-                      <div key={permissionId} style={{
-                        padding: '6px 10px',
-                        background: 'white',
-                        borderRadius: '4px',
-                        fontSize: '12px',
-                        color: '#495057',
-                        border: '1px solid #e9ecef'
+                  Assigned Permissions:
+                </h4>
+                <div style={{ 
+                  display: 'flex', 
+                  flexWrap: 'wrap', 
+                  gap: '6px',
+                  maxHeight: '80px',
+                  overflowY: 'auto'
+                }}>
+                  {role.permissions && role.permissions.length > 0 ? (
+                    role.permissions.map(permission => (
+                      <span key={permission.id} style={{
+                        padding: '4px 8px',
+                        background: '#e3f2fd',
+                        color: '#1565c0',
+                        borderRadius: '12px',
+                        fontSize: '11px',
+                        fontWeight: '500'
                       }}>
-                        {getPermissionName(permissionId)}
-                      </div>
-                    ))}
-                  </div>
+                        {permission.description || permission.name}
+                      </span>
+                    ))
+                  ) : (
+                    <span style={{ color: '#6c757d', fontStyle: 'italic', fontSize: '12px' }}>
+                      No permissions assigned
+                    </span>
+                  )}
                 </div>
-              )}
+              </div>
+              
+              <div className="project-actions">
+                <button 
+                  className="edit-btn" 
+                  onClick={() => handleEdit(role)}
+                >
+                  Edit
+                </button>
+                <button 
+                  className="delete-btn" 
+                  onClick={() => handleDelete(role.id, role.name)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { backend_url } from '../config';
 import './MyProjects.css';
 import './MyProfile.css';
 
@@ -11,98 +13,102 @@ const ManageProjects = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [sortBy, setSortBy] = useState('name');
+  const [error, setError] = useState('');
 
-  // Mock data for demonstration
-  useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      setProjects([
-        {
-          id: 1,
-          name: 'E-commerce Platform',
-          description: 'Full-stack online shopping platform with payment integration',
-          status: 'active',
-          createdDate: '2024-01-15',
-          lastModified: '2024-06-18',
-          owner: 'John Smith',
-          team: ['Alice Johnson', 'Bob Wilson'],
-          priority: 'high',
-          budget: 45000,
-          progress: 75
-        },
-        {
-          id: 2,
-          name: 'Mobile Banking App',
-          description: 'Secure mobile application for banking services',
-          status: 'in-progress',
-          createdDate: '2024-02-20',
-          lastModified: '2024-06-17',
-          owner: 'Sarah Davis',
-          team: ['Mike Brown', 'Lisa Garcia'],
-          priority: 'high',
-          budget: 60000,
-          progress: 45
-        },
-        {
-          id: 3,
-          name: 'CRM Dashboard',
-          description: 'Customer relationship management system',
-          status: 'completed',
-          createdDate: '2023-11-10',
-          lastModified: '2024-05-30',
-          owner: 'David Lee',
-          team: ['Emma Taylor', 'Ryan Martinez'],
-          priority: 'medium',
-          budget: 35000,
-          progress: 100
-        },
-        {
-          id: 4,
-          name: 'Analytics Platform',
-          description: 'Real-time data analytics and reporting system',
-          status: 'pending',
-          createdDate: '2024-06-01',
-          lastModified: '2024-06-15',
-          owner: 'Jennifer Wang',
-          team: ['Alex Chen', 'Maria Rodriguez'],
-          priority: 'low',
-          budget: 28000,
-          progress: 15
+  // Helper function to get token from localStorage
+  const getAuthToken = () => {
+    try {
+      // First try to get token directly
+      let token = localStorage.getItem('token');
+      
+      // If not found, try to get from user_obj
+      if (!token) {
+        const userObj = localStorage.getItem('user_obj');
+        if (userObj) {
+          const userData = JSON.parse(userObj);
+          token = userData.access_token;
         }
-      ]);
-      setLoading(false);
-    }, 1000);
-  }, []);
-
-  // Filter and search functionality
-  const filteredProjects = projects.filter(project => {
-    const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.owner.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filterStatus === 'all' || project.status === filterStatus;
-    return matchesSearch && matchesFilter;
-  });
-
-  // Sort functionality
-  const sortedProjects = [...filteredProjects].sort((a, b) => {
-    switch (sortBy) {
-      case 'name':
-        return a.name.localeCompare(b.name);
-      case 'date':
-        return new Date(b.lastModified) - new Date(a.lastModified);
-      case 'status':
-        return a.status.localeCompare(b.status);
-      case 'priority':
-        const priorityOrder = { high: 3, medium: 2, low: 1 };
-        return priorityOrder[b.priority] - priorityOrder[a.priority];
-      default:
-        return 0;
+      }
+      
+      return token;
+    } catch (error) {
+      console.error('Error retrieving token:', error);
+      return null;
     }
-  });
+  };
 
-  const handleDeleteProject = (projectId) => {
+  // Fetch projects from backend
+  useEffect(() => {
+    fetchProjects();
+  }, [searchTerm, filterStatus, sortBy]);
+
+  const fetchProjects = async () => {
+    try {
+      setLoading(true);
+      const token = getAuthToken();
+      
+      if (!token) {
+        setError('No authentication token found. Please login again.');
+        setLoading(false);
+        // Optionally redirect to login
+        // window.location.href = '/login';
+        return;
+      }
+
+      const params = new URLSearchParams();
+      if (searchTerm) params.append('search', searchTerm);
+      if (filterStatus !== 'all') params.append('status', filterStatus);
+      if (sortBy) params.append('sort_by', sortBy);
+
+      const response = await axios.get(`${backend_url}projects/?${params.toString()}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      setProjects(response.data);
+      setError('');
+    } catch (err) {
+      console.error('Error fetching projects:', err);
+      if (err.response?.status === 401) {
+        setError('Authentication failed. Please login again.');
+        // Optionally redirect to login
+        // window.location.href = '/login';
+      } else {
+        setError(err.response?.data?.detail || 'Failed to fetch projects');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteProject = async (projectId) => {
     if (window.confirm('Are you sure you want to delete this project? This action cannot be undone.')) {
-      setProjects(projects.filter(p => p.id !== projectId));
+      try {
+        const token = getAuthToken();
+        if (!token) {
+          setError('No authentication token found. Please login again.');
+          return;
+        }
+
+        await axios.delete(`${backend_url}projects/${projectId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        
+        // Remove from local state
+        setProjects(projects.filter(p => p.id !== projectId));
+        setError('');
+      } catch (err) {
+        console.error('Error deleting project:', err);
+        if (err.response?.status === 401) {
+          setError('Authentication failed. Please login again.');
+        } else {
+          setError(err.response?.data?.detail || 'Failed to delete project');
+        }
+      }
     }
   };
 
@@ -111,34 +117,81 @@ const ManageProjects = () => {
     setShowEditModal(true);
   };
 
-  const handleViewProject = (project) => {
-    setSelectedProject(project);
+  const handleViewProject = async (project) => {
+    try {
+      const token = getAuthToken();
+      if (!token) {
+        setError('No authentication token found. Please login again.');
+        return;
+      }
+
+      const response = await axios.get(`${backend_url}projects/${project.id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setSelectedProject(response.data);
+    } catch (err) {
+      console.error('Error fetching project details:', err);
+      if (err.response?.status === 401) {
+        setError('Authentication failed. Please login again.');
+      } else {
+        setError('Failed to fetch project details');
+      }
+    }
   };
 
   const handleNewProject = () => {
+    setSelectedProject(null);
     setShowNewProjectModal(true);
   };
 
-  const handleSaveProject = (projectData) => {
-    if (selectedProject) {
-      // Update existing project
-      setProjects(projects.map(p => 
-        p.id === selectedProject.id ? { ...p, ...projectData, lastModified: new Date().toISOString().split('T')[0] } : p
-      ));
-    } else {
-      // Create new project
-      const newProject = {
-        ...projectData,
-        id: Math.max(...projects.map(p => p.id)) + 1,
-        createdDate: new Date().toISOString().split('T')[0],
-        lastModified: new Date().toISOString().split('T')[0],
-        progress: 0
-      };
-      setProjects([...projects, newProject]);
+  const handleSaveProject = async (projectData) => {
+    try {
+      const token = getAuthToken();
+      if (!token) {
+        setError('No authentication token found. Please login again.');
+        return;
+      }
+      
+      if (selectedProject && showEditModal) {
+        // Update existing project
+        const response = await axios.put(`${backend_url}projects/${selectedProject.id}`, projectData, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        // Update in local state
+        setProjects(projects.map(p => 
+          p.id === selectedProject.id ? response.data : p
+        ));
+      } else {
+        // Create new project
+        const response = await axios.post(`${backend_url}projects/`, projectData, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        // Add to local state
+        setProjects([...projects, response.data]);
+      }
+      
+      setShowEditModal(false);
+      setShowNewProjectModal(false);
+      setSelectedProject(null);
+      setError('');
+    } catch (err) {
+      console.error('Error saving project:', err);
+      if (err.response?.status === 401) {
+        setError('Authentication failed. Please login again.');
+      } else {
+        setError(err.response?.data?.detail || 'Failed to save project');
+      }
     }
-    setShowEditModal(false);
-    setShowNewProjectModal(false);
-    setSelectedProject(null);
   };
 
   const getStatusColor = (status) => {
@@ -172,6 +225,19 @@ const ManageProjects = () => {
   return (
     <div className="projects-container">
       <h2>Manage Projects</h2>
+      
+      {error && (
+        <div style={{ 
+          background: '#fee', 
+          color: '#c33', 
+          padding: '12px', 
+          borderRadius: '8px', 
+          marginBottom: '16px',
+          border: '1px solid #fcc'
+        }}>
+          {error}
+        </div>
+      )}
       
       {/* Admin Controls */}
       <div className="profile-info" style={{ marginBottom: '24px' }}>
@@ -233,20 +299,20 @@ const ManageProjects = () => {
 
       {/* Projects Header */}
       <div className="projects-header">
-        <p>{sortedProjects.length} project{sortedProjects.length !== 1 ? 's' : ''} found</p>
+        <p>{projects.length} project{projects.length !== 1 ? 's' : ''} found</p>
         <button className="new-project-btn" onClick={handleNewProject}>
           + New Project
         </button>
       </div>
 
       {/* Projects List */}
-      {sortedProjects.length === 0 ? (
+      {projects.length === 0 ? (
         <div className="no-projects">
           <p>No projects found matching your criteria.</p>
         </div>
       ) : (
         <div className="projects-list">
-          {sortedProjects.map(project => (
+          {projects.map(project => (
             <div key={project.id} className="project-card">
               <div className="project-header">
                 <h3>{project.name}</h3>
@@ -267,9 +333,7 @@ const ManageProjects = () => {
                     {project.owner}
                   </span>
                 </div>
-                
               </div>
-
 
               {/* Team Members */}
               <div style={{ marginBottom: '16px' }}>
@@ -277,7 +341,7 @@ const ManageProjects = () => {
                   Team Members:
                 </label>
                 <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
-                  {project.team.map((member, index) => (
+                  {project.team && project.team.length > 0 ? project.team.map((member, index) => (
                     <span key={index} style={{
                       fontSize: '11px',
                       background: '#f8f9fa',
@@ -287,7 +351,9 @@ const ManageProjects = () => {
                     }}>
                       {member}
                     </span>
-                  ))}
+                  )) : (
+                    <span style={{ fontSize: '11px', color: '#6c757d' }}>No team members assigned</span>
+                  )}
                 </div>
               </div>
 
@@ -311,82 +377,242 @@ const ManageProjects = () => {
       )}
 
       {/* Project Detail Modal */}
-      {selectedProject && !showEditModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000
-        }}>
-          <div className="profile-info" style={{ 
-            maxWidth: '600px', 
-            width: '90%', 
-            maxHeight: '80vh', 
-            overflowY: 'auto',
-            margin: 0,
-            position: 'relative'
-          }}>
-            <button 
-              onClick={() => setSelectedProject(null)}
+      {selectedProject && !showEditModal && !showNewProjectModal && (
+        <ProjectDetailModal 
+          project={selectedProject} 
+          onClose={() => setSelectedProject(null)} 
+        />
+      )}
+
+      {/* Edit Project Modal */}
+      {showEditModal && (
+        <ProjectFormModal
+          project={selectedProject}
+          onSave={handleSaveProject}
+          onClose={() => {
+            setShowEditModal(false);
+            setSelectedProject(null);
+          }}
+          title="Edit Project"
+        />
+      )}
+
+      {/* New Project Modal */}
+      {showNewProjectModal && (
+        <ProjectFormModal
+          onSave={handleSaveProject}
+          onClose={() => setShowNewProjectModal(false)}
+          title="Create New Project"
+        />
+      )}
+    </div>
+  );
+};
+
+// Project Detail Modal Component
+const ProjectDetailModal = ({ project, onClose }) => (
+  <div style={{
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000
+  }}>
+    <div className="profile-info" style={{ 
+      maxWidth: '600px', 
+      width: '90%', 
+      maxHeight: '80vh', 
+      overflowY: 'auto',
+      margin: 0,
+      position: 'relative'
+    }}>
+      <button 
+        onClick={onClose}
+        style={{
+          position: 'absolute',
+          top: '16px',
+          right: '16px',
+          background: 'none',
+          border: 'none',
+          fontSize: '24px',
+          cursor: 'pointer',
+          color: '#6c757d'
+        }}
+      >
+        ×
+      </button>
+      
+      <h3 style={{ marginBottom: '24px', color: '#2c3e50' }}>{project.name}</h3>
+      
+      <div className="profile-field">
+        <label>Description:</label>
+        <span>{project.description || 'No description provided'}</span>
+      </div>
+      
+      <div className="profile-field">
+        <label>Owner:</label>
+        <span>{project.owner}</span>
+      </div>
+      
+      <div className="profile-field">
+        <label>Status:</label>
+        <span>{project.status}</span>
+      </div>
+      
+      <div className="profile-field">
+        <label>Progress:</label>
+        <span>{project.progress}%</span>
+      </div>
+      
+      <div className="profile-field">
+        <label>Created:</label>
+        <span>{new Date(project.createdDate).toLocaleDateString()}</span>
+      </div>
+      
+      <div className="profile-field">
+        <label>Modified:</label>
+        <span>{new Date(project.lastModified).toLocaleDateString()}</span>
+      </div>
+      
+      <div className="profile-field">
+        <label>Team:</label>
+        <span>{project.team && project.team.length > 0 ? project.team.join(', ') : 'No team members'}</span>
+      </div>
+    </div>
+  </div>
+);
+
+// Project Form Modal Component
+const ProjectFormModal = ({ project, onSave, onClose, title }) => {
+  const [formData, setFormData] = useState({
+    name: project?.name || '',
+    description: project?.description || ''
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.name.trim()) {
+      alert('Project name is required');
+      return;
+    }
+    onSave(formData);
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 1000
+    }}>
+      <div className="profile-info" style={{ 
+        maxWidth: '500px', 
+        width: '90%',
+        margin: 0,
+        position: 'relative'
+      }}>
+        <button 
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            top: '16px',
+            right: '16px',
+            background: 'none',
+            border: 'none',
+            fontSize: '24px',
+            cursor: 'pointer',
+            color: '#6c757d'
+          }}
+        >
+          ×
+        </button>
+        
+        <h3 style={{ marginBottom: '24px', color: '#2c3e50' }}>{title}</h3>
+        
+        <form onSubmit={handleSubmit}>
+          <div className="profile-field">
+            <label>Project Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
               style={{
-                position: 'absolute',
-                top: '16px',
-                right: '16px',
-                background: 'none',
+                width: '100%',
+                padding: '8px 12px',
+                border: '1px solid #ddd',
+                borderRadius: '4px'
+              }}
+            />
+          </div>
+          
+          <div className="profile-field">
+            <label>Description:</label>
+            <textarea
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows={4}
+              style={{
+                width: '100%',
+                padding: '8px 12px',
+                border: '1px solid #ddd',
+                borderRadius: '4px',
+                resize: 'vertical'
+              }}
+            />
+          </div>
+          
+          <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
+            <button 
+              type="submit"
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#007bff',
+                color: 'white',
                 border: 'none',
-                fontSize: '24px',
-                cursor: 'pointer',
-                color: '#6c757d'
+                borderRadius: '4px',
+                cursor: 'pointer'
               }}
             >
-              ×
+              Save Project
             </button>
-            
-            <h3 style={{ marginBottom: '24px', color: '#2c3e50' }}>{selectedProject.name}</h3>
-            
-            <div className="profile-field">
-              <label>Description:</label>
-              <span>{selectedProject.description}</span>
-            </div>
-            
-            
-            <div className="profile-field">
-              <label>Owner:</label>
-              <span>{selectedProject.owner}</span>
-            </div>
-            
- 
-            
-
-            
-            <div className="profile-field">
-              <label>Progress:</label>
-              <span>{selectedProject.progress}%</span>
-            </div>
-            
-            <div className="profile-field">
-              <label>Created:</label>
-              <span>{new Date(selectedProject.createdDate).toLocaleDateString()}</span>
-            </div>
-            
-            <div className="profile-field">
-              <label>Modified:</label>
-              <span>{new Date(selectedProject.lastModified).toLocaleDateString()}</span>
-            </div>
-            
-            <div className="profile-field">
-              <label>Team:</label>
-              <span>{selectedProject.team.join(', ')}</span>
-            </div>
+            <button 
+              type="button"
+              onClick={onClose}
+              style={{
+                padding: '10px 20px',
+                backgroundColor: '#6c757d',
+                color: 'white',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer'
+              }}
+            >
+              Cancel
+            </button>
           </div>
-        </div>
-      )}
+        </form>
+      </div>
     </div>
   );
 };
