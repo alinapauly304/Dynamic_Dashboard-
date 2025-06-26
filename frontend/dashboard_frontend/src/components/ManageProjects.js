@@ -10,18 +10,18 @@ const ManageProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showNewProjectModal, setShowNewProjectModal] = useState(false);
+  const [showTeamModal, setShowTeamModal] = useState(false);
+  const [availableUsers, setAvailableUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [error, setError] = useState('');
+  const [teamError, setTeamError] = useState('');
 
   // Helper function to get token from localStorage
   const getAuthToken = () => {
     try {
-      // First try to get token directly
       let token = localStorage.getItem('token');
-      
-      // If not found, try to get from user_obj
       if (!token) {
         const userObj = localStorage.getItem('user_obj');
         if (userObj) {
@@ -29,7 +29,6 @@ const ManageProjects = () => {
           token = userData.access_token;
         }
       }
-      
       return token;
     } catch (error) {
       console.error('Error retrieving token:', error);
@@ -50,8 +49,6 @@ const ManageProjects = () => {
       if (!token) {
         setError('No authentication token found. Please login again.');
         setLoading(false);
-        // Optionally redirect to login
-        // window.location.href = '/login';
         return;
       }
 
@@ -73,13 +70,28 @@ const ManageProjects = () => {
       console.error('Error fetching projects:', err);
       if (err.response?.status === 401) {
         setError('Authentication failed. Please login again.');
-        // Optionally redirect to login
-        // window.location.href = '/login';
       } else {
         setError(err.response?.data?.detail || 'Failed to fetch projects');
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Fetch available users for a specific project
+  const fetchAvailableUsersForProject = async (projectId) => {
+    try {
+      const token = getAuthToken();
+      if (!token) return [];
+
+      const response = await axios.get(`${backend_url}projects/${projectId}/available-users`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (err) {
+      console.error('Error fetching available users:', err);
+      setTeamError('Failed to fetch available users');
+      return [];
     }
   };
 
@@ -93,12 +105,9 @@ const ManageProjects = () => {
         }
 
         await axios.delete(`${backend_url}projects/${projectId}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+          headers: { 'Authorization': `Bearer ${token}` }
         });
         
-        // Remove from local state
         setProjects(projects.filter(p => p.id !== projectId));
         setError('');
       } catch (err) {
@@ -126,9 +135,7 @@ const ManageProjects = () => {
       }
 
       const response = await axios.get(`${backend_url}projects/${project.id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+        headers: { 'Authorization': `Bearer ${token}` }
       });
       setSelectedProject(response.data);
     } catch (err) {
@@ -138,6 +145,30 @@ const ManageProjects = () => {
       } else {
         setError('Failed to fetch project details');
       }
+    }
+  };
+
+  const handleManageTeam = async (project) => {
+    try {
+      const token = getAuthToken();
+      if (!token) return;
+
+      setTeamError(''); // Clear any previous errors
+
+      // Fetch project with team details
+      const projectResponse = await axios.get(`${backend_url}projects/${project.id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      
+      // Fetch available users for this specific project
+      const users = await fetchAvailableUsersForProject(project.id);
+      
+      setSelectedProject(projectResponse.data);
+      setAvailableUsers(users);
+      setShowTeamModal(true);
+    } catch (err) {
+      console.error('Error fetching project team:', err);
+      setError('Failed to fetch team details');
     }
   };
 
@@ -163,7 +194,6 @@ const ManageProjects = () => {
           }
         });
         
-        // Update in local state
         setProjects(projects.map(p => 
           p.id === selectedProject.id ? response.data : p
         ));
@@ -176,7 +206,6 @@ const ManageProjects = () => {
           }
         });
         
-        // Add to local state
         setProjects([...projects, response.data]);
       }
       
@@ -194,22 +223,81 @@ const ManageProjects = () => {
     }
   };
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'active': return '#00b894';
-      case 'in-progress': return '#fdcb6e';
-      case 'completed': return '#74b9ff';
-      case 'pending': return '#fd79a8';
-      default: return '#6c757d';
+  const handleAddTeamMember = async (userId) => {
+    try {
+      const token = getAuthToken();
+      if (!token) return;
+
+      setTeamError(''); // Clear any previous errors
+
+      await axios.post(`${backend_url}projects/${selectedProject.id}/team`, 
+        { user_id: userId }, 
+        { 
+          headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          } 
+        }
+      );
+
+      // Refresh project data and available users
+      const [projectResponse, usersResponse] = await Promise.all([
+        axios.get(`${backend_url}projects/${selectedProject.id}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }),
+        fetchAvailableUsersForProject(selectedProject.id)
+      ]);
+      
+      setSelectedProject(projectResponse.data);
+      setAvailableUsers(usersResponse);
+      
+      // Update projects list
+      setProjects(projects.map(p => 
+        p.id === selectedProject.id ? projectResponse.data : p
+      ));
+      
+      console.log('Team member added successfully');
+    } catch (err) {
+      console.error('Error adding team member:', err);
+      setTeamError(err.response?.data?.detail || 'Failed to add team member');
     }
   };
 
-  const getPriorityColor = (priority) => {
-    switch (priority) {
-      case 'high': return '#e74c3c';
-      case 'medium': return '#f39c12';
-      case 'low': return '#27ae60';
-      default: return '#6c757d';
+  const handleRemoveTeamMember = async (userId) => {
+    if (!window.confirm('Are you sure you want to remove this team member?')) {
+      return;
+    }
+
+    try {
+      const token = getAuthToken();
+      if (!token) return;
+
+      setTeamError(''); // Clear any previous errors
+
+      await axios.delete(`${backend_url}projects/${selectedProject.id}/team/${userId}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      // Refresh project data and available users
+      const [projectResponse, usersResponse] = await Promise.all([
+        axios.get(`${backend_url}projects/${selectedProject.id}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }),
+        fetchAvailableUsersForProject(selectedProject.id)
+      ]);
+      
+      setSelectedProject(projectResponse.data);
+      setAvailableUsers(usersResponse);
+      
+      // Update projects list
+      setProjects(projects.map(p => 
+        p.id === selectedProject.id ? projectResponse.data : p
+      ));
+      
+      console.log('Team member removed successfully');
+    } catch (err) {
+      console.error('Error removing team member:', err);
+      setTeamError(err.response?.data?.detail || 'Failed to remove team member');
     }
   };
 
@@ -332,28 +420,13 @@ const ManageProjects = () => {
                     {project.owner}
                   </span>
                 </div>
-              </div>
-
-              {/* Team Members */}
-              <div style={{ marginBottom: '16px' }}>
-                <label style={{ fontSize: '12px', fontWeight: '600', color: '#495057', display: 'block', marginBottom: '4px' }}>
-                  Team Members:
-                </label>
-                <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
-                  {project.team && project.team.length > 0 ? project.team.map((member, index) => (
-                    <span key={index} style={{
-                      fontSize: '11px',
-                      background: '#f8f9fa',
-                      padding: '4px 8px',
-                      borderRadius: '12px',
-                      border: '1px solid #e9ecef'
-                    }}>
-                      {member}
-                    </span>
-                  )) : (
-                    <span style={{ fontSize: '11px', color: '#6c757d' }}>No team members assigned</span>
-                  )}
+                <div className="profile-field" style={{ margin: 0, padding: '8px 0', borderBottom: 'none' }}>
+                  <label style={{ width: 'auto', marginRight: '8px', fontSize: '12px' }}>Team:</label>
+                  <span style={{ padding: '4px 8px', fontSize: '12px', background: 'transparent', border: 'none' }}>
+                    {project.team?.length || 0} member{(project.team?.length || 0) !== 1 ? 's' : ''}
+                  </span>
                 </div>
+                <div><label>Organization:</label><span>{project.organization}</span></div>
               </div>
 
               <div className="project-details">
@@ -364,6 +437,13 @@ const ManageProjects = () => {
                   </button>
                   <button className="edit-btn" onClick={() => handleEditProject(project)}>
                     Edit
+                  </button>
+                  <button 
+                    className="view-btn" 
+                    onClick={() => handleManageTeam(project)}
+                    style={{ backgroundColor: '#28a745' }}
+                  >
+                    Team
                   </button>
                   <button className="delete-btn" onClick={() => handleDeleteProject(project.id)}>
                     Delete
@@ -376,7 +456,7 @@ const ManageProjects = () => {
       )}
 
       {/* Project Detail Modal */}
-      {selectedProject && !showEditModal && !showNewProjectModal && (
+      {selectedProject && !showEditModal && !showNewProjectModal && !showTeamModal && (
         <ProjectDetailModal 
           project={selectedProject} 
           onClose={() => setSelectedProject(null)} 
@@ -402,6 +482,22 @@ const ManageProjects = () => {
           onSave={handleSaveProject}
           onClose={() => setShowNewProjectModal(false)}
           title="Create New Project"
+        />
+      )}
+
+      {/* Team Management Modal */}
+      {showTeamModal && selectedProject && (
+        <TeamManagementModal
+          project={selectedProject}
+          availableUsers={availableUsers}
+          onAddMember={handleAddTeamMember}
+          onRemoveMember={handleRemoveTeamMember}
+          onClose={() => {
+            setShowTeamModal(false);
+            setSelectedProject(null);
+            setTeamError('');
+          }}
+          error={teamError}
         />
       )}
     </div>
@@ -463,6 +559,10 @@ const ProjectDetailModal = ({ project, onClose }) => (
         <span>{project.status}</span>
       </div>
       
+      <div className="profile-field">
+        <label>Team Members:</label>
+        <span>{project.team?.length || 0} member{(project.team?.length || 0) !== 1 ? 's' : ''}</span>
+      </div>
       
       <div className="profile-field">
         <label>Created:</label>
@@ -472,11 +572,6 @@ const ProjectDetailModal = ({ project, onClose }) => (
       <div className="profile-field">
         <label>Modified:</label>
         <span>{new Date(project.lastModified).toLocaleDateString()}</span>
-      </div>
-      
-      <div className="profile-field">
-        <label>Team:</label>
-        <span>{project.team && project.team.length > 0 ? project.team.join(', ') : 'No team members'}</span>
       </div>
     </div>
   </div>
@@ -607,6 +702,184 @@ const ProjectFormModal = ({ project, onSave, onClose, title }) => {
             </button>
           </div>
         </form>
+      </div>
+    </div>
+  );
+};
+
+// Team Management Modal Component
+const TeamManagementModal = ({ project, availableUsers, onAddMember, onRemoveMember, onClose, error }) => {
+  const [selectedUserId, setSelectedUserId] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleAddMember = async () => {
+    if (selectedUserId) {
+      setLoading(true);
+      await onAddMember(parseInt(selectedUserId));
+      setSelectedUserId('');
+      setLoading(false);
+    }
+  };
+
+  const handleRemoveMember = async (userId) => {
+    setLoading(true);
+    await onRemoveMember(userId);
+    setLoading(false);
+  };
+
+  // Filter out users already in the team
+  const usersNotInTeam = availableUsers.filter(user => 
+    !project.team?.some(member => member.id === user.id)
+  );
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 1000
+    }}>
+      <div className="profile-info" style={{ 
+        maxWidth: '600px', 
+        width: '90%',
+        maxHeight: '80vh',
+        overflowY: 'auto',
+        margin: 0,
+        position: 'relative'
+      }}>
+        <button 
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            top: '16px',
+            right: '16px',
+            background: 'none',
+            border: 'none',
+            fontSize: '24px',
+            cursor: 'pointer',
+            color: '#6c757d'
+          }}
+        >
+          ×
+        </button>
+        
+        <h3 style={{ marginBottom: '24px', color: '#2c3e50' }}>
+          Team Management - {project.name}
+        </h3>
+
+        {/* Error Message */}
+        {error && (
+          <div style={{ 
+            background: '#fee', 
+            color: '#c33', 
+            padding: '12px', 
+            borderRadius: '8px', 
+            marginBottom: '16px',
+            border: '1px solid #fcc'
+          }}>
+            {error}
+          </div>
+        )}
+
+        {/* Add New Member */}
+        <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#f8f9fa', borderRadius: '8px' }}>
+          <h4 style={{ marginBottom: '12px', fontSize: '16px' }}>Add Team Member</h4>
+          {usersNotInTeam.length > 0 ? (
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+              <select
+                value={selectedUserId}
+                onChange={(e) => setSelectedUserId(e.target.value)}
+                disabled={loading}
+                style={{
+                  flex: 1,
+                  padding: '8px 12px',
+                  border: '1px solid #ddd',
+                  borderRadius: '4px'
+                }}
+              >
+                <option value="">Select a user...</option>
+                {usersNotInTeam.map(user => (
+                  <option key={user.id} value={user.id}>
+                    {user.username} ({user.email})
+                  </option>
+                ))}
+              </select>
+              <button
+                onClick={handleAddMember}
+                disabled={!selectedUserId || loading}
+                style={{
+                  padding: '8px 16px',
+                  backgroundColor: (selectedUserId && !loading) ? '#28a745' : '#6c757d',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: (selectedUserId && !loading) ? 'pointer' : 'not-allowed'
+                }}
+              >
+                {loading ? 'Adding...' : 'Add'}
+              </button>
+            </div>
+          ) : (
+            <p style={{ color: '#6c757d', fontStyle: 'italic', margin: 0 }}>
+              All available users are already team members.
+            </p>
+          )}
+        </div>
+
+        {/* Current Team Members */}
+        <div>
+          <h4 style={{ marginBottom: '12px', fontSize: '16px' }}>
+            Current Team ({project.team?.length || 0} members)
+          </h4>
+          
+          {project.team?.length > 0 ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {project.team.map(member => (
+                <div key={member.id} style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '12px',
+                  backgroundColor: '#fff',
+                  border: '1px solid #e9ecef',
+                  borderRadius: '6px'
+                }}>
+                  <div>
+                    <strong>{member.username}</strong>
+                    <div style={{ fontSize: '12px', color: '#6c757d' }}>
+                      {member.email}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleRemoveMember(member.id)}
+                    disabled={loading}
+                    style={{
+                      padding: '4px 8px',
+                      backgroundColor: loading ? '#6c757d' : '#dc3545',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: loading ? 'not-allowed' : 'pointer',
+                      fontSize: '12px'
+                    }}
+                  >
+                    {loading ? 'Removing...' : 'Remove'}
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p style={{ color: '#6c757d', fontStyle: 'italic' }}>
+              No team members assigned to this project.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

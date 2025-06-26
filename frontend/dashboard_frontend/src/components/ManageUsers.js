@@ -506,9 +506,7 @@ const getAuthToken = () => {
               <div className="project-details">
                 <div></div>
                 <div className="project-actions">
-                  <button className="view-btn" onClick={() => console.log('View user:', user)}>
-                    View
-                  </button>
+        
                   <button className="edit-btn" onClick={() => handleEdit(user)}>
                     Edit
                   </button>
