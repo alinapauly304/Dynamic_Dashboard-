@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 
 # Creating a new project (matches your existing model)
@@ -25,6 +25,17 @@ class ProjectUpdate(BaseModel):
     name: Optional[str] = None
     description: Optional[str] = None
 
+# Team member schema
+class TeamMember(BaseModel):
+    id: int
+    username: str
+    email: str
+    role: Optional[str] = None
+
+# Adding team member to project
+class ProjectTeamCreate(BaseModel):
+    user_id: int
+
 # Response schema for the frontend (includes computed/default fields)
 class ProjectResponse(BaseModel):
     id: int
@@ -34,7 +45,9 @@ class ProjectResponse(BaseModel):
     createdDate: str
     lastModified: str
     owner: str
-    team: list = []  # Empty since no team table
+    organization: str
+    owner_id: int
+    team: List[TeamMember] = []  # List of team members
     priority: str = "medium"  # Default
     budget: int = 0  # Default
     progress: int = 0  # Default

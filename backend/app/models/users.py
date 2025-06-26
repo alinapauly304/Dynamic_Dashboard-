@@ -23,7 +23,7 @@ class Role(Base):
     __tablename__ = "roles"
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    
+    is_system = Column(Boolean, default=False, nullable=False)
     # Add back reference
     users = relationship("User", back_populates="role")
 

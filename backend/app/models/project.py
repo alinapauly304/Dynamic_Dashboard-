@@ -15,3 +15,12 @@ class Project(Base):
 
     owner = relationship("User")
     organization = relationship("Organization")
+
+class ProjectTeam(Base):
+    __tablename__="projectteam"
+    id=Column(Integer,primary_key=True)
+    user_id=Column(Integer,ForeignKey("users.id"))
+    project_id=Column(Integer,ForeignKey("projects.id"))
+
+    user=relationship("User")
+    project=relationship("Project")
