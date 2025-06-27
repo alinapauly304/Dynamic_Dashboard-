@@ -318,7 +318,7 @@ const getAuthToken = () => {
               <option value="">All Roles</option>
               <option value="1">Role 1</option>
               <option value="2">Role 2 (Admin)</option>
-              <option value="3">Role 3</option>
+              
             </select>
           </div>
         </div>
@@ -417,7 +417,8 @@ const getAuthToken = () => {
                     <option value="">Select Role</option>
                     <option value="1">Role 1 - User</option>
                     <option value="2">Role 2 - Admin</option>
-                    <option value="3">Role 3 - Manager</option>
+                    <option value="4">Role 4 - Developer</option>
+                    <option value="5">Role 5 - Manager</option>
                   </select>
                 </div>
                 <div>
@@ -496,10 +497,7 @@ const getAuthToken = () => {
                   </p>
                 </div>
                 <div>
-                  <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>Status</p>
-                  <p style={{ margin: '0', fontSize: '14px', fontWeight: '600', color: user.is_active ? '#28a745' : '#dc3545' }}>
-                    {user.is_active ? 'Active' : 'Inactive'}
-                  </p>
+                  
                 </div>
               </div>
               

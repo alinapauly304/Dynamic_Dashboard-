@@ -8,7 +8,26 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
+.ProjectDetailModal{
+    position: 'fixed';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backgroundColor: 'rgba(0,0,0,0.5)';
+    display: 'flex';
+    alignItems: 'center';
+    justifyContent: 'center';
+    zIndex: 1000;
+}
+.profile-info{
+      maxWidth: '700px';
+      width: '90%';
+      maxHeight: '80vh';
+      overflowY: 'auto';
+      margin: 0;
+      position: 'relative';
+}
 .projects-stats{
 background: white;
   padding: 30px;

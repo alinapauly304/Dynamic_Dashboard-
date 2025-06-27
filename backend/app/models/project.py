@@ -12,7 +12,7 @@ class Project(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
     organization_id = Column(Integer, ForeignKey("organizations.id"))
     created_at = Column(DateTime, default=datetime.utcnow)
-
+    status=Column(String)
     owner = relationship("User")
     organization = relationship("Organization")
 

@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 SECRET_KEY = "secret-key"  # Change this to a secure secret key in production
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 

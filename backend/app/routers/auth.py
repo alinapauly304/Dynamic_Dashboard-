@@ -42,6 +42,7 @@ def login(login: Login_item):
             user_obj = session.exec(
                 select(users.User).where(users.User.username == login.username)
             ).first()
+            
 
             if not user_obj or not verify_password(login.password, user_obj.password_hash):
                 logger.warning(f"Failed login attempt for username: {login.username}")

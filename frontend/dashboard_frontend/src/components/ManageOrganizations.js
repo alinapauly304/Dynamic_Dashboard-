@@ -398,12 +398,6 @@ const ManageOrganizations = () => {
               <strong>Name:</strong> {viewingOrg.name}
             </div>
             <div>
-              <strong>Status:</strong> 
-              <span className={`status ${viewingOrg.status}`} style={{ marginLeft: '8px' }}>
-                {viewingOrg.status}
-              </span>
-            </div>
-            <div>
               <strong>Created:</strong> {new Date(viewingOrg.created_at).toLocaleDateString()}
             </div>
             <div>
@@ -471,9 +465,7 @@ const ManageOrganizations = () => {
             <div key={org.id} className="project-card">
               <div className="project-header">
                 <h3>{org.name}</h3>
-                <span className={`status ${org.status}`}>
-                  {org.status}
-                </span>
+        
               </div>
               
               <div className="project-details">

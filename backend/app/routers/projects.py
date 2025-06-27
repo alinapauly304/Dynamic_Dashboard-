@@ -125,7 +125,7 @@ def create_project(
     current_user: User = Depends(get_current_user)
 ):
     """Create a new project"""
-    is_admin(current_user)
+    #is_admin(current_user)
     
     # Verify owner exists (default to current user if not specified)
     owner_id = current_user.id
@@ -175,7 +175,7 @@ def update_project(
     current_user: User = Depends(get_current_user)
 ):
     """Update a project"""
-    is_admin(current_user)
+    #is_admin(current_user)
     
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
@@ -221,7 +221,7 @@ def delete_project(
     current_user: User = Depends(get_current_user)
 ):
     """Delete a project"""
-    is_admin(current_user)
+    #is_admin(current_user)
     
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
@@ -245,7 +245,7 @@ def add_team_member(
     current_user: User = Depends(get_current_user)
 ):
     """Add a team member to a project"""
-    is_admin(current_user)
+    #is_admin(current_user)
     
     # Check if project exists
     project = db.query(Project).filter(Project.id == project_id).first()
@@ -300,7 +300,7 @@ def remove_team_member(
     current_user: User = Depends(get_current_user)
 ):
     """Remove a team member from a project"""
-    is_admin(current_user)
+    #is_admin(current_user)
     
     # Check if project exists
     project = db.query(Project).filter(Project.id == project_id).first()
@@ -328,7 +328,7 @@ def get_project_team(
     current_user: User = Depends(get_current_user)
 ):
     """Get all team members for a project"""
-    is_admin(current_user)
+    #is_admin(current_user)
     
     # Check if project exists
     project = db.query(Project).filter(Project.id == project_id).first()
@@ -356,7 +356,7 @@ def get_available_users_for_project(
     current_user: User = Depends(get_current_user)
 ):
     """Get all users from the project's organization that can be added to the project"""
-    is_admin(current_user)
+    #is_admin(current_user)
     
     # Get the project first
     project = db.query(Project).filter(Project.id == project_id).first()
@@ -386,7 +386,7 @@ def get_available_users(
     current_user: User = Depends(get_current_user)
 ):
     """Get all users that can be added to projects (general endpoint)"""
-    is_admin(current_user)
+    #is_admin(current_user)
     
     users = db.query(User).filter(User.is_active == True).all()
     
@@ -403,7 +403,7 @@ def get_available_users(
 @router.get("/stats/summary")
 def get_project_stats(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Get project statistics summary"""
-    is_admin(current_user)
+    #is_admin(current_user)
     
     total_projects = db.query(Project).count()
     
