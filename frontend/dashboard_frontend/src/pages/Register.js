@@ -195,7 +195,7 @@ function Register() {
       {/* Welcome Section */}
       <div className="welcome-section">
         <div className="welcome-content">
-          <h1>Join Our Community</h1>
+          <h1>Register here </h1>
           <p>
             Already have an account? Sign in to access your personalized dashboard 
             and continue.

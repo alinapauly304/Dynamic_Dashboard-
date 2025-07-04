@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { backend_url } from '../config';
 import './MyProjects.css';
 import './MyProfile.css';
@@ -8,6 +9,7 @@ import EditProjectModal from './EditProjectModal';
 import ProjectDetailModal from './ProjectDetailModal';
 
 const UserMyProjects = () => {
+  const navigate = useNavigate();
   const [organizationProjects, setOrganizationProjects] = useState([]);
   const [assignedProjects, setAssignedProjects] = useState([]);
   const [organizationStats, setOrganizationStats] = useState(null);
@@ -24,7 +26,11 @@ const UserMyProjects = () => {
   const [editingProject, setEditingProject] = useState(null);
 
   const hasPermission = (permName) => permissions.includes(permName);
+const [userRole, setUserRole] = useState(null);
 
+const isOrg_admin = () => {
+  return userRole === 6; 
+};
   const getAuthToken = () => {
     try {
       let token = localStorage.getItem('token');
@@ -48,6 +54,7 @@ const UserMyProjects = () => {
     fetchAllData();
   }, []);
 
+
   const getFilteredProjects = (projects) => {
     return projects.filter(project => {
       const matchesSearch = !searchTerm || 
@@ -62,58 +69,66 @@ const UserMyProjects = () => {
     });
   };
 
-  const fetchAllData = async () => {
-    try {
-      setLoading(true);
-      const token = getAuthToken();
+const fetchAllData = async () => {
+  try {
+    setLoading(true);
+    const token = getAuthToken();
+    
+    if (!token) {
+      setError('No authentication token found. Please login again.');
+      setLoading(false);
+      return;
+    }
+
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    };
+
+    // Fetch permissions first
+    const permissionResponse = await axios.get(`${backend_url}user/permissions`, { headers });
+    setPermissions(permissionResponse.data.permissions || []);
+
+    // Fetch user role information
+    const userResponse = await axios.get(`${backend_url}user/me`, { headers });
+    console.log('User response:', userResponse.data); // Debug log
+    setUserRole(userResponse.data.role_id); // Set role_id directly
+
+    // Only fetch projects if user has view permission
+    if (permissionResponse.data.permissions?.includes('view projects')) {
+      // Fetch assigned projects (for all users)
+      const assignedProjectsResponse = await axios.get(`${backend_url}user/assigned-projects`, { headers });
+      setAssignedProjects(assignedProjectsResponse.data.projects);
       
-      if (!token) {
-        setError('No authentication token found. Please login again.');
-        setLoading(false);
-        return;
-      }
+      // Fetch assigned stats
+      const assignedStatsResponse = await axios.get(`${backend_url}user/team-projects/stats`, { headers });
+      setAssignedStats(assignedStatsResponse.data);
 
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      };
-
-      // Fetch permissions first
-      const permissionResponse = await axios.get(`${backend_url}user/permissions`, { headers });
-      setPermissions(permissionResponse.data.permissions || []);
-
-      // Only fetch projects if user has view permission
-      if (permissionResponse.data.permissions?.includes('view projects')) {
-        // Fetch organization projects
+      // Only fetch organization projects if user is Org_admin (role_id === 6)
+      if (userResponse.data.role_id === 6) {
+        console.log('Fetching org projects for Org_admin'); // Debug log
         const orgProjectsResponse = await axios.get(`${backend_url}user/projects`, { headers });
         setOrganizationProjects(orgProjectsResponse.data.projects);
 
-        // Fetch assigned projects
-        const assignedProjectsResponse = await axios.get(`${backend_url}user/assigned-projects`, { headers });
-        setAssignedProjects(assignedProjectsResponse.data.projects);
-
-        // Fetch organization stats
         const orgStatsResponse = await axios.get(`${backend_url}user/projects/stats/summary`, { headers });
         setOrganizationStats(orgStatsResponse.data);
-
-        // Fetch assigned stats
-        const assignedStatsResponse = await axios.get(`${backend_url}user/team-projects/stats`, { headers });
-        setAssignedStats(assignedStatsResponse.data);
-      }
-
-      setError('');
-    } catch (err) {
-      console.error('Error fetching data:', err);
-      if (err.response?.status === 401) {
-        setError('Authentication failed. Please login again.');
       } else {
-        setError(err.response?.data?.detail || 'Failed to fetch data');
+        console.log('User is not Org_admin, role_id:', userResponse.data.role_id); // Debug log
       }
-    } finally {
-      setLoading(false);
     }
-  };
 
+    setError('');
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    if (err.response?.status === 401) {
+      setError('Authentication failed. Please login again.');
+    } else {
+      setError(err.response?.data?.detail || 'Failed to fetch data');
+    }
+  } finally {
+    setLoading(false);
+  }
+};
   const handleCreateProject = async (projectData) => {
     try {
       const token = getAuthToken();
@@ -191,7 +206,10 @@ const UserMyProjects = () => {
       setError(err.response?.data?.detail || 'Failed to delete project');
     }
   };
-
+  
+  const handleViewDashboard = async (project) => {
+  navigate('/userpanel/dashboard', { state: { project } });
+};
   const handleViewProject = async (project) => {
     try {
       const token = getAuthToken();
@@ -253,6 +271,7 @@ const UserMyProjects = () => {
       {/* Tab Navigation */}
       <div style={{ marginBottom: '24px' }}>
         <div style={{ display: 'flex', borderBottom: '2px solid #e9ecef' }}>
+          {isOrg_admin()&&(
           <button
             onClick={() => setActiveTab('organization')}
             style={{
@@ -266,7 +285,7 @@ const UserMyProjects = () => {
             }}
           >
             Organization Projects ({organizationProjects.length})
-          </button>
+          </button>)}
           <button
             onClick={() => setActiveTab('assigned')}
             style={{
@@ -374,6 +393,10 @@ const UserMyProjects = () => {
                 <div className="project-actions" style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   <button className="view-btn" onClick={() => handleViewProject(project)}>
                     View Details
+                  </button>
+
+                   <button className="view-btn" onClick={() => handleViewDashboard(project)}>
+                    View Dashboard
                   </button>
                   
                   {/* Edit button - Only show if user has update permission and it's organization tab */}

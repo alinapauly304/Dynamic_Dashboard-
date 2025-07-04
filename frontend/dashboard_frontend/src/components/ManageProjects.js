@@ -3,6 +3,8 @@ import axios from 'axios';
 import { backend_url } from '../config';
 import './MyProjects.css';
 import './MyProfile.css';
+import ProjectDashboard  from './ProjectDashboard';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const ManageProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -17,6 +19,8 @@ const ManageProjects = () => {
   const [sortBy, setSortBy] = useState('name');
   const [error, setError] = useState('');
   const [teamError, setTeamError] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Helper function to get token from localStorage
   const getAuthToken = () => {
@@ -126,27 +130,38 @@ const ManageProjects = () => {
     setShowEditModal(true);
   };
 
-  const handleViewProject = async (project) => {
-    try {
-      const token = getAuthToken();
-      if (!token) {
-        setError('No authentication token found. Please login again.');
-        return;
-      }
+const path = location.pathname;
+  if (path.includes('/dashboard')) {
+    return <ProjectDashboard project={selectedProject} />;
+  }
 
-      const response = await axios.get(`${backend_url}projects/${project.id}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      setSelectedProject(response.data);
-    } catch (err) {
-      console.error('Error fetching project details:', err);
-      if (err.response?.status === 401) {
-        setError('Authentication failed. Please login again.');
-      } else {
-        setError('Failed to fetch project details');
-      }
+  const handleViewProject = async (project) => {
+  try {
+    const token = getAuthToken();
+    if (!token) {
+      setError('No authentication token found. Please login again.');
+      return;
     }
-  };
+
+    const response = await axios.get(`${backend_url}projects/${project.id}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    
+    // Determine the base path based on current location
+    const basePath = location.pathname.includes('/adminpanel') ? '/adminpanel' : '/userpanel';
+    setSelectedProject(response.data);
+    navigate(`${basePath}/dashboard`, { state: { project: response.data } });
+    
+    setSelectedProject(response.data);
+  } catch (err) {
+    console.error('Error fetching project details:', err);
+    if (err.response?.status === 401) {
+      setError('Authentication failed. Please login again.');
+    } else {
+      setError('Failed to fetch project details');
+    }
+  }
+};
 
   const handleManageTeam = async (project) => {
     try {

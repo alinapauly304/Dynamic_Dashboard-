@@ -24,3 +24,15 @@ class ProjectTeam(Base):
 
     user=relationship("User")
     project=relationship("Project")
+
+class Proj_db_detail(Base):
+    __tablename__ = "proj_db_detail"
+    id = Column(Integer, primary_key=True)
+    project_id = Column(Integer, ForeignKey("projects.id"))
+    user = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+    dbname = Column(String, nullable=False)
+    host = Column(String, nullable=False,default="localhost")  
+    port = Column(Integer, nullable=False, default=5432)  
+
+    project = relationship("Project")

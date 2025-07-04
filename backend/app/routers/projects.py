@@ -91,7 +91,7 @@ def get_all_projects(
 @router.get("/{project_id}", response_model=dict)
 def get_project(project_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Get a specific project by ID"""
-    is_admin(current_user)
+    #is_admin(current_user)
     
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:

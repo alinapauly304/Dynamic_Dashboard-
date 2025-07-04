@@ -9,15 +9,11 @@ import AdminPanel from './pages/admin_panel';
 import { backend_url } from './config';
 
 
-
-
 function App() {
 
 const[message,setMessage] =useState('');
 
  
-
-   
 
 useEffect(() => {
     axios.get(backend_url)

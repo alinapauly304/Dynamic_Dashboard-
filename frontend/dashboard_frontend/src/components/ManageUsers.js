@@ -419,6 +419,7 @@ const getAuthToken = () => {
                     <option value="2">Role 2 - Admin</option>
                     <option value="4">Role 4 - Developer</option>
                     <option value="5">Role 5 - Manager</option>
+                    <option value="6">Role 6-Organisation admin</option>
                   </select>
                 </div>
                 <div>
