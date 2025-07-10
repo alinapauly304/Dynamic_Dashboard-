@@ -6,17 +6,15 @@ from app.models.users import User, Role
 from app.models.permission import Permission, RolePermission
 from app.database import SessionLocal
 from app.utils.jwt import get_current_user
-from pydantic import BaseModel
-import logging
+from app.schemas.role_schema import PermissionRead,RoleCreate,RoleRead,RoleUpdate
 from datetime import datetime
+from app.utils.logger import LoggerSetup
+import os
 
 router = APIRouter(prefix="/admin/roles", tags=["Role Management"])
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = LoggerSetup.setup_logger('roles', os.path.join(os.getcwd(), 'logs'))
 
-# Dependency to get database session
 def get_db():
     db = SessionLocal()
     try:
@@ -24,18 +22,15 @@ def get_db():
     finally:
         db.close()
 
-# Enhanced admin check function
 def is_admin(user: User, db: Session):
     """Check if user has admin privileges with detailed logging"""
     try:
         logger.info(f"Checking admin privileges for user: {user.username} (ID: {user.id}, Role ID: {user.role_id})")
         
-        # Method 1: Check if user has admin role (role_id 2)
         if user.role_id == 2:
             logger.info(f"User {user.username} has admin role (role_id 2)")
             return user
         
-        # Method 2: Get user's role from database and check name
         user_role = db.query(Role).filter(Role.id == user.role_id).first()
         if user_role:
             logger.info(f"User {user.username} has role: {user_role.name}")
@@ -45,7 +40,6 @@ def is_admin(user: User, db: Session):
         else:
             logger.warning(f"Role ID {user.role_id} not found in database")
             
-        # Method 3: Check if user has system.admin permission
         has_admin_permission = db.query(Permission).join(
             RolePermission, Permission.id == RolePermission.permission_id
         ).filter(
@@ -72,58 +66,16 @@ def is_admin(user: User, db: Session):
             detail="Error checking admin privileges"
         )
 
-# Enhanced Pydantic models for API
-class PermissionRead(BaseModel):
-    id: int
-    name: str
-    description: Optional[str] = None
-
-    class Config:
-        from_attributes = True
-        orm_mode = True
-
-class RoleRead(BaseModel):
-    id: int
-    name: str
-    permissions: List[PermissionRead] = []
-    is_system: bool = False  # Add system role indicator
-
-    class Config:
-        from_attributes = True
-        orm_mode = True
-
-class RoleCreate(BaseModel):
-    name: str
-    permission_ids: List[int] = []
-
-class RoleUpdate(BaseModel):
-    name: Optional[str] = None
-    permission_ids: Optional[List[int]] = None
-
-# Check if role is system role (has all permissions)
 
 def is_system_role(role_id: int, db: Session) -> bool:
     """Check if a role is a system role (should have all permissions)"""
     role = db.query(Role).filter(Role.id == role_id).first()
     if not role:
         return False
-    
-    # Check the is_system column directly
     # Assuming is_system=1 means system role, is_system=0 means regular user
     return bool(role.is_system)
-# Health check endpoint for debugging
 
-@router.get("/health/check")
-def health_check():
-    """Simple health check endpoint"""
-    logger.info("Health check endpoint accessed")
-    return {
-        "status": "healthy", 
-        "message": "Role management API is working",
-        "timestamp": str(datetime.utcnow())
-    }
 
-# Get all permissions with enhanced error handling
 @router.get("/permissions", response_model=List[PermissionRead])
 def get_all_permissions(
     current_user: User = Depends(get_current_user),
@@ -139,8 +91,7 @@ def get_all_permissions(
         # Fetch permissions
         permissions = db.query(Permission).order_by(Permission.name).all()
         logger.info(f"Retrieved {len(permissions)} permissions for user {current_user.username}")
-        
-        # Convert to response format
+       
         result = []
         for perm in permissions:
             result.append({
@@ -162,7 +113,6 @@ def get_all_permissions(
             detail="Failed to retrieve permissions"
         )
 
-# Get all roles with their permissions - Enhanced version
 @router.get("/", response_model=List[RoleRead])
 def get_all_roles(
     current_user: User = Depends(get_current_user),

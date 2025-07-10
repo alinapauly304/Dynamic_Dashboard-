@@ -3,11 +3,12 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import urllib.parse
 
+from .utils.config_reader import config
 
-username = "dashboard_user"
-password = "Alinapauly@304"  
-host = "localhost"
-database_name = "dashboard_db"
+username = config['database']['username']
+password = config['database']['password']
+host = config['database']['host']
+database_name = config['database']['database_name']
 
 encoded_password = urllib.parse.quote_plus(password)
 

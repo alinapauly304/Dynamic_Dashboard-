@@ -1,26 +1,22 @@
 from fastapi import APIRouter, HTTPException
 from sqlmodel import Session, select
-from pydantic import BaseModel, EmailStr, Field, validator
 from datetime import datetime
-import re
 from sqlalchemy.exc import SQLAlchemyError
-
 from app.models import users
 from app.database import engine
 from app.utils.hashing import hash_password, verify_password
 from app.utils.jwt import create_token
-from app.utils.logger import logger
+#from app.utils.logger import logger
+from app.schemas.auth_schema import Login_item,LoginResponse,RegisterItem
+
+
+from app.utils.logger import LoggerSetup
+from app.utils.config_reader import config
+
+conf = config["logging"]
+logger = LoggerSetup.setup_logger("auth", conf["log_dir"])
 
 router = APIRouter()
-
-class Login_item(BaseModel):
-    username: str
-    password: str
-
-class LoginResponse(BaseModel):
-    access_token: str
-    token_type: str
-    role_id: int
 
 @router.post("/login", response_model=LoginResponse)
 def login(login: Login_item):
@@ -62,37 +58,6 @@ def login(login: Login_item):
     except Exception:
         raise HTTPException(status_code=500, detail="Internal server error")
 
-
-class RegisterItem(BaseModel):
-    username: str
-    email: EmailStr
-    password: str = Field(min_length=8)
-
-    @validator("password")
-    def strong_password(cls, value):
-        """_summary_
-
-        Args:
-            value (_type_): _description_
-
-        Raises:
-            ValueError: _description_
-            ValueError: _description_
-            ValueError: _description_
-            ValueError: _description_
-
-        Returns:
-            _type_: _description_
-        """
-        if not re.search(r"[A-Z]", value):
-            raise ValueError("Password must contain at least one uppercase letter")
-        if not re.search(r"[a-z]", value):
-            raise ValueError("Password must contain at least one lowercase letter")
-        if not re.search(r"\d", value):
-            raise ValueError("Password must contain at least one digit")
-        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", value):
-            raise ValueError("Password must contain at least one special character")
-        return value
 
 @router.post("/register")
 def register(registerUser: RegisterItem):

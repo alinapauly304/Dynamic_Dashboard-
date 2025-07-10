@@ -14,7 +14,6 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     created_at = Column(TIMESTAMP)
     
-    # Add relationships
     role = relationship("Role", back_populates="users")
     organization = relationship("Organization", back_populates="users")
 
@@ -24,7 +23,7 @@ class Role(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     is_system = Column(Boolean, default=False, nullable=False)
-    # Add back reference
+   
     users = relationship("User", back_populates="role")
 
 
@@ -34,5 +33,4 @@ class Organization(Base):
     name = Column(String)
     created_at = Column(TIMESTAMP)
     
-    # Add back reference
     users = relationship("User", back_populates="organization")

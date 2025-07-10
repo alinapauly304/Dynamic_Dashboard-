@@ -1,0 +1,11 @@
+[INFO] :: 2025-07-09 21:39:00  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:39:00  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:39:00  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:39:00  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:39:00  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:39:00  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:39:02  :: organizations  :: get_organization :: 70  :: User 52 requesting organization 1
+[INFO] :: 2025-07-09 21:39:02  :: organizations  :: get_organization :: 88  :: Retrieved organization 1 with 6 users for user 52
+[INFO] :: 2025-07-09 21:39:02  :: organizations  :: get_organization_projects :: 122  :: User 52 requesting projects for organization 1
+[INFO] :: 2025-07-09 21:39:02  :: organizations  :: get_organization_projects :: 142  :: Retrieved 3 projects for organization 1
+[INFO] :: 2025-07-09 21:39:02  :: organizations  :: get_organization_projects :: 167  :: Successfully returned 3 projects for organization 1 to user 52

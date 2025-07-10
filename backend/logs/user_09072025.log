@@ -1,0 +1,398 @@
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 21  :: Database session created
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 21  :: Database session created
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:13  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:13  :: user  :: get_db :: 24  :: Database session closed
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 86  :: User admin requesting permissions list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 86  :: User admin requesting permissions list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 86  :: User admin requesting permissions list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 86  :: User admin requesting permissions list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 86  :: User admin requesting permissions list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 93  :: Retrieved 11 permissions for user admin
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 93  :: Retrieved 11 permissions for user admin
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 93  :: Retrieved 11 permissions for user admin
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 93  :: Retrieved 11 permissions for user admin
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 93  :: Retrieved 11 permissions for user admin
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 103  :: Returning 11 permissions to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 103  :: Returning 11 permissions to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 103  :: Returning 11 permissions to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 103  :: Returning 11 permissions to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 103  :: Returning 11 permissions to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 123  :: User admin requesting roles list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 123  :: User admin requesting roles list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 123  :: User admin requesting roles list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 123  :: User admin requesting roles list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 123  :: User admin requesting roles list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 130  :: Found 5 roles in database
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 130  :: Found 5 roles in database
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 130  :: Found 5 roles in database
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 130  :: Found 5 roles in database
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 130  :: Found 5 roles in database
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Admin (ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Admin (ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Admin (ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Admin (ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Admin (ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 145  :: Role 'Admin' is a system role - granting all permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 145  :: Role 'Admin' is a system role - granting all permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 145  :: Role 'Admin' is a system role - granting all permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 145  :: Role 'Admin' is a system role - granting all permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 145  :: Role 'Admin' is a system role - granting all permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Developer (ID: 4)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Developer (ID: 4)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Developer (ID: 4)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Developer (ID: 4)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Developer (ID: 4)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Developer' has 3 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Developer' has 3 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Developer' has 3 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Developer' has 3 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Developer' has 3 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Manager (ID: 5)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Manager (ID: 5)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Manager (ID: 5)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Manager (ID: 5)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Manager (ID: 5)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Manager' has 4 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Manager' has 4 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Manager' has 4 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Manager' has 4 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Manager' has 4 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Org_admin (ID: 6)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Org_admin (ID: 6)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Org_admin (ID: 6)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Org_admin (ID: 6)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Org_admin (ID: 6)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Org_admin' has 11 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Org_admin' has 11 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Org_admin' has 11 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Org_admin' has 11 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Org_admin' has 11 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: User (ID: 1)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: User (ID: 1)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: User (ID: 1)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: User (ID: 1)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: User (ID: 1)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'User' has 6 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'User' has 6 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'User' has 6 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'User' has 6 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'User' has 6 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 191  :: Successfully processed 5 roles, returning to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 191  :: Successfully processed 5 roles, returning to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 191  :: Successfully processed 5 roles, returning to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 191  :: Successfully processed 5 roles, returning to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 191  :: Successfully processed 5 roles, returning to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 86  :: User admin requesting permissions list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 86  :: User admin requesting permissions list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 86  :: User admin requesting permissions list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 86  :: User admin requesting permissions list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 86  :: User admin requesting permissions list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 93  :: Retrieved 11 permissions for user admin
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 93  :: Retrieved 11 permissions for user admin
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 93  :: Retrieved 11 permissions for user admin
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 93  :: Retrieved 11 permissions for user admin
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 93  :: Retrieved 11 permissions for user admin
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 103  :: Returning 11 permissions to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 103  :: Returning 11 permissions to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 103  :: Returning 11 permissions to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 103  :: Returning 11 permissions to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_permissions :: 103  :: Returning 11 permissions to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 123  :: User admin requesting roles list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 123  :: User admin requesting roles list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 123  :: User admin requesting roles list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 123  :: User admin requesting roles list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 123  :: User admin requesting roles list
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 130  :: Found 5 roles in database
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 130  :: Found 5 roles in database
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 130  :: Found 5 roles in database
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 130  :: Found 5 roles in database
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 130  :: Found 5 roles in database
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Admin (ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Admin (ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Admin (ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Admin (ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Admin (ID: 2)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 145  :: Role 'Admin' is a system role - granting all permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 145  :: Role 'Admin' is a system role - granting all permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 145  :: Role 'Admin' is a system role - granting all permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 145  :: Role 'Admin' is a system role - granting all permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 145  :: Role 'Admin' is a system role - granting all permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Developer (ID: 4)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Developer (ID: 4)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Developer (ID: 4)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Developer (ID: 4)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Developer (ID: 4)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Developer' has 3 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Developer' has 3 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Developer' has 3 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Developer' has 3 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Developer' has 3 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Manager (ID: 5)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Manager (ID: 5)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Manager (ID: 5)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Manager (ID: 5)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Manager (ID: 5)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Manager' has 4 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Manager' has 4 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Manager' has 4 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Manager' has 4 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Manager' has 4 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Org_admin (ID: 6)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Org_admin (ID: 6)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Org_admin (ID: 6)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Org_admin (ID: 6)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: Org_admin (ID: 6)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Org_admin' has 11 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Org_admin' has 11 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Org_admin' has 11 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Org_admin' has 11 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'Org_admin' has 11 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: User (ID: 1)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: User (ID: 1)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: User (ID: 1)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: User (ID: 1)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 139  :: Processing role: User (ID: 1)
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'User' has 6 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'User' has 6 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'User' has 6 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'User' has 6 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 162  :: Role 'User' has 6 assigned permissions
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 191  :: Successfully processed 5 roles, returning to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 191  :: Successfully processed 5 roles, returning to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 191  :: Successfully processed 5 roles, returning to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 191  :: Successfully processed 5 roles, returning to frontend
+[INFO] :: 2025-07-09 21:34:36  :: roles  :: get_all_roles :: 191  :: Successfully processed 5 roles, returning to frontend
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: update_role :: 318  :: User admin updating role ID: 5
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: update_role :: 318  :: User admin updating role ID: 5
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: update_role :: 318  :: User admin updating role ID: 5
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: update_role :: 318  :: User admin updating role ID: 5
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: update_role :: 318  :: User admin updating role ID: 5
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: is_admin :: 28  :: Checking admin privileges for user: admin (ID: 52, Role ID: 2)
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: is_admin :: 31  :: User admin has admin role (role_id 2)
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: update_role :: 389  :: Successfully updated role Manager
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: update_role :: 389  :: Successfully updated role Manager
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: update_role :: 389  :: Successfully updated role Manager
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: update_role :: 389  :: Successfully updated role Manager
+[INFO] :: 2025-07-09 21:34:46  :: roles  :: update_role :: 389  :: Successfully updated role Manager
+[DEBUG] :: 2025-07-09 21:34:55  :: user_projects  :: get_db :: 20  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:55  :: user_projects  :: get_db :: 20  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:55  :: user_projects  :: get_db :: 20  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:55  :: user_projects  :: get_db :: 20  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:55  :: user_projects  :: get_db :: 20  :: Database session created
+[INFO] :: 2025-07-09 21:34:56  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[INFO] :: 2025-07-09 21:34:56  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[INFO] :: 2025-07-09 21:34:56  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[INFO] :: 2025-07-09 21:34:56  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[INFO] :: 2025-07-09 21:34:56  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 23  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 23  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 23  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 23  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 23  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 20  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 20  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 20  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 20  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 20  :: Database session created
+[INFO] :: 2025-07-09 21:34:56  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[INFO] :: 2025-07-09 21:34:56  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[INFO] :: 2025-07-09 21:34:56  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[INFO] :: 2025-07-09 21:34:56  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[INFO] :: 2025-07-09 21:34:56  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[INFO] :: 2025-07-09 21:34:56  :: Dynamic_db  :: get_connection_pool :: 40  :: Created new connection pool for localhost:5432:dashboard_user:dashboard_db
+[INFO] :: 2025-07-09 21:34:56  :: Dynamic_db  :: get_connection_pool :: 40  :: Created new connection pool for localhost:5432:dashboard_user:dashboard_db
+[INFO] :: 2025-07-09 21:34:56  :: Dynamic_db  :: get_connection_pool :: 40  :: Created new connection pool for localhost:5432:dashboard_user:dashboard_db
+[INFO] :: 2025-07-09 21:34:56  :: Dynamic_db  :: get_connection_pool :: 40  :: Created new connection pool for localhost:5432:dashboard_user:dashboard_db
+[INFO] :: 2025-07-09 21:34:56  :: Dynamic_db  :: get_connection_pool :: 40  :: Created new connection pool for localhost:5432:dashboard_user:dashboard_db
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 21  :: Database session created
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 23  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 23  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 23  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 23  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user_projects  :: get_db :: 23  :: Database session closed
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 21  :: Database session created
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 21  :: Database session created
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[INFO] :: 2025-07-09 21:34:56  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:34:56  :: user  :: get_db :: 24  :: Database session closed
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 23  :: User 52 requesting all organizations
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 33  :: Retrieved 3 organizations for admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:34:58  :: organizations  :: get_all_organizations :: 54  :: Successfully returned 3 organizations to admin 52
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization :: 70  :: User 52 requesting organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization :: 70  :: User 52 requesting organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization :: 70  :: User 52 requesting organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization :: 70  :: User 52 requesting organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization :: 70  :: User 52 requesting organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization :: 88  :: Retrieved organization 1 with 6 users for user 52
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization :: 88  :: Retrieved organization 1 with 6 users for user 52
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization :: 88  :: Retrieved organization 1 with 6 users for user 52
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization :: 88  :: Retrieved organization 1 with 6 users for user 52
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization :: 88  :: Retrieved organization 1 with 6 users for user 52
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 122  :: User 52 requesting projects for organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 122  :: User 52 requesting projects for organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 122  :: User 52 requesting projects for organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 122  :: User 52 requesting projects for organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 122  :: User 52 requesting projects for organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 142  :: Retrieved 3 projects for organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 142  :: Retrieved 3 projects for organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 142  :: Retrieved 3 projects for organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 142  :: Retrieved 3 projects for organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 142  :: Retrieved 3 projects for organization 1
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 167  :: Successfully returned 3 projects for organization 1 to user 52
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 167  :: Successfully returned 3 projects for organization 1 to user 52
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 167  :: Successfully returned 3 projects for organization 1 to user 52
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 167  :: Successfully returned 3 projects for organization 1 to user 52
+[INFO] :: 2025-07-09 21:35:00  :: organizations  :: get_organization_projects :: 167  :: Successfully returned 3 projects for organization 1 to user 52
+[DEBUG] :: 2025-07-09 21:38:57  :: user  :: get_db :: 21  :: Database session created
+[INFO] :: 2025-07-09 21:38:57  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:38:58  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[DEBUG] :: 2025-07-09 21:38:58  :: user  :: get_db :: 24  :: Database session closed
+[DEBUG] :: 2025-07-09 21:38:58  :: user  :: get_db :: 21  :: Database session created
+[INFO] :: 2025-07-09 21:38:58  :: user  :: get_my_profile :: 47  :: User 52 requested their profile
+[INFO] :: 2025-07-09 21:38:58  :: user  :: get_my_profile :: 70  :: Successfully retrieved profile for user 52
+[DEBUG] :: 2025-07-09 21:38:58  :: user  :: get_db :: 24  :: Database session closed

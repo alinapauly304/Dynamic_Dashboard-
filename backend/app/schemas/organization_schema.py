@@ -6,11 +6,11 @@ class OrganizationBase(BaseModel):
     name: str
 
 class OrganizationCreate(OrganizationBase):
-    description: Optional[str] = None  # Accept but ignore
+    description: Optional[str] = None 
 
 class OrganizationUpdate(BaseModel):
     name: Optional[str] = None
-    description: Optional[str] = None  # Accept but ignore
+    description: Optional[str] = None  
     status: Optional[str] = None
 
 class UserInOrganization(BaseModel):
@@ -26,7 +26,7 @@ class UserInOrganization(BaseModel):
 
 class OrganizationResponse(OrganizationBase):
     id: int
-    description: str = ""  # Always return empty string
+    description: str = ""  
     members: int = 0
     projects: int = 0
     status: str = "active"

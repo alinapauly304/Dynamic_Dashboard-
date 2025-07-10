@@ -6,14 +6,13 @@ from sqlalchemy.orm import Session
 from app.models import users
 from app.database import SessionLocal
 import logging
+from app.utils.config_reader import config
 
 # Set up logging
 logger = logging.getLogger(__name__)
-
-SECRET_KEY = "secret-key"  # Change this to a secure secret key in production
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
-
+SECRET_KEY = config['jwt']['secret_key']  
+ALGORITHM = config['jwt']['algorithm']    
+ACCESS_TOKEN_EXPIRE_MINUTES = int(config['jwt']['access_token_expire_minutes'])  
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 def create_token(data: dict):
@@ -54,7 +53,7 @@ def get_db():
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> users.User:
     """Get current user from JWT token with proper error handling"""
     
-    # Create credentials exception
+   
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",

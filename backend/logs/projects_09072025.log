@@ -1,0 +1,84 @@
+[INFO] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 41  :: User 52 (admin) accessing all projects list
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 42  :: Filters applied - status: None, search: None, sort_by: name
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: is_admin :: 25  :: Checking admin privileges for user 52 (admin) - role_id: 2
+[INFO] :: 2025-07-09 21:34:50  :: projects  :: is_admin :: 29  :: Admin access granted for user 52 (admin)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 48  :: Building base query with joins for projects, users, and organizations
+[INFO] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 62  :: Found 5 projects matching criteria
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 66  :: Processing project 6 (Inventory System)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 81  :: Project 6 has 1 team members
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 66  :: Processing project 7 (E-learning Platform)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 81  :: Project 7 has 1 team members
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 66  :: Processing project 9 (Marketing Analytics)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 81  :: Project 9 has 2 team members
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 66  :: Processing project 14 (new proj)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 81  :: Project 14 has 0 team members
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 66  :: Processing project 11 (employee management)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 81  :: Project 11 has 2 team members
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 101  :: Sorting results by: name
+[INFO] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 109  :: Successfully returned 5 projects to user 52
+[INFO] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 41  :: User 52 (admin) accessing all projects list
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 42  :: Filters applied - status: None, search: None, sort_by: name
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: is_admin :: 25  :: Checking admin privileges for user 52 (admin) - role_id: 2
+[INFO] :: 2025-07-09 21:34:50  :: projects  :: is_admin :: 29  :: Admin access granted for user 52 (admin)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 48  :: Building base query with joins for projects, users, and organizations
+[INFO] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 62  :: Found 5 projects matching criteria
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 66  :: Processing project 6 (Inventory System)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 81  :: Project 6 has 1 team members
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 66  :: Processing project 7 (E-learning Platform)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 81  :: Project 7 has 1 team members
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 66  :: Processing project 9 (Marketing Analytics)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 81  :: Project 9 has 2 team members
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 66  :: Processing project 14 (new proj)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 81  :: Project 14 has 0 team members
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 66  :: Processing project 11 (employee management)
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 81  :: Project 11 has 2 team members
+[DEBUG] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 101  :: Sorting results by: name
+[INFO] :: 2025-07-09 21:34:50  :: projects  :: get_all_projects :: 109  :: Successfully returned 5 projects to user 52
+[INFO] :: 2025-07-09 21:34:55  :: projects  :: get_project :: 122  :: User 52 (admin) accessing project 7
+[INFO] :: 2025-07-09 21:34:55  :: projects  :: get_project :: 126  :: Admin check bypassed for user 52 on get_project
+[DEBUG] :: 2025-07-09 21:34:55  :: projects  :: get_project :: 128  :: Querying project 7 from database
+[DEBUG] :: 2025-07-09 21:34:55  :: projects  :: get_project :: 134  :: Project 7 found: E-learning Platform
+[DEBUG] :: 2025-07-09 21:34:55  :: projects  :: get_project :: 148  :: Project 7 has 1 team members
+[INFO] :: 2025-07-09 21:34:55  :: projects  :: get_project :: 150  :: Successfully retrieved project 7 for user 52
+[INFO] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 41  :: User 52 (admin) accessing all projects list
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 42  :: Filters applied - status: None, search: None, sort_by: name
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: is_admin :: 25  :: Checking admin privileges for user 52 (admin) - role_id: 2
+[INFO] :: 2025-07-09 21:38:54  :: projects  :: is_admin :: 29  :: Admin access granted for user 52 (admin)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 48  :: Building base query with joins for projects, users, and organizations
+[INFO] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 62  :: Found 5 projects matching criteria
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 66  :: Processing project 6 (Inventory System)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 81  :: Project 6 has 1 team members
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 66  :: Processing project 7 (E-learning Platform)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 81  :: Project 7 has 1 team members
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 66  :: Processing project 9 (Marketing Analytics)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 81  :: Project 9 has 2 team members
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 66  :: Processing project 14 (new proj)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 81  :: Project 14 has 0 team members
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 66  :: Processing project 11 (employee management)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 81  :: Project 11 has 2 team members
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 101  :: Sorting results by: name
+[INFO] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 109  :: Successfully returned 5 projects to user 52
+[INFO] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 41  :: User 52 (admin) accessing all projects list
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 42  :: Filters applied - status: None, search: None, sort_by: name
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: is_admin :: 25  :: Checking admin privileges for user 52 (admin) - role_id: 2
+[INFO] :: 2025-07-09 21:38:54  :: projects  :: is_admin :: 29  :: Admin access granted for user 52 (admin)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 48  :: Building base query with joins for projects, users, and organizations
+[INFO] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 62  :: Found 5 projects matching criteria
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 66  :: Processing project 6 (Inventory System)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 81  :: Project 6 has 1 team members
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 66  :: Processing project 7 (E-learning Platform)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 81  :: Project 7 has 1 team members
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 66  :: Processing project 9 (Marketing Analytics)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 81  :: Project 9 has 2 team members
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 66  :: Processing project 14 (new proj)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 81  :: Project 14 has 0 team members
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 66  :: Processing project 11 (employee management)
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 81  :: Project 11 has 2 team members
+[DEBUG] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 101  :: Sorting results by: name
+[INFO] :: 2025-07-09 21:38:54  :: projects  :: get_all_projects :: 109  :: Successfully returned 5 projects to user 52
+[INFO] :: 2025-07-09 21:38:56  :: projects  :: get_project :: 122  :: User 52 (admin) accessing project 11
+[INFO] :: 2025-07-09 21:38:56  :: projects  :: get_project :: 126  :: Admin check bypassed for user 52 on get_project
+[DEBUG] :: 2025-07-09 21:38:56  :: projects  :: get_project :: 128  :: Querying project 11 from database
+[DEBUG] :: 2025-07-09 21:38:56  :: projects  :: get_project :: 134  :: Project 11 found: employee management
+[DEBUG] :: 2025-07-09 21:38:56  :: projects  :: get_project :: 148  :: Project 11 has 2 team members
+[INFO] :: 2025-07-09 21:38:56  :: projects  :: get_project :: 150  :: Successfully retrieved project 11 for user 52

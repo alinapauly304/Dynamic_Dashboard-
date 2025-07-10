@@ -1,0 +1,2 @@
+[INFO] :: 2025-07-09 21:38:57  :: Dynamic_db  :: get_connection_pool :: 40  :: Created new connection pool for localhost:5432:dashboard_user:dashboard_db
+[INFO] :: 2025-07-09 21:39:00  :: Dynamic_db  :: get_connection_pool :: 40  :: Created new connection pool for localhost:5432:dashboard_user:a11

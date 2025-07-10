@@ -1,0 +1,9 @@
+[INFO] :: 2025-07-09 21:34:14  :: admin  :: is_admin :: 28  :: Admin access granted to user 52
+[INFO] :: 2025-07-09 21:34:14  :: admin  :: get_all_users :: 45  :: Retrieved 9 users for admin 52
+[INFO] :: 2025-07-09 21:34:14  :: admin  :: is_admin :: 28  :: Admin access granted to user 52
+[INFO] :: 2025-07-09 21:34:14  :: admin  :: get_all_users :: 45  :: Retrieved 9 users for admin 52
+[INFO] :: 2025-07-09 21:34:35  :: admin  :: update_user :: 93  :: Admin 52 attempting to update user 56
+[INFO] :: 2025-07-09 21:34:35  :: admin  :: is_admin :: 28  :: Admin access granted to user 52
+[INFO] :: 2025-07-09 21:34:35  :: admin  :: update_user :: 105  :: Admin 52 successfully updated user 56, fields: ['role_id']
+[INFO] :: 2025-07-09 21:34:35  :: admin  :: is_admin :: 28  :: Admin access granted to user 52
+[INFO] :: 2025-07-09 21:34:35  :: admin  :: get_all_users :: 45  :: Retrieved 9 users for admin 52

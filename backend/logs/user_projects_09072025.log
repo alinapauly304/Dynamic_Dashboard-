@@ -1,0 +1,6 @@
+[DEBUG] :: 2025-07-09 21:38:57  :: user_projects  :: get_db :: 20  :: Database session created
+[INFO] :: 2025-07-09 21:38:57  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[DEBUG] :: 2025-07-09 21:38:57  :: user_projects  :: get_db :: 23  :: Database session closed
+[DEBUG] :: 2025-07-09 21:38:57  :: user_projects  :: get_db :: 20  :: Database session created
+[INFO] :: 2025-07-09 21:38:57  :: user_projects  :: get_user_permissions_endpoint :: 399  :: User 52 requesting permissions
+[DEBUG] :: 2025-07-09 21:38:57  :: user_projects  :: get_db :: 23  :: Database session closed

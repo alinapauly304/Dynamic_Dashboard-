@@ -1,10 +1,10 @@
+"""Function"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.models.base import Base
 from app.database import engine
-from app.config import origins
 from app.routers import auth,user,roles,projects,organizations,user_projects,Dynamic_db
-
+from app.utils.config_reader import config
 from app.routers import admin
 from app.utils.hashing import hash_password
 
@@ -15,7 +15,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=config['origins']['frontend'],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,11 +30,11 @@ app.include_router(organizations.router, tags=["Organizations"])
 app.include_router(user_projects.router,tags=["User Projects"])
 app.include_router(Dynamic_db.router,tags=["Dynamic_db"])
 # Debug: Print all registered routes
-@app.on_event("startup")
-async def startup_event():
-    print("Registered routes:")
-    for route in app.routes:
-        print(f"  {route.methods} {route.path}")
+# @app.on_event("startup")
+# async def startup_event():
+#     print("Registered routes:")
+#     for route in app.routes:
+#         print(f"  {route.methods} {route.path}")
 
 @app.get("/health", tags=["Health Check"])
 def health_check():
