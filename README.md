@@ -26,6 +26,7 @@ Authenticates a user and returns a JWT token.
   "username": "testuser",
   "password": "password123"
 }
+```
 **Response:**
 ```json
 {
