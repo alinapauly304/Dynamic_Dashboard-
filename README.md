@@ -26,3 +26,9 @@ Authenticates a user and returns a JWT token.
   "username": "testuser",
   "password": "password123"
 }
+**Response:**
+{
+  "access_token": "your.jwt.token.here",
+  "token_type": "bearer",
+  "role_id": 2
+}
