@@ -9,9 +9,105 @@ A FastAPI-based dynamic dashboard project with user authentication, role-based a
 - Modular FastAPI router structure
 - Logging and exception handling
 - Config-driven architecture
+---
+## Installation
+## Installation
+
+### Prerequisites
+
+- **Python 3.9+**
+- **Node.js 18+** and **npm** or **yarn**
+- **PostgreSQL** installed and running
+- (Optional) **Virtual Environment** for Python (recommended)
+
+### Backend Setup (FastAPI)
+
+1. **Navigate to the backend directory:**
+
+   ```bash
+   cd backend
+Create and activate a virtual environment:
+
+
+python -m venv venv
+source venv/bin/activate        # On Windows: venv\Scripts\activate
+Install dependencies:
+
+pip install -r requirements.txt
+Configure environment variables:
+
+
+Start the FastAPI backend:
+
+
+uvicorn app.main:app --reload
+Frontend Setup (React)
+Navigate to the frontend directory:
+
+
+cd frontend
+Install Node.js dependencies:
+
+
+npm install          # or yarn install
+Start the React development server:
+
+
+npm run dev          # or yarn dev
+Frontend will be accessible at:
+http://localhost:3000
+
 
 ---
+## Project structure
+Dynamic_Dashboard-/
 
+├── backend/
+
+│   ├── app/
+
+│   │   ├── main.py
+
+│   │   ├── models/             # models (User, Role, Org, etc.)
+
+│   │   ├── routers/            # API route definitions (auth, admin, user)
+
+│   │   ├── schemas/            # Pydantic schemas
+
+│   │   └── utils/              # Helper functions (JWT, hashing, etc.)
+
+│   └── requirements.txt
+│   └── logs
+
+├── frontend/
+
+│   ├── public/
+
+│   ├── src/
+
+│   │   ├── components/         # Reusable components
+
+│   │   ├── pages/              # Page-level views (Login, Dashboard, Admin)
+
+│   │   ├── services/           # API calls, token storage, etc.
+
+│   │   └── App.tsx
+
+│   └── package.json
+
+└── README.md
+
+
+---
+## Authentication Flow
+
+1. **Register** a new user account using `/register`
+2. **Login** with credentials to receive a JWT token via `/login`
+3. Include the JWT token in subsequent API requests using the `Authorization` header:
+   ```
+   Authorization: Bearer your.jwt.token.here
+   ```
+---
 ##  Authentication Endpoints
 
 ### POST `/login`
@@ -52,7 +148,7 @@ Registers a new user account.
 {
   "username": "newuser",
   "email": "user@example.com",
-  "password": "securepassword123"
+  "password": "Password@123"//strong password
 }
 ```
 
@@ -74,16 +170,7 @@ Registers a new user account.
 - New users are assigned to `organization_id: 1` by default
 - User accounts are active by default (`is_active: true`)
 
----
 
-## Authentication Flow
-
-1. **Register** a new user account using `/register`
-2. **Login** with credentials to receive a JWT token via `/login`
-3. Include the JWT token in subsequent API requests using the `Authorization` header:
-   ```
-   Authorization: Bearer your.jwt.token.here
-   ```
 
 ---
 
@@ -209,7 +296,7 @@ Authorization: Bearer your.jwt.token.here
 {
   "username": "newuser",
   "email": "newuser@example.com",
-  "password": "securepassword123",
+  "password": "Password@123",
   "role_id": 1,
   "organization_id": 1
 }
@@ -391,7 +478,7 @@ Authorization: Bearer your.jwt.token.here
 **Request Body:**
 ```json
 {
-  "name": "moderator",
+  "name": "manager",
   "permission_ids": [1, 2]
 }
 ```
@@ -400,7 +487,7 @@ Authorization: Bearer your.jwt.token.here
 ```json
 {
   "id": 3,
-  "name": "moderator",
+  "name": "manager",
   "is_system": false,
   "permissions": [
     {
@@ -437,7 +524,7 @@ Authorization: Bearer your.jwt.token.here
 **Request Body:**
 ```json
 {
-  "name": "updated_moderator",
+  "name": "updated_manager",
   "permission_ids": [1, 2, 3]
 }
 ```
@@ -446,7 +533,7 @@ Authorization: Bearer your.jwt.token.here
 ```json
 {
   "id": 3,
-  "name": "updated_moderator",
+  "name": "updated_manager",
   "is_system": false,
   "permissions": [
     {
@@ -494,7 +581,7 @@ Authorization: Bearer your.jwt.token.here
 **Response:**
 ```json
 {
-  "message": "Role 'moderator' deleted successfully"
+  "message": "Role 'manager' deleted successfully"
 }
 ```
 
@@ -533,56 +620,20 @@ Authorization: Bearer your.jwt.token.here
   "timestamp": "2024-01-15T10:30:00.000000"
 }
 ```
-
-**Notes:**
-- Useful for frontend debugging and connection testing
-- Requires valid JWT token but only basic authentication (not admin privileges)
-
 ---
-
-## Permission System
-
-The system uses a flexible permission-based access control with the following key concepts:
 
 ### Admin Privilege Verification
 
 Admin access is granted if the user meets any of these criteria:
 1. **Role ID 2**: Direct admin role assignment
-2. **Role Name**: Role name contains "admin" (case-insensitive)
-3. **System Permission**: Has the "system.admin" permission assigned
+2. **Role Name**: Role name contains "admin"
+3. **System Permission**: `is_system: true`
 
 ### System vs Regular Roles
 
 - **System Roles** (`is_system: true`): Automatically granted all permissions in the system
 - **Regular Roles** (`is_system: false`): Only have explicitly assigned permissions
 
-### Permission Structure
-
-Permissions follow a hierarchical naming convention:
-- `user.read` - Read user information
-- `user.write` - Create and update users  
-- `system.admin` - Full system administration access
-
-### Role Management Rules
-
-1. System roles cannot be modified or deleted
-2. Roles assigned to users cannot be deleted
-3. System roles automatically inherit all permissions
-4. Permission changes take effect immediately
-5. All role operations are logged for audit purposes
-
----
-
-## Error Handling
-
-All endpoints include comprehensive error handling with:
-- Detailed logging for debugging
-- Proper HTTP status codes
-- Descriptive error messages
-- Database transaction rollback on failures
-- Admin privilege verification with specific error messages
-
----
 ## Organization Management Endpoints
 
 **Note:** Organization management endpoints have different permission requirements:
@@ -867,11 +918,6 @@ Authorization: Bearer your.jwt.token.here
 - `404 Not Found`: Organization not found
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Organizations with users cannot be deleted
-- All users must be reassigned to other organizations before deletion
-- Projects associated with the organization should be handled separately
-
 ---
 
 ## Organization Access Control
@@ -895,7 +941,6 @@ Authorization: Bearer your.jwt.token.here
 - Cross-organization data access is restricted to prevent data leakage
 - All organization operations are logged for audit purposes
 
-### Business Rules
 
 1. **Organization Creation**: Only admins can create new organizations
 2. **Organization Deletion**: Cannot delete organizations with active users
@@ -903,25 +948,9 @@ Authorization: Bearer your.jwt.token.here
 4. **Project Association**: Projects belong to organizations and inherit access controls
 5. **Default Organization**: New users are typically assigned to organization_id: 1
 
----
-
-## Error Handling
-
-All organization endpoints include comprehensive error handling with:
-- Detailed logging for debugging
-- Proper HTTP status codes
-- Descriptive error messages
-- Database transaction rollback on failures
-- Admin privilege verification with specific error messages
-- Organization-level access control validation
 
 ---
 ## Project Management Endpoints
-
-**Note:** Project management endpoints have flexible permission requirements:
-- **Admin Only**: View all projects with advanced filtering and sorting
-- **All Users**: Create, view, update, and delete individual projects (admin check bypassed)
-- **Team Management**: All users can manage project teams
 
 ### GET `/projects`
 
@@ -984,11 +1013,6 @@ Authorization: Bearer your.jwt.token.here
 - `403 Forbidden`: Admin access required (role_id != 2)
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Results are automatically sorted by the specified `sort_by` parameter
-- Search functionality is case-insensitive and searches across name, description, and owner username
-- Each project includes complete team member information
-
 ---
 
 ### GET `/projects/{project_id}`
@@ -1026,11 +1050,6 @@ Authorization: Bearer your.jwt.token.here
 - `401 Unauthorized`: Invalid or missing JWT token
 - `404 Not Found`: Project not found
 - `500 Internal Server Error`: Database error
-
-**Notes:**
-- Admin check is bypassed for this endpoint
-- Returns complete project information including team members
-- Organization and owner information is included for context
 
 ---
 
@@ -1075,12 +1094,6 @@ Authorization: Bearer your.jwt.token.here
 - `401 Unauthorized`: Invalid or missing JWT token
 - `404 Not Found`: Project owner not found (if owner_id is specified)
 - `500 Internal Server Error`: Database error
-
-**Notes:**
-- Admin check is bypassed for this endpoint
-- If `owner_id` is not specified, the current user becomes the owner
-- Project is automatically assigned to the owner's organization (or default organization_id: 1)
-- New projects start with empty team arrays
 
 ---
 
@@ -1131,12 +1144,6 @@ Authorization: Bearer your.jwt.token.here
 - `404 Not Found`: Project not found
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Admin check is bypassed for this endpoint
-- Only provided fields will be updated (partial updates supported)
-- All changes are logged with before/after values
-- Returns complete updated project information including team
-
 ---
 
 ### DELETE `/projects/{project_id}`
@@ -1159,12 +1166,6 @@ Authorization: Bearer your.jwt.token.here
 - `401 Unauthorized`: Invalid or missing JWT token
 - `404 Not Found`: Project not found
 - `500 Internal Server Error`: Database error
-
-**Notes:**
-- Admin check is bypassed for this endpoint
-- All team members are automatically removed before project deletion
-- Project deletion is logged with project name and requesting user information
-- Cascading deletion ensures data integrity
 
 ---
 
@@ -1204,12 +1205,6 @@ Authorization: Bearer your.jwt.token.here
 - `404 Not Found`: Project not found or user not found in project's organization
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Admin check is bypassed for this endpoint
-- User must belong to the same organization as the project
-- User must be active (`is_active: true`)
-- Prevents duplicate team memberships
-
 ---
 
 ### DELETE `/projects/{project_id}/team/{user_id}`
@@ -1232,11 +1227,6 @@ Authorization: Bearer your.jwt.token.here
 - `401 Unauthorized`: Invalid or missing JWT token
 - `404 Not Found`: Project not found or team member not found
 - `500 Internal Server Error`: Database error
-
-**Notes:**
-- Admin check is bypassed for this endpoint
-- User removal is logged with user information
-- Safe to call even if user is not a team member
 
 ---
 
@@ -1271,11 +1261,6 @@ Authorization: Bearer your.jwt.token.here
 - `401 Unauthorized`: Invalid or missing JWT token
 - `404 Not Found`: Project not found
 - `500 Internal Server Error`: Database error
-
-**Notes:**
-- Admin check is bypassed for this endpoint
-- Returns team members with their role information
-- Useful for project management interfaces
 
 ---
 
@@ -1317,12 +1302,6 @@ Authorization: Bearer your.jwt.token.here
 - `404 Not Found`: Project not found
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Admin check is bypassed for this endpoint
-- Returns only active users (`is_active: true`)
-- Filtered by the project's organization to maintain data isolation
-- Useful for team member selection interfaces
-
 ---
 
 ### GET `/projects/available-users`
@@ -1362,11 +1341,6 @@ Authorization: Bearer your.jwt.token.here
 - `401 Unauthorized`: Invalid or missing JWT token
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Admin check is bypassed for this endpoint
-- Returns all active users across all organizations
-- Useful for general user selection interfaces
-
 ---
 
 ### GET `/projects/stats/summary`
@@ -1392,56 +1366,6 @@ Authorization: Bearer your.jwt.token.here
 - `401 Unauthorized`: Invalid or missing JWT token
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Admin check is bypassed for this endpoint
-- Currently returns basic project count statistics
-- `active_projects` equals `total_projects` (all projects are considered active)
-- `completed_projects` and `in_progress_projects` are set to 0 (placeholder values)
-
----
-
-## Project Management Business Rules
-
-### Project Creation
-- Projects are automatically assigned to the owner's organization or default organization (ID: 1)
-- Current user becomes the owner if no owner_id is specified
-- New projects start with empty team arrays
-- All project creation is logged
-
-### Team Management
-- Team members must belong to the same organization as the project
-- Team members must be active users (`is_active: true`)
-- Duplicate team memberships are prevented
-- Team member changes are logged for audit purposes
-
-### Project Access Control
-- Most endpoints bypass admin checks for flexibility
-- Organization-level isolation is maintained through business logic
-- All operations are logged for security auditing
-
-### Data Integrity
-- Projects maintain referential integrity with users and organizations
-- Team members are automatically removed when projects are deleted
-- Owner information is always validated before project creation
-
-### Default Values
-- Status: "active"
-- Priority: "medium"
-- Budget: 0
-- Progress: 0
-- Organization: Current user's organization or default (ID: 1)
-
----
-
-## Error Handling
-
-All project endpoints include comprehensive error handling with:
-- Detailed logging for debugging and audit trails
-- Proper HTTP status codes
-- Descriptive error messages
-- Database transaction rollback on failures
-- Input validation and sanitization
-- Graceful handling of missing related data (users, organizations)
 
 ---
 
@@ -1489,14 +1413,6 @@ Authorization: Bearer your.jwt.token.here
 - `401 Unauthorized`: Invalid or missing JWT token
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Project status is automatically determined based on creation date:
-  - **Active**: Created within the last 30 days
-  - **In Progress**: Created 30-90 days ago
-  - **Completed**: Created more than 90 days ago
-- Only projects within the user's organization are returned
-- Projects are returned with owner information for context
-
 ---
 
 ### GET `/user/projects/{project_id}`
@@ -1528,11 +1444,6 @@ Authorization: Bearer your.jwt.token.here
 - `404 Not Found`: Project not found or not accessible
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Users can only access projects within their own organization
-- Returns complete project information including organization details
-- Project status is dynamically calculated based on creation date
-
 ---
 
 ### GET `/user/projects/stats/summary`
@@ -1560,13 +1471,6 @@ Authorization: Bearer your.jwt.token.here
 - `401 Unauthorized`: Invalid or missing JWT token
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Statistics are calculated only for projects within the user's organization
-- Project categorization is based on creation date:
-  - **Active**: 0-30 days old
-  - **In Progress**: 31-90 days old
-  - **Completed**: 91+ days old
-- Includes organization_id for reference
 
 ---
 
@@ -1609,12 +1513,6 @@ Authorization: Bearer your.jwt.token.here
 - `400 Bad Request`: User is not associated with any organization
 - `401 Unauthorized`: Invalid or missing JWT token
 - `500 Internal Server Error`: Database error
-
-**Notes:**
-- Returns only projects where the user is explicitly added as a team member
-- Projects are sorted by creation date (newest first)
-- Includes additional security check to ensure projects belong to user's organization
-- Status calculation follows the same rules as organization projects
 
 ---
 
@@ -1663,13 +1561,6 @@ Authorization: Bearer your.jwt.token.here
 - `404 Not Found`: Project not found
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Requires user to be a team member of the project
-- Returns complete project information including all team members
-- Each team member includes `is_current_user` flag for UI convenience
-- `user_role` field indicates the user's role in the project context
-- Additional security validation ensures project belongs to user's organization
-
 ---
 
 ### GET `/user/team-projects/stats`
@@ -1696,12 +1587,6 @@ Authorization: Bearer your.jwt.token.here
 - `400 Bad Request`: User is not associated with any organization
 - `401 Unauthorized`: Invalid or missing JWT token
 - `500 Internal Server Error`: Database error
-
-**Notes:**
-- Statistics are calculated only for projects where the user is a team member
-- Project categorization follows the same date-based rules as other endpoints
-- Provides insight into the user's workload and project involvement
-- Includes organization_id for reference
 
 ---
 
@@ -1738,12 +1623,6 @@ Authorization: Bearer your.jwt.token.here
 - `401 Unauthorized`: Invalid or missing JWT token
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Returns all permissions assigned to the user's role
-- System roles automatically include all available permissions
-- Role information is included for context
-- Useful for frontend permission-based UI rendering
-
 ---
 
 ### GET `/user/permissions/check/{permission_name}`
@@ -1768,82 +1647,6 @@ Authorization: Bearer your.jwt.token.here
 - `401 Unauthorized`: Invalid or missing JWT token
 - `500 Internal Server Error`: Database error
 
-**Notes:**
-- Performs real-time permission checking
-- Returns boolean result for the specified permission
-- Useful for granular permission validation in frontend applications
-- Permission checking considers both role-based and system-level permissions
-
----
-
-## User Project Access Control
-
-### Organization-Level Restrictions
-
-All user project endpoints implement strict organization-level access control:
-
-1. **Organization Membership Required**: Users must be associated with an organization
-2. **Data Isolation**: Users can only access projects within their own organization
-3. **Team Membership Validation**: For assigned projects, users must be explicit team members
-4. **Cross-Organization Prevention**: No access to projects from other organizations
-
-### Project Status Calculation
-
-Project statuses are automatically determined based on creation date:
-
-- **Active**: Projects created within the last 30 days
-- **In Progress**: Projects created 31-90 days ago
-- **Completed**: Projects created more than 90 days ago
-
-### Permission System Integration
-
-- **Permission Checking**: Real-time permission validation for user actions
-- **Role-Based Access**: Different access levels based on user roles
-- **System Roles**: Automatic permission inheritance for system-level roles
-- **Granular Control**: Individual permission checking for specific actions
-
-### Business Rules
-
-1. **Project Visibility**: Users see all projects in their organization via `/user/projects`
-2. **Team Projects**: Users see only assigned projects via `/user/assigned-projects`
-3. **Statistics Separation**: Separate stats for organizational projects vs. assigned projects
-4. **Team Information**: Full team details available only for assigned projects
-5. **Permission Context**: Permissions are calculated based on user's role and organization
-
----
-
-## Error Handling
-
-All user project endpoints include comprehensive error handling with:
-
-- **Organization Validation**: Checks for valid organization membership
-- **Team Membership Verification**: Validates team membership for assigned projects
-- **Permission Checking**: Real-time permission validation
-- **Data Isolation**: Prevents cross-organization data access
-- **Detailed Logging**: Comprehensive logging for debugging and audit trails
-- **Graceful Degradation**: Proper error responses with descriptive messages
-
----
-
-## Security Features
-
-### Authentication & Authorization
-- JWT token validation on all endpoints
-- Organization-level data isolation
-- Team membership verification for sensitive operations
-- Permission-based access control
-
-### Data Protection
-- Prevents cross-organization data leakage
-- Validates user permissions before data access
-- Logs all user actions for audit purposes
-- Sanitizes and validates all input data
-
-### Business Logic Security
-- Automatic status calculation prevents manipulation
-- Team membership validation for project details
-- Organization membership required for all operations
-- Permission checking integrated with role system
 
 ---
 # Dynamic Database API Endpoints
@@ -2189,7 +1992,7 @@ Retrieves data from a table with filtering, sorting, and pagination options.
     "database": "your_database",
     "tablename": "users",
     "where": {
-        "name": "John Doe"
+        "name": "Anna"
     },
     "order_by": {
         "column": "id",
@@ -2200,11 +2003,6 @@ Retrieves data from a table with filtering, sorting, and pagination options.
 }
 ```
 
-**Parameters:**
-- `where` (optional): Filter conditions as key-value pairs
-- `order_by` (optional): Sort configuration with column and direction (ASC/DESC)
-- `limit` (optional): Maximum number of records to return
-- `offset` (optional): Number of records to skip (for pagination)
 
 **Response:**
 ```json
@@ -2215,8 +2013,8 @@ Retrieves data from a table with filtering, sorting, and pagination options.
         "records": [
             {
                 "id": 1,
-                "name": "John Doe",
-                "email": "john@example.com"
+                "name": "Anna",
+                "email": "nna@example.com"
             }
         ],
         "count": 1
@@ -2388,69 +2186,6 @@ Retrieves database credentials by database ID (for internal use).
 }
 ```
 
----
 
-## Data Type Conversion
 
-The API automatically converts MySQL data types to PostgreSQL equivalents:
-
-| MySQL Type | PostgreSQL Type |
-|------------|----------------|
-| INT        | INTEGER        |
-| BIGINT     | BIGINT         |
-| SMALLINT   | SMALLINT       |
-| TINYINT    | SMALLINT       |
-| VARCHAR    | VARCHAR        |
-| TEXT       | TEXT           |
-| LONGTEXT   | TEXT           |
-| DATETIME   | TIMESTAMP      |
-| TIMESTAMP  | TIMESTAMP      |
-| DATE       | DATE           |
-| TIME       | TIME           |
-| DECIMAL    | DECIMAL        |
-| FLOAT      | REAL           |
-| DOUBLE     | DOUBLE PRECISION |
-| BOOLEAN    | BOOLEAN        |
-| BOOL       | BOOLEAN        |
-| JSON       | JSONB          |
-
----
-
-## Error Handling
-
-All endpoints return appropriate HTTP status codes:
-- **200**: Success
-- **400**: Bad Request (invalid database credentials, malformed request)
-- **404**: Not Found (database/table/record not found)
-- **500**: Internal Server Error (database connection issues, query errors)
-
-Error responses include detailed error messages:
-```json
-{
-    "success": false,
-    "message": "Failed to connect to database",
-    "error": "connection refused: server not responding"
-}
-```
-
----
-
-## Connection Pooling
-
-The API uses connection pooling for efficient database management:
-- Minimum pool size: 1 connection
-- Maximum pool size: 10 connections
-- Connections are automatically managed and reused
-- Pools are created per unique database configuration
-
----
-
-## Security Notes
-
-1. **Database Credentials**: Always use secure credentials and avoid hardcoding passwords
-2. **SQL Injection Protection**: All queries use parameterized statements
-3. **Connection Security**: Use SSL/TLS for production database connections
-4. **Access Control**: Implement proper authentication and authorization in your application layer
-
----
 
