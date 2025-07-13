@@ -1,4 +1,4 @@
-# Dynamic_Dashboard
+# Dynamic_Dashboard with RBAC
 Dynamic_Dashboard is a full-stack web application developed using FastAPI for the backend and React for the frontend. The main objective of this project is to build a secure, scalable dashboard system that supports user authentication, role-based access control (RBAC), and organization-level data restrictions. Users are required to log in to access the application, and their permissions are dynamically managed based on their assigned role (such as admin or standard user) and the organization they belong to.
 
 The backend is responsible for handling the core logic, including user registration and login, JWT-based authentication, authorization checks, and communication with a PostgreSQL database. It is structured in a modular way, separating concerns into distinct directories such as models, routers, schemas, and utility functions, which improves readability and maintainability of the codebase.
