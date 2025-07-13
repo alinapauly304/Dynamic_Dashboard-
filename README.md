@@ -9,8 +9,7 @@ A FastAPI-based dynamic dashboard project with user authentication, role-based a
 - Modular FastAPI router structure
 - Logging and exception handling
 - Config-driven architecture
----
-## Installation
+
 ## Installation
 
 ### Prerequisites
@@ -18,86 +17,83 @@ A FastAPI-based dynamic dashboard project with user authentication, role-based a
 - **Python 3.9+**
 - **Node.js 18+** and **npm** or **yarn**
 - **PostgreSQL** installed and running
-- (Optional) **Virtual Environment** for Python (recommended)
+- **Virtual Environment** for Python
 
 ### Backend Setup (FastAPI)
 
 1. **Navigate to the backend directory:**
-
    ```bash
    cd backend
-Create and activate a virtual environment:
+   ```
 
+2. **Create and activate a virtual environment:**
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate      # On Windows
+   source venv/bin/activate   # On macOS/Linux
+   ```
 
-python -m venv venv
-source venv/bin/activate        # On Windows: venv\Scripts\activate
-Install dependencies:
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-pip install -r requirements.txt
-Configure environment variables:
+4. **Configure environment variables:**
+   ```bash
+   # Create a .env file in the backend directory with your database credentials
+   cp .env.example .env
+   ```
 
+5. **Start the FastAPI backend:**
+   ```bash
+   uvicorn app.main:app --reload
+   ```
 
-Start the FastAPI backend:
+### Frontend Setup (React)
 
+1. **Navigate to the frontend directory:**
+   ```bash
+   cd frontend
+   cd dashboard_frontend
+   ```
 
-uvicorn app.main:app --reload
-Frontend Setup (React)
-Navigate to the frontend directory:
+2. **Install Node.js dependencies:**
+   ```bash
+   npm install         
+   ```
 
+3. **Start the React development server:**
+   ```bash
+   npm run dev          
+   ```
 
-cd frontend
-Install Node.js dependencies:
+4. **Access the application:**
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:8000
 
+## Project Structure
 
-npm install          # or yarn install
-Start the React development server:
-
-
-npm run dev          # or yarn dev
-Frontend will be accessible at:
-http://localhost:3000
-
-
----
-## Project structure
-Dynamic_Dashboard-/
-
+```
+Dynamic_Dashboard/
 ├── backend/
-
 │   ├── app/
-
 │   │   ├── main.py
-
-│   │   ├── models/             # models (User, Role, Org, etc.)
-
+│   │   ├── models/             # Models (User, Role, Org, etc.)
 │   │   ├── routers/            # API route definitions (auth, admin, user)
-
 │   │   ├── schemas/            # Pydantic schemas
-
 │   │   └── utils/              # Helper functions (JWT, hashing, etc.)
-
-│   └── requirements.txt
-│   └── logs
-
+│   ├── requirements.txt
+│   └── logs/
 ├── frontend/
-
 │   ├── public/
-
 │   ├── src/
-
 │   │   ├── components/         # Reusable components
-
 │   │   ├── pages/              # Page-level views (Login, Dashboard, Admin)
-
 │   │   ├── services/           # API calls, token storage, etc.
-
 │   │   └── App.tsx
-
 │   └── package.json
-
 └── README.md
-
-
+```
 ---
 ## Authentication Flow
 
