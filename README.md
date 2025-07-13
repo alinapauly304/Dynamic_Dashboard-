@@ -38,13 +38,8 @@ A FastAPI-based dynamic dashboard project with user authentication, role-based a
    pip install -r requirements.txt
    ```
 
-4. **Configure environment variables:**
-   ```bash
-   # Create a .env file in the backend directory with your database credentials
-   cp .env.example .env
-   ```
 
-5. **Start the FastAPI backend:**
+4. **Start the FastAPI backend:**
    ```bash
    uvicorn app.main:app --reload
    ```
